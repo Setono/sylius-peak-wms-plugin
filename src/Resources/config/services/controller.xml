@@ -4,7 +4,6 @@
     <services>
         <service id="setono_sylius_peak_wms.controller.admin.peak_wms"
                  class="Setono\SyliusPeakWMSPlugin\Controller\Admin\PeakWMSController" public="true">
-            <argument type="service" id="setono_sylius_peak_wms.repository.registered_webhooks"/>
             <argument type="service" id="setono_sylius_peak_wms.command_bus"/>
             <argument type="service" id="setono_sylius_peak_wms.registrar.webhook"/>
 
