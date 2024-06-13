@@ -1,0 +1,6 @@
+setono_sylius_peak_wms_global:
+    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes/global.yaml"
+
+setono_sylius_peak_wms_admin:
+    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes/admin.yaml"
+    prefix: /admin

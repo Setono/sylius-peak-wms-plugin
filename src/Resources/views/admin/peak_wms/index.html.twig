@@ -1,0 +1,32 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+
+{% set header = 'setono_sylius_peak_wms.ui.peak_wms'|trans %}
+
+{% block title %}{{ header }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="column">
+        {{ headers.default(header, 'truck', 'setono_sylius_peak_wms.ui.peak_wms_index'|trans) }}
+    </div>
+
+    <div class="ui hidden divider"></div>
+
+    <div class="ui grid">
+        <div class="eight wide column">
+            <div class="ui segment">
+                <h4 class="ui header">{{ 'setono_sylius_peak_wms.ui.webhooks'|trans }}</h4>
+
+                {% if registeredWebhooks is null %}
+                    <p>{{ 'setono_sylius_peak_wms.ui.register_webhooks_information'|trans }}</p>
+                {% else %}
+                    <p>{{ 'setono_sylius_peak_wms.ui.webhooks_registered_information'|trans({'%date%': registeredWebhooks.registeredAt|date}) }}</p>
+                {% endif %}
+                <a href="{{ path('setono_sylius_peak_wms_admin_peak_wms_register_webhooks') }}" class="ui primary button">
+                    {{ 'setono_sylius_peak_wms.ui.register_webhooks'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

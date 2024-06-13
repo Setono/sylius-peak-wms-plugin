@@ -1,0 +1,11 @@
+setono_sylius_peak_wms_admin_peak_wms_index:
+    path: /peak-wms
+    methods: [GET,POST]
+    defaults:
+        _controller: setono_sylius_peak_wms.controller.admin.peak_wms::index
+        
+setono_sylius_peak_wms_admin_peak_wms_register_webhooks:
+    path: /peak-wms/register-webhooks
+    methods: [GET]
+    defaults:
+        _controller: setono_sylius_peak_wms.controller.admin.peak_wms::registerWebhooks
