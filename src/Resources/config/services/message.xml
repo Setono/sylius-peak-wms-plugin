@@ -2,21 +2,20 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak_wms.message.command_handler.upload_order"
-                 class="ProcessUploadOrderRequestHandler">
-            <argument type="service" id="sylius.repository.order"/>
+        <service id="setono_sylius_peak_wms.message.command_handler.process_upload_order_request"
+                 class="Setono\SyliusPeakWMSPlugin\Message\CommandHandler\ProcessUploadOrderRequestHandler">
+            <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_peak_wms.client"/>
             <argument type="service" id="setono_sylius_peak_wms.data_mapper.sales_order.composite"/>
-            <argument type="service" id="state_machine.setono_sylius_peak_wms__order"/>
+            <argument type="service" id="state_machine.setono_sylius_peak_wms__upload_order_request"/>
+            <argument>%setono_sylius_peak_wms.model.upload_order_request.class%</argument>
 
             <tag name="messenger.message_handler"/>
         </service>
 
         <service id="setono_sylius_peak_wms.message.command_handler.register_webhooks"
                  class="Setono\SyliusPeakWMSPlugin\Message\CommandHandler\RegisterWebhooksHandler">
-            <argument type="service" id="setono_sylius_peak_wms.repository.registered_webhooks"/>
             <argument type="service" id="setono_sylius_peak_wms.registrar.webhook"/>
-            <argument type="service" id="setono_sylius_peak_wms.factory.registered_webhooks"/>
 
             <tag name="messenger.message_handler"/>
         </service>

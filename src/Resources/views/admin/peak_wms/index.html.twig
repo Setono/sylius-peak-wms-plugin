@@ -18,10 +18,8 @@
             <div class="ui segment">
                 <h4 class="ui header">{{ 'setono_sylius_peak_wms.ui.webhooks'|trans }}</h4>
 
-                {% if registeredWebhooks is null %}
+                {% if webhooksShouldBeRegistered %}
                     <p>{{ 'setono_sylius_peak_wms.ui.register_webhooks_information'|trans }}</p>
-                {% else %}
-                    <p>{{ 'setono_sylius_peak_wms.ui.webhooks_registered_information'|trans({'%date%': registeredWebhooks.registeredAt|date}) }}</p>
                 {% endif %}
                 <a href="{{ path('setono_sylius_peak_wms_admin_peak_wms_register_webhooks') }}" class="ui primary button">
                     {{ 'setono_sylius_peak_wms.ui.register_webhooks'|trans }}

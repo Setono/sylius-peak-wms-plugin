@@ -6,6 +6,7 @@ namespace Setono\SyliusPeakWMSPlugin\DependencyInjection;
 
 use Setono\SyliusPeakWMSPlugin\Model\RegisteredWebhooks;
 use Setono\SyliusPeakWMSPlugin\Model\RemoteEvent;
+use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequest;
 use Setono\SyliusPeakWMSPlugin\Repository\RegisteredWebhooksRepository;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType;
@@ -70,6 +71,19 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->cannotBeEmpty()->end()
                                         ->scalarNode('form')->defaultValue(DefaultResourceType::class)->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('upload_order_request')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(UploadOrderRequest::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
         ;
     }

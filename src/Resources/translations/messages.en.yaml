@@ -3,11 +3,10 @@ setono_sylius_peak_wms:
         failed: Failed
         pending: Pending
         register_webhooks: Register webhooks
-        register_webhooks_information: Either you have not registered webhooks yet or you need to re-register them because of changes in the configuration. Either way, please click the "Register webhooks" button below.
+        register_webhooks_information: Your webhooks registration is out of date. Please click the button to register webhooks with Peak WMS.
         peak_wms: Peak WMS
         peak_wms_index: Manage your Peak WMS settings
         peak_wms_state: Peak WMS state
         uploaded: Uploaded
         processing: Processing
         webhooks: Webhooks
-        webhooks_registered_information: Webhooks were registered on %date%.

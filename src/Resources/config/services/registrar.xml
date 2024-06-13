@@ -6,8 +6,8 @@
                  class="Setono\SyliusPeakWMSPlugin\Registrar\WebhookRegistrar">
             <argument type="service" id="setono_sylius_peak_wms.client"/>
             <argument type="service" id="router"/>
-            <argument>%setono_sylius_peak_wms.webhooks.key%</argument>
-            <argument>%setono_sylius_peak_wms.webhooks.name_prefix%</argument>
+            <argument type="service" id="setono_sylius_peak_wms.repository.registered_webhooks"/>
+            <argument type="service" id="setono_sylius_peak_wms.factory.registered_webhooks"/>
         </service>
     </services>
 </container>

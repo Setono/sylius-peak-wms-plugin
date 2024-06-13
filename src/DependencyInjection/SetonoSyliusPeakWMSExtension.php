@@ -30,7 +30,7 @@ final class SetonoSyliusPeakWMSExtension extends AbstractResourceExtension imple
             ->addTag('setono_sylius_peak_wms.sales_order_data_mapper')
         ;
 
-        $container->setParameter('setono_sylius_peak_wms.api.key', $config['api_key']);
+        $container->setParameter('setono_sylius_peak_wms.api_key', $config['api_key']);
 
         $this->registerResources(
             'setono_sylius_peak_wms',

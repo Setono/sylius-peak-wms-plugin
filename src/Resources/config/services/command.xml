@@ -3,8 +3,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.command.upload_orders"
-                 class="Setono\SyliusPeakWMSPlugin\Command\UploadOrdersCommand">
-            <argument type="service" id="setono_sylius_peak_wms.uploader.order"/>
+                 class="Setono\SyliusPeakWMSPlugin\Command\ProcessCommand">
+            <argument type="service" id="setono_sylius_peak_wms.processor.upload_order_request"/>
 
             <tag name="console.command"/>
         </service>

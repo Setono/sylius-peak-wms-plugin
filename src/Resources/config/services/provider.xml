@@ -2,10 +2,11 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak_wms.provider.pre_qualified_uploadable_orders"
-                 class="PreQualifiedUploadOrderRequestsProvider">
-            <argument type="service" id="sylius.repository.order"/>
+        <service id="setono_sylius_peak_wms.provider.pre_qualified_upload_order_requests"
+                 class="Setono\SyliusPeakWMSPlugin\Provider\PreQualifiedUploadOrderRequestsProvider">
+            <argument type="service" id="doctrine"/>
             <argument type="service" id="event_dispatcher"/>
+            <argument>%setono_sylius_peak_wms.factory.upload_order_request.class%</argument>
         </service>
     </services>
 </container>

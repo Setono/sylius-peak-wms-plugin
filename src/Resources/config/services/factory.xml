@@ -2,8 +2,15 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="setono_sylius_peak_wms.custom_factory.registered_webhooks"
+                 class="Setono\SyliusPeakWMSPlugin\Factory\RegisteredWebhooksFactory"
+                 decorates="setono_sylius_peak_wms.factory.registered_webhooks" decoration-priority="64">
+            <argument type="service" id="setono_sylius_peak_wms.custom_factory.registered_webhooks.inner"/>
+        </service>
+
         <service id="setono_sylius_peak_wms.custom_factory.remote_event"
-                 class="Setono\SyliusPeakWMSPlugin\Factory\RemoteEventFactory" decorates="setono_sylius_peak_wms.factory.remote_event" decoration-priority="64">
+                 class="Setono\SyliusPeakWMSPlugin\Factory\RemoteEventFactory"
+                 decorates="setono_sylius_peak_wms.factory.remote_event" decoration-priority="64">
             <argument type="service" id="setono_sylius_peak_wms.custom_factory.remote_event.inner"/>
         </service>
     </services>

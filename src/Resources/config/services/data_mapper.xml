@@ -9,40 +9,14 @@
 
         <service id="setono_sylius_peak_wms.data_mapper.sales_order.default"
                  class="Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderDataMapper">
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="10"/>
-        </service>
-
-        <service id="setono_sylius_peak_wms.data_mapper.sales_order.payment_details"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\PaymentDetailsSalesOrderDataMapper">
-            <argument type="service" id="sylius.repository.payment_method"/>
-
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="20"/>
+            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="100"/>
         </service>
 
         <service id="setono_sylius_peak_wms.data_mapper.sales_order.order_lines"
-                 class="SalesOrderLinesSalesOrderDataMapper">
+                 class="Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper">
             <argument type="service" id="event_dispatcher"/>
 
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="30"/>
-        </service>
-
-        <service id="setono_sylius_peak_wms.data_mapper.sales_order.shipping"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\ShippingSalesOrderDataMapper">
-            <argument type="service" id="event_dispatcher"/>
-
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="40"/>
-        </service>
-
-        <service id="setono_sylius_peak_wms.data_mapper.sales_order.shipment_template"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\ShipmentTemplateSalesOrderDataMapper">
-            <argument type="service" id="setono_sylius_peak_wms.client"/>
-
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="50"/>
-        </service>
-
-        <service id="setono_sylius_peak_wms.data_mapper.sales_order.service_point"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\ServicePointDataMapper">
-            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="60"/>
+            <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="90"/>
         </service>
     </services>
 </container>

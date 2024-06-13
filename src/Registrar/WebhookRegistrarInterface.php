@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakWMSPlugin\Registrar;
 
-use Setono\PeakWMS\DataTransferObject\Webhook\Webhook;
+use Setono\SyliusPeakWMSPlugin\Exception\WebhookRegistrationException;
 
 interface WebhookRegistrarInterface
 {
     /**
-     * Will register your shop with Peak WMS's webhook service
+     * Will register your shop with Peak WMS's webhook service.
+     *
+     * This method is idempotent, meaning that it can be called multiple times without registering the webhooks multiple times
+     *
+     * @throws WebhookRegistrationException if the registration fails in any way
      */
     public function register(): void;
 
     /**
-     * Will return a list of webhooks that this registrar will register
-     *
-     * @return iterable<Webhook>
+     * Returns true if the registered webhooks are out of date
      */
-    public function getWebhooks(): iterable;
-
-    /**
-     * Should return a version (string) that uniquely identifies the webhooks being registered
-     */
-    public function getVersion(): string;
+    public function outOfDate(): bool;
 }

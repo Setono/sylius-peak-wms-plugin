@@ -14,23 +14,8 @@ sylius_shop:
 sylius_api:
     enabled: true
 
-sylius_payment:
-    resources:
-        payment_method:
-            classes:
-                model: Tests\Setono\SyliusPeakWMSPlugin\Application\Model\PaymentMethod
-
 sylius_order:
     resources:
         order:
             classes:
                 model: Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Order
-
-sylius_shipping:
-    resources:
-        shipping_method:
-            classes:
-                model: Tests\Setono\SyliusPeakWMSPlugin\Application\Model\ShippingMethod
-        shipment:
-            classes:
-                model: Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Shipment

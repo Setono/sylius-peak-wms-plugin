@@ -10,7 +10,14 @@ class RegisteredWebhooks implements RegisteredWebhooksInterface
 
     protected ?string $version = null;
 
-    protected ?\DateTimeInterface $registeredAt = null;
+    protected array $webhooks = [];
+
+    protected \DateTimeInterface $registeredAt;
+
+    public function __construct()
+    {
+        $this->registeredAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -27,12 +34,22 @@ class RegisteredWebhooks implements RegisteredWebhooksInterface
         $this->version = $version;
     }
 
-    public function getRegisteredAt(): ?\DateTimeInterface
+    public function getWebhooks(): array
+    {
+        return $this->webhooks;
+    }
+
+    public function setWebhooks(array $webhooks): void
+    {
+        $this->webhooks = $webhooks;
+    }
+
+    public function getRegisteredAt(): \DateTimeInterface
     {
         return $this->registeredAt;
     }
 
-    public function setRegisteredAt(?\DateTimeInterface $registeredAt): void
+    public function setRegisteredAt(\DateTimeInterface $registeredAt): void
     {
         $this->registeredAt = $registeredAt;
     }

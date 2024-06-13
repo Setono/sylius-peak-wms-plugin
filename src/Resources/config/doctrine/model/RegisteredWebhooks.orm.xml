@@ -11,6 +11,7 @@
         </id>
 
         <field name="version" type="string"/>
+        <field name="webhooks" type="json"/>
         <field name="registeredAt" type="datetime"/>
     </mapped-superclass>
 </doctrine-mapping>

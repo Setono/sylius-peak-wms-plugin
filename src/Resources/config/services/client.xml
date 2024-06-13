@@ -4,7 +4,7 @@
     <services>
         <service id="setono_sylius_peak_wms.client"
                  class="Setono\PeakWMS\Client\Client">
-            <argument>%setono_sylius_peak_wms.api.key%</argument>
+            <argument>%setono_sylius_peak_wms.api_key%</argument>
 
             <call method="setLogger">
                 <argument type="service" id="logger"/>
