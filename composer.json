@@ -73,7 +73,9 @@
         "psr-4": {
             "Setono\\SyliusPeakWMSPlugin\\": "src/"
         },
-        "files": [ "src/Resources/functions.php" ]
+        "files": [
+            "src/Resources/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
