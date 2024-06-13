@@ -9,7 +9,8 @@ use Setono\PeakWMS\DataTransferObject\Webhook\Name;
 use Setono\PeakWMS\DataTransferObject\Webhook\Webhook;
 use Setono\SyliusPeakWMSPlugin\Exception\WebhookRegistrationException;
 use Setono\SyliusPeakWMSPlugin\Factory\RegisteredWebhooksFactoryInterface;
-use Setono\SyliusPeakWMSPlugin\Repository\RegisteredWebhooksRepositoryInterface;
+use Setono\SyliusPeakWMSPlugin\Model\RegisteredWebhooksInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class WebhookRegistrar implements WebhookRegistrarInterface
@@ -17,14 +18,18 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
     public function __construct(
         private readonly ClientInterface $client,
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly RegisteredWebhooksRepositoryInterface $registeredWebhooksRepository,
+        private readonly RepositoryInterface $registeredWebhooksRepository,
         private readonly RegisteredWebhooksFactoryInterface $registeredWebhooksFactory,
     ) {
     }
 
     public function register(): void
     {
-        // This will delete all webhooks registered with Peak WMS and also remove the logs from the database
+        /**
+         * This will delete all webhooks registered with Peak WMS and also remove the logs from the database
+         *
+         * @var RegisteredWebhooksInterface $registeredWebhooks
+         */
         foreach ($this->registeredWebhooksRepository->findAll() as $registeredWebhooks) {
             /** @var mixed $webhook */
             foreach ($registeredWebhooks->getWebhooks() as $webhook) {
@@ -48,6 +53,7 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
 
     public function outOfDate(): bool
     {
+        /** @var list<RegisteredWebhooksInterface> $registeredWebhooks */
         $registeredWebhooks = $this->registeredWebhooksRepository->findAll();
         if (count($registeredWebhooks) !== 1) {
             // We should only have one registered webhooks object. If we have more, it's a bug, and we consider it out of date. If we have none, we consider it out of date because they need to be registered.
