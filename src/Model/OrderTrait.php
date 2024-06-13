@@ -25,5 +25,6 @@ trait OrderTrait
     public function setPeakWMSUploadOrderRequest(?UploadOrderRequestInterface $peakWMSUploadOrderRequest): void
     {
         $this->peakWMSUploadOrderRequest = $peakWMSUploadOrderRequest;
+        $peakWMSUploadOrderRequest?->setOrder($this);
     }
 }
