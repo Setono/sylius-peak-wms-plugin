@@ -14,8 +14,8 @@ use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderItem;
 use Sylius\Component\Core\Model\OrderItemUnit;
 use Sylius\Component\Core\Model\Payment;
+use Sylius\Component\Core\Model\PaymentMethod;
 use Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Order;
-use Tests\Setono\SyliusPeakWMSPlugin\Application\Model\PaymentMethod;
 
 final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
 {
