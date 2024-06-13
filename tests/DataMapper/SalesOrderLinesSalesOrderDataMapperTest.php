@@ -15,6 +15,8 @@ use Sylius\Component\Core\Model\OrderItem;
 use Sylius\Component\Core\Model\OrderItemUnit;
 use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Core\Model\PaymentMethod;
+use Sylius\Component\Core\Model\Product;
+use Sylius\Component\Core\Model\ProductVariant;
 use Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Order;
 
 final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
@@ -38,13 +40,13 @@ final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
         $mapper->map($order, $salesOrder);
 
         self::assertCount(2, $salesOrder->orderLines);
-        self::assertSame('0.8', $salesOrder->orderLines[0]->unitPriceExcludingVat);
-        self::assertSame(1, $salesOrder->orderLines[0]->quantity);
-        self::assertSame('0.25', $salesOrder->orderLines[0]->vatPercent);
+        self::assertSame(0.8, $salesOrder->orderLines[0]->salesPricePiece);
+        self::assertSame(1, $salesOrder->orderLines[0]->quantityRequested);
+        self::assertSame(0.2, $salesOrder->orderLines[0]->salesPriceTaxPiece);
 
-        self::assertSame('1.6', $salesOrder->orderLines[1]->unitPriceExcludingVat);
-        self::assertSame(1, $salesOrder->orderLines[1]->quantity);
-        self::assertSame('0.25', $salesOrder->orderLines[1]->vatPercent);
+        self::assertSame(1.6, $salesOrder->orderLines[1]->salesPricePiece);
+        self::assertSame(1, $salesOrder->orderLines[1]->quantityRequested);
+        self::assertSame(0.4, $salesOrder->orderLines[1]->salesPriceTaxPiece);
     }
 
     /**
@@ -64,15 +66,13 @@ final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
         $mapper->map($order, $salesOrder);
 
         self::assertCount(2, $salesOrder->orderLines);
-        self::assertSame('1', $salesOrder->orderLines[0]->unitPriceExcludingVat);
-        self::assertSame(1, $salesOrder->orderLines[0]->quantity);
-        self::assertSame('0.2', $salesOrder->orderLines[0]->vatPercent);
-        self::assertSame('T-Shirt (XL)', $salesOrder->orderLines[0]->itemName);
+        self::assertSame(1.0, $salesOrder->orderLines[0]->salesPricePiece);
+        self::assertSame(1, $salesOrder->orderLines[0]->quantityRequested);
+        self::assertSame(0.2, $salesOrder->orderLines[0]->salesPriceTaxPiece);
 
-        self::assertSame('2', $salesOrder->orderLines[1]->unitPriceExcludingVat);
-        self::assertSame(1, $salesOrder->orderLines[1]->quantity);
-        self::assertSame('0.2', $salesOrder->orderLines[1]->vatPercent);
-        self::assertSame('T-Shirt (XL)', $salesOrder->orderLines[1]->itemName);
+        self::assertSame(2.0, $salesOrder->orderLines[1]->salesPricePiece);
+        self::assertSame(1, $salesOrder->orderLines[1]->quantityRequested);
+        self::assertSame(0.4, $salesOrder->orderLines[1]->salesPriceTaxPiece);
     }
 
     private static function getOrder(): Order
@@ -94,11 +94,17 @@ final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
 
     private static function getOrderItem(int $unitPrice, int $taxAmount, bool $taxNeutral): OrderItem
     {
+        $variant = new ProductVariant();
+        $variant->setCode('variant_code');
+
+        $product = new Product();
+        $product->setCode('product_code');
+
+        $product->addVariant($variant);
+
         $orderItem = new OrderItem();
         $orderItem->setUnitPrice($unitPrice);
-
-        $orderItem->setProductName('T-Shirt');
-        $orderItem->setVariantName('XL');
+        $orderItem->setVariant($variant);
 
         $taxAdjustment = new Adjustment();
         $taxAdjustment->setAmount($taxAmount);

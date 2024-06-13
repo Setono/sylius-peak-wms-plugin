@@ -34,7 +34,7 @@ final class SalesOrderLinesSalesOrderDataMapper implements SalesOrderDataMapperI
                 productId: $orderItem->getProduct()?->getCode(),
                 variantId: $orderItem->getVariant()?->getCode(),
                 salesPricePiece: formatAmount($unitPriceExcludingVat),
-                salesDiscountTaxPiece: formatAmount($orderItemUnit->getTaxTotal()),
+                salesPriceTaxPiece: formatAmount($orderItemUnit->getTaxTotal()),
             );
 
             $this->eventDispatcher->dispatch(new SalesOrderLineMappedEvent($orderLine, $orderItem, $order));

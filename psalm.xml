@@ -12,8 +12,7 @@
 >
     <projectFiles>
         <directory name="src"/>
-        <!-- TODO uncomment later -->
-        <!-- <directory name="tests"/> -->
+        <directory name="tests"/>
         <ignoreFiles>
             <directory name="tests/Application"/>
             <directory name="vendor"/>
