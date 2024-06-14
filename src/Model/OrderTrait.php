@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 trait OrderTrait
 {
     /**
-     * @ORM\OneToOne(targetEntity="Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToOne(inversedBy="order", targetEntity="Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface", cascade={"persist"}, orphanRemoval=true)
      *
-     * @ORM\JoinColumn(name="peak_wms_upload_order_request_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="peak_wms_upload_order_request_id", referencedColumnName="id", unique=true, nullable=true, onDelete="SET NULL")
      */
-    #[ORM\OneToOne(targetEntity: UploadOrderRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
-    #[ORM\JoinColumn(name: 'peak_wms_upload_order_request_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    #[ORM\OneToOne(inversedBy: 'order', targetEntity: UploadOrderRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'peak_wms_upload_order_request_id', referencedColumnName: 'id', unique: true, nullable: true, onDelete: 'SET NULL')]
     protected ?UploadOrderRequestInterface $peakWMSUploadOrderRequest = null;
 
     public function getPeakWMSUploadOrderRequest(): ?UploadOrderRequestInterface

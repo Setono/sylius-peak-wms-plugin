@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequest"
+                       table="setono_sylius_peak_wms__upload_order_request">
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="state" type="string"/>
+
+        <one-to-one field="order" target-entity="Sylius\Component\Order\Model\OrderInterface" mapped-by="peakWMSUploadOrderRequest">
+            <join-column name="order_id" referenced-column-name="id" nullable="false" unique="true"/>
+        </one-to-one>
+    </mapped-superclass>
+</doctrine-mapping>
