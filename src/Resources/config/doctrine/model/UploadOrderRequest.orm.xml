@@ -10,6 +10,7 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <field name="version" type="integer" version="true"/>
         <field name="state" type="string"/>
 
         <one-to-one field="order" target-entity="Sylius\Component\Order\Model\OrderInterface" mapped-by="peakWMSUploadOrderRequest">

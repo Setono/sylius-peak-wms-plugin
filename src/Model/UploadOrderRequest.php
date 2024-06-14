@@ -8,7 +8,7 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 {
     protected ?int $id = null;
 
-    protected ?int $version = null;
+    protected int $version = 1;
 
     protected string $state = self::STATE_PENDING;
 
@@ -19,7 +19,7 @@ class UploadOrderRequest implements UploadOrderRequestInterface
         return $this->id;
     }
 
-    public function getVersion(): ?int
+    public function getVersion(): int
     {
         return $this->version;
     }
