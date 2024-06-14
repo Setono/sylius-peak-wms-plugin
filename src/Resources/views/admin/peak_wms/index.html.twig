@@ -13,18 +13,31 @@
 
     <div class="ui hidden divider"></div>
 
-    <div class="ui grid">
-        <div class="eight wide column">
-            <div class="ui segment">
-                <h4 class="ui header">{{ 'setono_sylius_peak_wms.ui.webhooks'|trans }}</h4>
-
-                {% if webhooksShouldBeRegistered %}
-                    <p>{{ 'setono_sylius_peak_wms.ui.register_webhooks_information'|trans }}</p>
-                {% endif %}
-                <a href="{{ path('setono_sylius_peak_wms_admin_peak_wms_register_webhooks') }}" class="ui primary button">
-                    {{ 'setono_sylius_peak_wms.ui.register_webhooks'|trans }}
-                </a>
+    {% if apiError %}
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div class="ui segment">
+                    <div class="ui negative message">
+                        <div class="header">There was an error connecting to the API</div>
+                        <p>{{ apiError }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div class="ui segment">
+                    <h4 class="ui header">{{ 'setono_sylius_peak_wms.ui.webhooks'|trans }}</h4>
+
+                    {% if webhooksShouldBeRegistered %}
+                        <p>{{ 'setono_sylius_peak_wms.ui.register_webhooks_information'|trans }}</p>
+                    {% endif %}
+                    <a href="{{ path('setono_sylius_peak_wms_admin_peak_wms_register_webhooks') }}" class="ui primary button">
+                        {{ 'setono_sylius_peak_wms.ui.register_webhooks'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
