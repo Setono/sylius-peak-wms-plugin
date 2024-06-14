@@ -10,7 +10,7 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 
     protected ?int $version = null;
 
-    protected ?string $state = null;
+    protected string $state = self::STATE_PENDING;
 
     protected ?OrderInterface $order = null;
 
@@ -29,12 +29,12 @@ class UploadOrderRequest implements UploadOrderRequestInterface
         $this->version = $version;
     }
 
-    public function getState(): ?string
+    public function getState(): string
     {
         return $this->state;
     }
 
-    public function setState(?string $state): void
+    public function setState(string $state): void
     {
         $this->state = $state;
     }

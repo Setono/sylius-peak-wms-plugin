@@ -19,7 +19,7 @@ interface UploadOrderRequestInterface extends ResourceInterface, VersionedInterf
 
     public function getId(): ?int;
 
-    public function getState(): ?string;
+    public function getState(): string;
 
     public function setState(string $state): void;
 
