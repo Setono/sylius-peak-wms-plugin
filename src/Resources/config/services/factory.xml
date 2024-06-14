@@ -13,5 +13,11 @@
                  decorates="setono_sylius_peak_wms.factory.remote_event" decoration-priority="64">
             <argument type="service" id="setono_sylius_peak_wms.custom_factory.remote_event.inner"/>
         </service>
+
+        <service id="setono_sylius_peak_wms.custom_factory.upload_order_request"
+                 class="Setono\SyliusPeakWMSPlugin\Factory\UploadOrderRequestFactory"
+                 decorates="setono_sylius_peak_wms.factory.upload_order_request" decoration-priority="64">
+            <argument type="service" id="setono_sylius_peak_wms.custom_factory.upload_order_request.inner"/>
+        </service>
     </services>
 </container>

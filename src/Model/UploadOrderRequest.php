@@ -26,7 +26,7 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 
     public function setVersion(?int $version): void
     {
-        $this->version = $version;
+        $this->version = (int) $version;
     }
 
     public function getState(): string

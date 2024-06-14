@@ -8,13 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait OrderTrait
 {
-    /**
-     * @ORM\OneToOne(inversedBy="order", targetEntity="Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface", cascade={"persist"}, orphanRemoval=true)
-     *
-     * @ORM\JoinColumn(name="peak_wms_upload_order_request_id", referencedColumnName="id", unique=true, nullable=true, onDelete="SET NULL")
-     */
-    #[ORM\OneToOne(inversedBy: 'order', targetEntity: UploadOrderRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
-    #[ORM\JoinColumn(name: 'peak_wms_upload_order_request_id', referencedColumnName: 'id', unique: true, nullable: true, onDelete: 'SET NULL')]
+    /** @ORM\OneToOne(mappedBy="order", targetEntity="Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface", cascade={"persist"}, orphanRemoval=true) */
+    #[ORM\OneToOne(mappedBy: 'order', targetEntity: UploadOrderRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
     protected ?UploadOrderRequestInterface $peakWMSUploadOrderRequest = null;
 
     public function getPeakWMSUploadOrderRequest(): ?UploadOrderRequestInterface
