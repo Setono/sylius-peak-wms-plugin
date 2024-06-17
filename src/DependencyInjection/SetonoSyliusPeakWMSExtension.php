@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakWMSPlugin\DependencyInjection;
 
 use Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderDataMapperInterface;
+use Setono\SyliusPeakWMSPlugin\WebhookHandler\WebhookHandlerInterface;
 use Setono\SyliusPeakWMSPlugin\Workflow\UploadOrderRequestWorkflow;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -28,6 +29,11 @@ final class SetonoSyliusPeakWMSExtension extends AbstractResourceExtension imple
         $container
             ->registerForAutoconfiguration(SalesOrderDataMapperInterface::class)
             ->addTag('setono_sylius_peak_wms.sales_order_data_mapper')
+        ;
+
+        $container
+            ->registerForAutoconfiguration(WebhookHandlerInterface::class)
+            ->addTag('setono_sylius_peak_wms.webhook_handler')
         ;
 
         $container->setParameter('setono_sylius_peak_wms.api_key', $config['api_key']);

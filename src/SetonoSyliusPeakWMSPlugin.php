@@ -22,6 +22,11 @@ final class SetonoSyliusPeakWMSPlugin extends AbstractResourceBundle
             'setono_sylius_peak_wms.data_mapper.sales_order.composite',
             'setono_sylius_peak_wms.sales_order_data_mapper',
         ));
+
+        $container->addCompilerPass(new CompositeCompilerPass(
+            'setono_sylius_peak_wms.webhook_handler.composite',
+            'setono_sylius_peak_wms.webhook_handler',
+        ));
     }
 
     public function getSupportedDrivers(): array
