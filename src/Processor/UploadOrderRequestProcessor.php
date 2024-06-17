@@ -21,7 +21,7 @@ final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorIn
     public function __construct(
         private readonly PreQualifiedUploadOrderRequestsProviderInterface $preQualifiedUploadableOrdersProvider,
         private readonly MessageBusInterface $commandBus,
-        private readonly WorkflowInterface $orderWorkflow,
+        private readonly WorkflowInterface $uploadOrderRequestWorkflow,
         ManagerRegistry $managerRegistry,
     ) {
         $this->managerRegistry = $managerRegistry;
@@ -31,20 +31,20 @@ final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorIn
     {
         // todo: check for eligibility
 
-        foreach ($this->preQualifiedUploadableOrdersProvider->getUploadOrderRequests() as $order) {
+        foreach ($this->preQualifiedUploadableOrdersProvider->getUploadOrderRequests() as $uploadOrderRequest) {
             try {
-                $this->orderWorkflow->apply($order, UploadOrderRequestWorkflow::TRANSITION_PROCESS);
+                $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_PROCESS);
             } catch (LogicException) {
                 continue;
             }
 
             try {
-                $this->getManager($order)->flush();
+                $this->getManager($uploadOrderRequest)->flush();
             } catch (OptimisticLockException) {
                 continue;
             }
 
-            $this->commandBus->dispatch(new ProcessUploadOrderRequest($order));
+            $this->commandBus->dispatch(new ProcessUploadOrderRequest($uploadOrderRequest));
         }
     }
 }
