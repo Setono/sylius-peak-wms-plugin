@@ -20,6 +20,8 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 
     protected ?string $error = null;
 
+    protected ?int $peakOrderId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,5 +85,15 @@ class UploadOrderRequest implements UploadOrderRequestInterface
     public function setError(?string $error): void
     {
         $this->error = $error;
+    }
+
+    public function getPeakOrderId(): ?int
+    {
+        return $this->peakOrderId;
+    }
+
+    public function setPeakOrderId(?int $peakOrderId): void
+    {
+        $this->peakOrderId = $peakOrderId;
     }
 }

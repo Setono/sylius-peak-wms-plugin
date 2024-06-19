@@ -56,8 +56,8 @@ final class ProcessUploadOrderRequestHandler
             $salesOrder = new SalesOrder();
             $this->salesOrderDataMapper->map($order, $salesOrder);
 
-            $this->peakWMSClient->salesOrder()->create($salesOrder);
-
+            $response = $this->peakWMSClient->salesOrder()->create($salesOrder);
+            $uploadOrderRequest->setPeakOrderId($response->id);
             $this->uploadOrderRequestWorkflow->apply($order, UploadOrderRequestWorkflow::TRANSITION_UPLOAD);
         } catch (\Throwable $e) {
             $uploadOrderRequest->setError($e->getMessage());

@@ -38,4 +38,11 @@ interface UploadOrderRequestInterface extends ResourceInterface, VersionedInterf
     public function getError(): ?string;
 
     public function setError(?string $error): void;
+
+    /**
+     * If the order was uploaded successfully, this method will return the peak order id
+     */
+    public function getPeakOrderId(): ?int;
+
+    public function setPeakOrderId(?int $peakOrderId): void;
 }
