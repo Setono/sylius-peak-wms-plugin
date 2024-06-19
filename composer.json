@@ -39,7 +39,8 @@
         "symfony/validator": "^5.4 || ^6.4",
         "symfony/workflow": "^5.4 || ^6.4",
         "twig/twig": "^2.16 || ^3.8",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "winzou/state-machine": "^0.4"
     },
     "require-dev": {
         "api-platform/core": "^2.7.16",

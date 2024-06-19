@@ -43,11 +43,13 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
             $this->registeredWebhooksRepository->remove($registeredWebhooks);
         }
 
+        $postedWebhooks = [];
+
         foreach ($this->getWebhooks() as $webhook) {
-            $this->client->webhook()->create($webhook);
+            $postedWebhooks[] = $this->client->webhook()->create($webhook);
         }
 
-        $registeredWebhooks = $this->registeredWebhooksFactory->createFromData($this->getVersion(), $this->getWebhooks());
+        $registeredWebhooks = $this->registeredWebhooksFactory->createFromData($this->getVersion(), $postedWebhooks);
         $this->registeredWebhooksRepository->add($registeredWebhooks);
     }
 
@@ -80,11 +82,12 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
     {
         $webhooks = [];
 
-        foreach ([Name::StockAdjust, Name::PickOrderFullyPacked] as $name) {
+        foreach ([Name::StockAdjust, Name::PickOrderPacked] as $name) {
             $webhooks[] = new Webhook(
                 name: $name,
                 url: $this->urlGenerator->generate(
                     name: 'setono_sylius_peak_wms_global_webhook',
+                    parameters: ['name' => $name],
                     referenceType: UrlGeneratorInterface::ABSOLUTE_URL,
                 ),
             );

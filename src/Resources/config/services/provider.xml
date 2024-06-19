@@ -8,5 +8,11 @@
             <argument type="service" id="event_dispatcher"/>
             <argument>%setono_sylius_peak_wms.factory.upload_order_request.class%</argument>
         </service>
+
+        <service id="setono_sylius_peak_wms.provider.product_variant"
+                 class="Setono\SyliusPeakWMSPlugin\Provider\ProductVariantProvider">
+            <argument type="service" id="doctrine"/>
+            <argument>%sylius.model.product_variant.class%</argument>
+        </service>
     </services>
 </container>
