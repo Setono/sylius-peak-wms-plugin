@@ -10,6 +10,7 @@ use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/** @psalm-suppress DeprecatedInterface */
 final class SetonoSyliusPeakWMSPlugin extends AbstractResourceBundle
 {
     use SyliusPluginTrait;
