@@ -38,19 +38,15 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface
             throw new \InvalidArgumentException(sprintf('Order with id "%s" not found', $data->orderId));
         }
 
-        $syliusOrderLines = array_values(array_map(static function (OrderItemInterface $orderItem): array {
-            return [
-                'id' => (string) $orderItem->getId(),
-                'quantity' => $orderItem->getQuantity(),
-            ];
-        }, $order->getItems()->toArray()));
+        $syliusOrderLines = array_values(array_map(static fn (OrderItemInterface $orderItem): array => [
+            'id' => (string) $orderItem->getId(),
+            'quantity' => $orderItem->getQuantity(),
+        ], $order->getItems()->toArray()));
 
-        $peakOrderLines = array_map(static function (WebhookDataPickOrderLine $orderLine): array {
-            return [
-                'id' => $orderLine->orderLineId,
-                'quantity' => $orderLine->quantity,
-            ];
-        }, $data->orderLines);
+        $peakOrderLines = array_map(static fn (WebhookDataPickOrderLine $orderLine): array => [
+            'id' => $orderLine->orderLineId,
+            'quantity' => $orderLine->quantity,
+        ], $data->orderLines);
 
         try {
             self::assertSame($syliusOrderLines, $peakOrderLines);
