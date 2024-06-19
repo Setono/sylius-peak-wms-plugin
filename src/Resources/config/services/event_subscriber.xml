@@ -7,6 +7,13 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="setono_sylius_peak_wms.event_subscriber.add_link_to_peak"
+                 class="Setono\SyliusPeakWMSPlugin\EventSubscriber\AddLinkToPeakSubscriber">
+            <argument>%kernel.debug%</argument>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="setono_sylius_peak_wms.event_subscriber.add_menu"
                  class="Setono\SyliusPeakWMSPlugin\EventSubscriber\AddMenuSubscriber">
             <tag name="kernel.event_subscriber"/>

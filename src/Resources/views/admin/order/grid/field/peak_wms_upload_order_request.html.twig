@@ -1,9 +1,11 @@
-{# @var data \Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface #}
-{% set state = data.state %}
-{% set value = 'setono_sylius_peak_wms.ui.' ~ state %}
+{# @var data \Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface|null #}
+{% if data is not null %}
+    {% set state = data.state %}
+    {% set value = 'setono_sylius_peak_wms.ui.' ~ state %}
 
-{% if options.vars.labels is defined %}
-    {% include [(options.vars.labels ~ '/' ~ state ~ '.html.twig'), '@SyliusUi/Label/_default.html.twig'] with {'value': value} %}
-{% else %}
-    {% include '@SyliusUi/Label/_default.html.twig' with {'value': value} %}
+    {% if options.vars.labels is defined %}
+        {% include [(options.vars.labels ~ '/' ~ state ~ '.html.twig'), '@SyliusUi/Label/_default.html.twig'] with {'value': value} %}
+    {% else %}
+        {% include '@SyliusUi/Label/_default.html.twig' with {'value': value} %}
+    {% endif %}
 {% endif %}

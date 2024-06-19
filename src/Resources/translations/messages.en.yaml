@@ -9,4 +9,5 @@ setono_sylius_peak_wms:
         peak_wms_state: Peak WMS state
         uploaded: Uploaded
         processing: Processing
+        view_order_in_peak: View order in Peak WMS
         webhooks: Webhooks
