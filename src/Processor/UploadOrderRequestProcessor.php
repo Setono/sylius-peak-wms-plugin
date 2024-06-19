@@ -29,8 +29,6 @@ final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorIn
 
     public function process(): void
     {
-        // todo: check for eligibility
-
         foreach ($this->preQualifiedUploadableOrdersProvider->getUploadOrderRequests() as $uploadOrderRequest) {
             try {
                 $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_PROCESS);

@@ -14,6 +14,12 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 
     protected ?OrderInterface $order = null;
 
+    protected ?string $request = null;
+
+    protected ?string $response = null;
+
+    protected ?string $error = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,5 +53,35 @@ class UploadOrderRequest implements UploadOrderRequestInterface
     public function setOrder(?OrderInterface $order): void
     {
         $this->order = $order;
+    }
+
+    public function getRequest(): ?string
+    {
+        return $this->request;
+    }
+
+    public function setRequest(?string $request): void
+    {
+        $this->request = $request;
+    }
+
+    public function getResponse(): ?string
+    {
+        return $this->response;
+    }
+
+    public function setResponse(?string $response): void
+    {
+        $this->response = $response;
+    }
+
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    public function setError(?string $error): void
+    {
+        $this->error = $error;
     }
 }
