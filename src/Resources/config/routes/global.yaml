@@ -1,6 +1,4 @@
-# todo since this plugin will support Symfony 5.4 we need to create our own Webhook implementation
-setono_sylius_peak_wms_global_webhook:
-    path: /peak-wms/webhook
+setono_sylius_peak_global_webhook:
+    path: /peak/webhook
     defaults:
-        _controller: webhook.controller::handle
-        type: 'peak_wms'
+        _controller: setono_sylius_peak.controller.handle_webhook

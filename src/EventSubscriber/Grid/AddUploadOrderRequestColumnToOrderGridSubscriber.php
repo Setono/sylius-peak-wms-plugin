@@ -21,12 +21,12 @@ final class AddUploadOrderRequestColumnToOrderGridSubscriber implements EventSub
     {
         $field = Field::fromNameAndType('peakWMSUploadOrderRequest', 'twig');
         $field->setOptions([
-            'template' => '@SetonoSyliusPeakPlugin/admin/order/grid/field/peak_wms_upload_order_request.html.twig',
+            'template' => '@SetonoSyliusPeakPlugin/admin/order/grid/field/peak_upload_order_request.html.twig',
             'vars' => [
-                'labels' => '@SetonoSyliusPeakPlugin/admin/order/grid/field/peak_wms_upload_order_request',
+                'labels' => '@SetonoSyliusPeakPlugin/admin/order/grid/field/peak_upload_order_request',
             ],
         ]);
-        $field->setLabel('setono_sylius_peak_wms.ui.peak_wms_state');
+        $field->setLabel('setono_sylius_peak.ui.peak_state');
 
         $event->getGrid()->addField($field);
     }

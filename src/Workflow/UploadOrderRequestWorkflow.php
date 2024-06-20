@@ -11,7 +11,7 @@ final class UploadOrderRequestWorkflow
 {
     private const PROPERTY_NAME = 'state';
 
-    final public const NAME = 'setono_sylius_peak_wms__upload_order_request';
+    final public const NAME = 'setono_sylius_peak__upload_order_request';
 
     final public const TRANSITION_PROCESS = 'process';
 

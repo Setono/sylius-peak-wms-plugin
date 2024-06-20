@@ -31,7 +31,7 @@ final class PeakController extends AbstractController
             $apiError = 'There was an error connecting to the API. Please check your credentials and try again. If you continue to experience issues, did you forget to enable/disable the sandbox?';
         }
 
-        return $this->render('@SetonoSyliusPeakPlugin/admin/peak_wms/index.html.twig', [
+        return $this->render('@SetonoSyliusPeakPlugin/admin/peak/index.html.twig', [
             'apiError' => $apiError,
             'webhooksShouldBeRegistered' => $this->webhookRegistrar->outOfDate(),
         ]);
@@ -43,6 +43,6 @@ final class PeakController extends AbstractController
 
         $this->addFlash('success', 'Webhooks registered successfully');
 
-        return $this->redirectToRoute('setono_sylius_peak_wms_admin_peak_wms_index');
+        return $this->redirectToRoute('setono_sylius_peak_admin_peak_index');
     }
 }

@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SetonoSyliusPeakWMSExtension extends AbstractResourceExtension implements PrependExtensionInterface
+final class SetonoSyliusPeakExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -28,18 +28,18 @@ final class SetonoSyliusPeakWMSExtension extends AbstractResourceExtension imple
 
         $container
             ->registerForAutoconfiguration(SalesOrderDataMapperInterface::class)
-            ->addTag('setono_sylius_peak_wms.sales_order_data_mapper')
+            ->addTag('setono_sylius_peak.sales_order_data_mapper')
         ;
 
         $container
             ->registerForAutoconfiguration(WebhookHandlerInterface::class)
-            ->addTag('setono_sylius_peak_wms.webhook_handler')
+            ->addTag('setono_sylius_peak.webhook_handler')
         ;
 
-        $container->setParameter('setono_sylius_peak_wms.api_key', $config['api_key']);
+        $container->setParameter('setono_sylius_peak.api_key', $config['api_key']);
 
         $this->registerResources(
-            'setono_sylius_peak_wms',
+            'setono_sylius_peak',
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
             $config['resources'],
             $container,
@@ -53,7 +53,7 @@ final class SetonoSyliusPeakWMSExtension extends AbstractResourceExtension imple
         $container->prependExtensionConfig('framework', [
             'messenger' => [
                 'buses' => [
-                    'setono_sylius_peak_wms.command_bus' => [
+                    'setono_sylius_peak.command_bus' => [
                         'middleware' => [
                             'doctrine_transaction',
                             'router_context',

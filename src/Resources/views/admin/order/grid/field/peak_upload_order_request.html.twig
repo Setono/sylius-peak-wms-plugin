@@ -1,7 +1,7 @@
 {# @var data \Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface|null #}
 {% if data is not null %}
     {% set state = data.state %}
-    {% set value = 'setono_sylius_peak_wms.ui.' ~ state %}
+    {% set value = 'setono_sylius_peak.ui.' ~ state %}
 
     {% if options.vars.labels is defined %}
         {% include [(options.vars.labels ~ '/' ~ state ~ '.html.twig'), '@SyliusUi/Label/_default.html.twig'] with {'value': value} %}

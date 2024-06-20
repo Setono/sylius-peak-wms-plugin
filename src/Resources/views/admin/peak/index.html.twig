@@ -2,13 +2,13 @@
 
 {% import '@SyliusUi/Macro/headers.html.twig' as headers %}
 
-{% set header = 'setono_sylius_peak_wms.ui.peak_wms'|trans %}
+{% set header = 'setono_sylius_peak.ui.peak'|trans %}
 
 {% block title %}{{ header }} {{ parent() }}{% endblock %}
 
 {% block content %}
     <div class="column">
-        {{ headers.default(header, 'truck', 'setono_sylius_peak_wms.ui.peak_wms_index'|trans) }}
+        {{ headers.default(header, 'truck', 'setono_sylius_peak.ui.peak_index'|trans) }}
     </div>
 
     <div class="ui hidden divider"></div>
@@ -28,13 +28,13 @@
         <div class="ui grid">
             <div class="eight wide column">
                 <div class="ui segment">
-                    <h4 class="ui header">{{ 'setono_sylius_peak_wms.ui.webhooks'|trans }}</h4>
+                    <h4 class="ui header">{{ 'setono_sylius_peak.ui.webhooks'|trans }}</h4>
 
                     {% if webhooksShouldBeRegistered %}
-                        <p>{{ 'setono_sylius_peak_wms.ui.register_webhooks_information'|trans }}</p>
+                        <p>{{ 'setono_sylius_peak.ui.register_webhooks_information'|trans }}</p>
                     {% endif %}
-                    <a href="{{ path('setono_sylius_peak_wms_admin_peak_wms_register_webhooks') }}" class="ui primary button">
-                        {{ 'setono_sylius_peak_wms.ui.register_webhooks'|trans }}
+                    <a href="{{ path('setono_sylius_peak_admin_peak_register_webhooks') }}" class="ui primary button">
+                        {{ 'setono_sylius_peak.ui.register_webhooks'|trans }}
                     </a>
                 </div>
             </div>

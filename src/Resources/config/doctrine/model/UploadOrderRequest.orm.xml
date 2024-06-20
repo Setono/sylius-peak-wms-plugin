@@ -5,7 +5,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass name="Setono\SyliusPeakPlugin\Model\UploadOrderRequest"
-                       table="setono_sylius_peak_wms__upload_order_request">
+                       table="setono_sylius_peak__upload_order_request">
         <id name="id" type="integer">
             <generator strategy="AUTO"/>
         </id>

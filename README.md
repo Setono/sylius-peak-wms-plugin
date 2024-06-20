@@ -14,7 +14,7 @@ composer require setono/sylius-peak-wms-plugin
 ### Add plugin class to your `bundles.php`
 
 Make sure you add it before `SyliusGridBundle`, otherwise you'll get
-`You have requested a non-existent parameter "setono_sylius_peak_wms.model.remote_event.class".` exception.
+`You have requested a non-existent parameter "setono_sylius_peak.model.upload_order_request.class".` exception.
 
 ```php
 <?php
@@ -29,16 +29,16 @@ $bundles = [
 ### Import routing
 
 ```yaml
-# config/routes/setono_sylius_peak_wms.yaml
-setono_sylius_peak_wms:
+# config/routes/setono_sylius_peak.yaml
+setono_sylius_peak:
     resource: "@SetonoSyliusPeakPlugin/Resources/config/routes.yaml"
 ```
 
 or if your app doesn't use locales:
 
 ```yaml
-# config/routes/setono_sylius_peak_wms.yaml
-setono_sylius_peak_wms:
+# config/routes/setono_sylius_peak.yaml
+setono_sylius_peak:
     resource: "@SetonoSyliusPeakPlugin/Resources/config/routes_no_locale.yaml"
 ```
 

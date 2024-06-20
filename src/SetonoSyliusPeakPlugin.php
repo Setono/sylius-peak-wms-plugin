@@ -20,13 +20,13 @@ final class SetonoSyliusPeakPlugin extends AbstractResourceBundle
         parent::build($container);
 
         $container->addCompilerPass(new CompositeCompilerPass(
-            'setono_sylius_peak_wms.data_mapper.sales_order.composite',
-            'setono_sylius_peak_wms.sales_order_data_mapper',
+            'setono_sylius_peak.data_mapper.sales_order.composite',
+            'setono_sylius_peak.sales_order_data_mapper',
         ));
 
         $container->addCompilerPass(new CompositeCompilerPass(
-            'setono_sylius_peak_wms.webhook_handler.composite',
-            'setono_sylius_peak_wms.webhook_handler',
+            'setono_sylius_peak.webhook_handler.composite',
+            'setono_sylius_peak.webhook_handler',
         ));
     }
 

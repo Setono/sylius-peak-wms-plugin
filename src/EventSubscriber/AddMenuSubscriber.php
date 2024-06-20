@@ -33,10 +33,10 @@ final class AddMenuSubscriber implements EventSubscriberInterface
     private function addChild(ItemInterface $item): void
     {
         $item
-            ->addChild('peak_wms', [
-                'route' => 'setono_sylius_peak_wms_admin_peak_wms_index',
+            ->addChild('setono_sylius_peak', [
+                'route' => 'setono_sylius_peak_admin_peak_index',
             ])
-            ->setLabel('setono_sylius_peak_wms.ui.peak_wms')
+            ->setLabel('setono_sylius_peak.ui.peak')
             ->setLabelAttribute('icon', 'truck')
         ;
     }

@@ -86,7 +86,7 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
             $webhooks[] = new Webhook(
                 name: $name,
                 url: $this->urlGenerator->generate(
-                    name: 'setono_sylius_peak_wms_global_webhook',
+                    name: 'setono_sylius_peak_global_webhook',
                     parameters: ['name' => $name],
                     referenceType: UrlGeneratorInterface::ABSOLUTE_URL,
                 ),

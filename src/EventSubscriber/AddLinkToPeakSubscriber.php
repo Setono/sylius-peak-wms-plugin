@@ -45,7 +45,7 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
                 'uri' => sprintf('https://app%s.peakwms.com/dialog/orderOverview/%d/details', $this->testEnvironment ? '-test' : '', $peakOrderId),
             ])
             ->setAttribute('type', 'link')
-            ->setLabel('setono_sylius_peak_wms.ui.view_order_in_peak')
+            ->setLabel('setono_sylius_peak.ui.view_order_in_peak')
             ->setLabelAttribute('icon', 'external alternate')
             ->setLabelAttribute('color', 'blue')
         ;

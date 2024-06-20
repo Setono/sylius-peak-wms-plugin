@@ -15,7 +15,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('setono_sylius_peak_wms');
+        $treeBuilder = new TreeBuilder('setono_sylius_peak');
         $rootNode = $treeBuilder->getRootNode();
 
         /** @psalm-suppress UndefinedInterfaceMethod,PossiblyNullReference,MixedMethodCall */
