@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Processor;
+namespace Setono\SyliusPeakPlugin\Processor;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
-use Setono\SyliusPeakWMSPlugin\Message\Command\ProcessUploadOrderRequest;
-use Setono\SyliusPeakWMSPlugin\Provider\PreQualifiedUploadOrderRequestsProviderInterface;
-use Setono\SyliusPeakWMSPlugin\Workflow\UploadOrderRequestWorkflow;
+use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadOrderRequest;
+use Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadOrderRequestsProviderInterface;
+use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\WorkflowInterface;

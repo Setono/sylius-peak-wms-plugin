@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DependencyInjection;
+namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
-use Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderDataMapperInterface;
-use Setono\SyliusPeakWMSPlugin\WebhookHandler\WebhookHandlerInterface;
-use Setono\SyliusPeakWMSPlugin\Workflow\UploadOrderRequestWorkflow;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
+use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
+use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\Config\FileLocator;

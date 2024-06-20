@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin;
+namespace Setono\SyliusPeakPlugin;
 
 /** @psalm-suppress UndefinedClass,MixedArgument */
 if (!\function_exists(formatAmount::class)) {

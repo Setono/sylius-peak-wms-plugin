@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\CompositeCompilerPass\CompositeService;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\Event\SalesOrderMappedEvent;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Event\SalesOrderMappedEvent;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 
 /**
  * @extends CompositeService<SalesOrderDataMapperInterface>

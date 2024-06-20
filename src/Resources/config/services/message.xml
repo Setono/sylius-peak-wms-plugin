@@ -3,7 +3,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.message.command_handler.process_upload_order_request"
-                 class="Setono\SyliusPeakWMSPlugin\Message\CommandHandler\ProcessUploadOrderRequestHandler">
+                 class="Setono\SyliusPeakPlugin\Message\CommandHandler\ProcessUploadOrderRequestHandler">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_peak_wms.client"/>
             <argument type="service" id="setono_sylius_peak_wms.data_mapper.sales_order.composite"/>
@@ -14,7 +14,7 @@
         </service>
 
         <service id="setono_sylius_peak_wms.message.command_handler.register_webhooks"
-                 class="Setono\SyliusPeakWMSPlugin\Message\CommandHandler\RegisterWebhooksHandler">
+                 class="Setono\SyliusPeakPlugin\Message\CommandHandler\RegisterWebhooksHandler">
             <argument type="service" id="setono_sylius_peak_wms.registrar.webhook"/>
 
             <tag name="messenger.message_handler"/>

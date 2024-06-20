@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Factory;
+namespace Setono\SyliusPeakPlugin\Factory;
 
 use Setono\PeakWMS\DataTransferObject\Webhook\Webhook;
-use Setono\SyliusPeakWMSPlugin\Model\RegisteredWebhooksInterface;
+use Setono\SyliusPeakPlugin\Model\RegisteredWebhooksInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 /**

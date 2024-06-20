@@ -3,7 +3,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.controller.admin.peak_wms"
-                 class="Setono\SyliusPeakWMSPlugin\Controller\Admin\PeakWMSController" public="true">
+                 class="Setono\SyliusPeakPlugin\Controller\Admin\PeakController" public="true">
             <argument type="service" id="setono_sylius_peak_wms.command_bus"/>
             <argument type="service" id="setono_sylius_peak_wms.registrar.webhook"/>
             <argument type="service" id="setono_sylius_peak_wms.client"/>
@@ -16,7 +16,7 @@
         </service>
 
         <service id="setono_sylius_peak_wms.controller.handle_webhook"
-                 class="Setono\SyliusPeakWMSPlugin\Controller\HandleWebhookControllerAction" public="true">
+                 class="Setono\SyliusPeakPlugin\Controller\HandleWebhookControllerAction" public="true">
             <argument type="service" id="setono_sylius_peak_wms.webhook_parser"/>
             <argument type="service" id="setono_sylius_peak_wms.webhook_handler.composite"/>
         </service>

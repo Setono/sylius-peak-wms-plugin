@@ -1,2 +1,2 @@
 setono_sylius_peak_wms:
-    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes.yaml"
+    resource: "@SetonoSyliusPeakPlugin/Resources/config/routes.yaml"

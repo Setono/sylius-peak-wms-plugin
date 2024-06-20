@@ -20,7 +20,7 @@ Make sure you add it before `SyliusGridBundle`, otherwise you'll get
 <?php
 $bundles = [
     // ...
-    Setono\SyliusPeakWMSPlugin\SetonoSyliusPeakWMSPlugin::class => ['all' => true],
+    Setono\SyliusPeakPlugin\SetonoSyliusPeakPlugin::class => ['all' => true],
     Sylius\Bundle\GridBundle\SyliusGridBundle::class => ['all' => true],
     // ...
 ];
@@ -31,7 +31,7 @@ $bundles = [
 ```yaml
 # config/routes/setono_sylius_peak_wms.yaml
 setono_sylius_peak_wms:
-    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes.yaml"
+    resource: "@SetonoSyliusPeakPlugin/Resources/config/routes.yaml"
 ```
 
 or if your app doesn't use locales:
@@ -39,7 +39,7 @@ or if your app doesn't use locales:
 ```yaml
 # config/routes/setono_sylius_peak_wms.yaml
 setono_sylius_peak_wms:
-    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes_no_locale.yaml"
+    resource: "@SetonoSyliusPeakPlugin/Resources/config/routes_no_locale.yaml"
 ```
 
 ### Add environment variables
@@ -65,8 +65,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Order;
 
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface as PeakWMSOrderInterface;
-use Setono\SyliusPeakWMSPlugin\Model\OrderTrait as PeakWMSOrderTrait;
+use Setono\SyliusPeakPlugin\Model\OrderInterface as PeakOrderInterface;
+use Setono\SyliusPeakPlugin\Model\OrderTrait as PeakOrderTrait;
 use Sylius\Component\Core\Model\Order as BaseOrder;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -75,9 +75,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="sylius_order")
  */
-class Order extends BaseOrder implements PeakWMSOrderInterface
+class Order extends BaseOrder implements PeakOrderInterface
 {
-    use PeakWMSOrderTrait;
+    use PeakOrderTrait;
 }
 ```
 

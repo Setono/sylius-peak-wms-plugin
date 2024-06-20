@@ -3,13 +3,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.custom_factory.registered_webhooks"
-                 class="Setono\SyliusPeakWMSPlugin\Factory\RegisteredWebhooksFactory"
+                 class="Setono\SyliusPeakPlugin\Factory\RegisteredWebhooksFactory"
                  decorates="setono_sylius_peak_wms.factory.registered_webhooks" decoration-priority="64">
             <argument type="service" id="setono_sylius_peak_wms.custom_factory.registered_webhooks.inner"/>
         </service>
 
         <service id="setono_sylius_peak_wms.custom_factory.upload_order_request"
-                 class="Setono\SyliusPeakWMSPlugin\Factory\UploadOrderRequestFactory"
+                 class="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactory"
                  decorates="setono_sylius_peak_wms.factory.upload_order_request" decoration-priority="64">
             <argument type="service" id="setono_sylius_peak_wms.custom_factory.upload_order_request.inner"/>
         </service>

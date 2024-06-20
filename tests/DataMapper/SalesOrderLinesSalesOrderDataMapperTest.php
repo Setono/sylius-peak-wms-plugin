@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Setono\SyliusPeakWMSPlugin\DataMapper;
+namespace Tests\Setono\SyliusPeakPlugin\DataMapper;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper;
 use Sylius\Component\Core\Model\Adjustment;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderItem;
@@ -17,7 +17,7 @@ use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Core\Model\PaymentMethod;
 use Sylius\Component\Core\Model\Product;
 use Sylius\Component\Core\Model\ProductVariant;
-use Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Order;
+use Tests\Setono\SyliusPeakPlugin\Application\Model\Order;
 
 final class SalesOrderLinesSalesOrderDataMapperTest extends TestCase
 {

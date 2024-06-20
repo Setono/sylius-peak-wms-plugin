@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Event;
+namespace Setono\SyliusPeakPlugin\Event;
 
 use Setono\PeakWMS\DataTransferObject\SalesOrder\OrderLine\SalesOrderLine;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 
 /**

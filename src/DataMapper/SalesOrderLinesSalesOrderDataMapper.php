@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\OrderLine\SalesOrderLine;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\Event\SalesOrderLineMappedEvent;
-use function Setono\SyliusPeakWMSPlugin\formatAmount;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Event\SalesOrderLineMappedEvent;
+use function Setono\SyliusPeakPlugin\formatAmount;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Webmozart\Assert\Assert;
 

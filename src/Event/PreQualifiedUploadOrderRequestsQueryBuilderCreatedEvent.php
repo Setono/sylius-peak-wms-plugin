@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Event;
+namespace Setono\SyliusPeakPlugin\Event;
 
 use Doctrine\ORM\QueryBuilder;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin;
+namespace Setono\SyliusPeakPlugin;
 
 use Setono\CompositeCompilerPass\CompositeCompilerPass;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
@@ -11,7 +11,7 @@ use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /** @psalm-suppress DeprecatedInterface */
-final class SetonoSyliusPeakWMSPlugin extends AbstractResourceBundle
+final class SetonoSyliusPeakPlugin extends AbstractResourceBundle
 {
     use SyliusPluginTrait;
 

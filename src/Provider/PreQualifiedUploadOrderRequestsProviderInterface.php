@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Provider;
+namespace Setono\SyliusPeakPlugin\Provider;
 
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 
 interface PreQualifiedUploadOrderRequestsProviderInterface
 {

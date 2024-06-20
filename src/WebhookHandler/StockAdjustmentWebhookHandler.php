@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\WebhookHandler;
+namespace Setono\SyliusPeakPlugin\WebhookHandler;
 
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataStockAdjust;
-use Setono\SyliusPeakWMSPlugin\Exception\UnsupportedWebhookException;
-use Setono\SyliusPeakWMSPlugin\Message\Command\UpdateInventory;
-use Setono\SyliusPeakWMSPlugin\Provider\ProductVariantProviderInterface;
+use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
+use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
+use Setono\SyliusPeakPlugin\Provider\ProductVariantProviderInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class StockAdjustmentWebhookHandler implements WebhookHandlerInterface

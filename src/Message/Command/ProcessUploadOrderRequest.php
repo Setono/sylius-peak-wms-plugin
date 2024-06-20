@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\Command;
+namespace Setono\SyliusPeakPlugin\Message\Command;
 
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 
 /**
  * Processes an upload order request

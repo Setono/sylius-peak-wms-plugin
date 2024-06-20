@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Provider;
+namespace Setono\SyliusPeakPlugin\Provider;
 
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataStockAdjust;
 use Sylius\Component\Core\Model\ProductVariantInterface;

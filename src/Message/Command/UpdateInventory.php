@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\Command;
+namespace Setono\SyliusPeakPlugin\Message\Command;
 
 use Sylius\Component\Core\Model\ProductVariantInterface;
 

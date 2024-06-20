@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
-use Tests\Setono\SyliusPeakWMSPlugin\Application\Kernel;
+use Tests\Setono\SyliusPeakPlugin\Application\Kernel;
 
 require dirname(__DIR__) . '/config/bootstrap.php';
 

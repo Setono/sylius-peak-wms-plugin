@@ -8,7 +8,7 @@
         </include>
     </coverage>
     <testsuites>
-        <testsuite name="SetonoSyliusPeakWMSPlugin Test Suite">
+        <testsuite name="SetonoSyliusPeakPlugin Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

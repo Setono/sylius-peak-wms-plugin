@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\EventSubscriber;
+namespace Setono\SyliusPeakPlugin\EventSubscriber;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
-use Setono\SyliusPeakWMSPlugin\Factory\UploadOrderRequestFactoryInterface;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactoryInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Webmozart\Assert\Assert;
@@ -36,6 +36,6 @@ final class CreateUploadOrderRequestSubscriber implements EventSubscriberInterfa
         $order = $event->getSubject();
         Assert::isInstanceOf($order, OrderInterface::class);
 
-        $order->setPeakWMSUploadOrderRequest($this->uploadOrderRequestFactory->createNew());
+        $order->setPeakUploadOrderRequest($this->uploadOrderRequestFactory->createNew());
     }
 }

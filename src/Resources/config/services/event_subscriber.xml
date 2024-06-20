@@ -3,24 +3,24 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.event_subscriber.grid.add_upload_order_request_column_to_order_grid"
-                 class="Setono\SyliusPeakWMSPlugin\EventSubscriber\Grid\AddUploadOrderRequestColumnToOrderGridSubscriber">
+                 class="Setono\SyliusPeakPlugin\EventSubscriber\Grid\AddUploadOrderRequestColumnToOrderGridSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="setono_sylius_peak_wms.event_subscriber.add_link_to_peak"
-                 class="Setono\SyliusPeakWMSPlugin\EventSubscriber\AddLinkToPeakSubscriber">
+                 class="Setono\SyliusPeakPlugin\EventSubscriber\AddLinkToPeakSubscriber">
             <argument>%kernel.debug%</argument>
 
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="setono_sylius_peak_wms.event_subscriber.add_menu"
-                 class="Setono\SyliusPeakWMSPlugin\EventSubscriber\AddMenuSubscriber">
+                 class="Setono\SyliusPeakPlugin\EventSubscriber\AddMenuSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="setono_sylius_peak_wms.event_subscriber.create_upload_order_request"
-                 class="Setono\SyliusPeakWMSPlugin\EventSubscriber\CreateUploadOrderRequestSubscriber">
+                 class="Setono\SyliusPeakPlugin\EventSubscriber\CreateUploadOrderRequestSubscriber">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_peak_wms.factory.upload_order_request"/>
 

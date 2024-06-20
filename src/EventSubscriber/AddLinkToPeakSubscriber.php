@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\EventSubscriber;
+namespace Setono\SyliusPeakPlugin\EventSubscriber;
 
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 use Sylius\Bundle\AdminBundle\Event\OrderShowMenuBuilderEvent;
 use Sylius\Bundle\AdminBundle\Menu\OrderShowMenuBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,7 +28,7 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $uploadOrderRequest = $order->getPeakWMSUploadOrderRequest();
+        $uploadOrderRequest = $order->getPeakUploadOrderRequest();
         if ($uploadOrderRequest === null) {
             return;
         }

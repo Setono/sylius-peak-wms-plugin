@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper;
 
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 
 interface SalesOrderDataMapperInterface
 {

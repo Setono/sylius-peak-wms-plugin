@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\CommandHandler;
+namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Http\Message\RequestInterface;
@@ -10,10 +10,10 @@ use Psr\Http\Message\ResponseInterface;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderDataMapperInterface;
-use Setono\SyliusPeakWMSPlugin\Message\Command\ProcessUploadOrderRequest;
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
-use Setono\SyliusPeakWMSPlugin\Workflow\UploadOrderRequestWorkflow;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
+use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadOrderRequest;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Workflow\WorkflowInterface;
 

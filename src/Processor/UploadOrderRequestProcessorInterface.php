@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Processor;
+namespace Setono\SyliusPeakPlugin\Processor;
 
 interface UploadOrderRequestProcessorInterface
 {

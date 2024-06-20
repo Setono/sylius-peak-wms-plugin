@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DependencyInjection;
+namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
-use Setono\SyliusPeakWMSPlugin\Model\RegisteredWebhooks;
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequest;
+use Setono\SyliusPeakPlugin\Model\RegisteredWebhooks;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequest;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

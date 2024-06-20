@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Provider;
+namespace Setono\SyliusPeakPlugin\Provider;
 
 use Doctrine\Persistence\ManagerRegistry;
 use DoctrineBatchUtils\BatchProcessing\SelectBatchIteratorAggregate;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\Doctrine\ORMTrait;
-use Setono\SyliusPeakWMSPlugin\Event\PreQualifiedUploadOrderRequestsQueryBuilderCreatedEvent;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Event\PreQualifiedUploadOrderRequestsQueryBuilderCreatedEvent;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\OrderPaymentStates;
 

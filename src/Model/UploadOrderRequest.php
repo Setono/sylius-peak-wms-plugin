@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Model;
+namespace Setono\SyliusPeakPlugin\Model;
 
 class UploadOrderRequest implements UploadOrderRequestInterface
 {
