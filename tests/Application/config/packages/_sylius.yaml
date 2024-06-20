@@ -18,4 +18,4 @@ sylius_order:
     resources:
         order:
             classes:
-                model: Tests\Setono\SyliusPeakWMSPlugin\Application\Model\Order
+                model: Tests\Setono\SyliusPeakPlugin\Application\Model\Order

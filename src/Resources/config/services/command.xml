@@ -3,14 +3,14 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.command.upload_orders"
-                 class="Setono\SyliusPeakWMSPlugin\Command\ProcessCommand">
+                 class="Setono\SyliusPeakPlugin\Command\ProcessCommand">
             <argument type="service" id="setono_sylius_peak_wms.processor.upload_order_request"/>
 
             <tag name="console.command"/>
         </service>
 
         <service id="setono_sylius_peak_wms.command.register_webhooks"
-                 class="Setono\SyliusPeakWMSPlugin\Command\RegisterWebhooksCommand">
+                 class="Setono\SyliusPeakPlugin\Command\RegisterWebhooksCommand">
             <argument type="service" id="setono_sylius_peak_wms.command_bus"/>
 
             <tag name="console.command"/>

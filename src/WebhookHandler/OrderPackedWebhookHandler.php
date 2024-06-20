@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\WebhookHandler;
+namespace Setono\SyliusPeakPlugin\WebhookHandler;
 
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataPickOrderLine;
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataPickOrderPacked;
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataStockAdjust;
-use Setono\SyliusPeakWMSPlugin\Exception\UnsupportedWebhookException;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\OrderPaymentTransitions;

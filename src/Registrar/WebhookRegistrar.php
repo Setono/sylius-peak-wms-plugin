@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Registrar;
+namespace Setono\SyliusPeakPlugin\Registrar;
 
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\Webhook\Name;
 use Setono\PeakWMS\DataTransferObject\Webhook\Webhook;
-use Setono\SyliusPeakWMSPlugin\Exception\WebhookRegistrationException;
-use Setono\SyliusPeakWMSPlugin\Factory\RegisteredWebhooksFactoryInterface;
-use Setono\SyliusPeakWMSPlugin\Model\RegisteredWebhooksInterface;
+use Setono\SyliusPeakPlugin\Exception\WebhookRegistrationException;
+use Setono\SyliusPeakPlugin\Factory\RegisteredWebhooksFactoryInterface;
+use Setono\SyliusPeakPlugin\Model\RegisteredWebhooksInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

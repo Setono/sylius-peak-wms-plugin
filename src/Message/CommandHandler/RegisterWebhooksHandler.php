@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\CommandHandler;
+namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
-use Setono\SyliusPeakWMSPlugin\Message\Command\RegisterWebhooks;
-use Setono\SyliusPeakWMSPlugin\Registrar\WebhookRegistrarInterface;
+use Setono\SyliusPeakPlugin\Message\Command\RegisterWebhooks;
+use Setono\SyliusPeakPlugin\Registrar\WebhookRegistrarInterface;
 
 final class RegisterWebhooksHandler
 {

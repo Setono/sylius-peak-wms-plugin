@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Model;
+namespace Setono\SyliusPeakPlugin\Model;
 
 use Sylius\Component\Core\Model\OrderInterface as BaseOrderInterface;
 
 interface OrderInterface extends BaseOrderInterface
 {
-    public function getPeakWMSUploadOrderRequest(): ?UploadOrderRequestInterface;
+    public function getPeakUploadOrderRequest(): ?UploadOrderRequestInterface;
 
-    public function setPeakWMSUploadOrderRequest(?UploadOrderRequestInterface $peakWMSUploadOrderRequest): void;
+    public function setPeakUploadOrderRequest(?UploadOrderRequestInterface $uploadOrderRequest): void;
 }

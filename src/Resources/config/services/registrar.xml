@@ -3,7 +3,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.registrar.webhook"
-                 class="Setono\SyliusPeakWMSPlugin\Registrar\WebhookRegistrar">
+                 class="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrar">
             <argument type="service" id="setono_sylius_peak_wms.client"/>
             <argument type="service" id="router"/>
             <argument type="service" id="setono_sylius_peak_wms.repository.registered_webhooks"/>

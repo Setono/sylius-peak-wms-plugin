@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\CommandHandler;
+namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\Product\Product;
-use Setono\SyliusPeakWMSPlugin\Message\Command\UpdateInventory;
+use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;

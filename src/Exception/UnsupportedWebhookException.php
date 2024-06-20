@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Exception;
+namespace Setono\SyliusPeakPlugin\Exception;
 
 final class UnsupportedWebhookException extends \RuntimeException
 {

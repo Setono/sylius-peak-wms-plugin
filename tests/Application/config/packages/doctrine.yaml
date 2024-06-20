@@ -20,5 +20,5 @@ doctrine:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/Model'
-                prefix: 'Tests\Setono\SyliusPeakWMSPlugin\Application\Model'
+                prefix: 'Tests\Setono\SyliusPeakPlugin\Application\Model'
                 alias: App

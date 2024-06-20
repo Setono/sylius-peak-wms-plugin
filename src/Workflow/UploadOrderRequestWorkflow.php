@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Workflow;
+namespace Setono\SyliusPeakPlugin\Workflow;
 
-use Setono\SyliusPeakWMSPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 use Symfony\Component\Workflow\Transition;
 
 final class UploadOrderRequestWorkflow

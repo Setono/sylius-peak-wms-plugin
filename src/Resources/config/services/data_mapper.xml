@@ -3,17 +3,17 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.data_mapper.sales_order.composite"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\CompositeSalesOrderDataMapper">
+                 class="Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper">
             <argument type="service" id="event_dispatcher"/>
         </service>
 
         <service id="setono_sylius_peak_wms.data_mapper.sales_order.default"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderDataMapper">
+                 class="Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapper">
             <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="100"/>
         </service>
 
         <service id="setono_sylius_peak_wms.data_mapper.sales_order.order_lines"
-                 class="Setono\SyliusPeakWMSPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper">
+                 class="Setono\SyliusPeakPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper">
             <argument type="service" id="event_dispatcher"/>
 
             <tag name="setono_sylius_peak_wms.sales_order_data_mapper" priority="90"/>

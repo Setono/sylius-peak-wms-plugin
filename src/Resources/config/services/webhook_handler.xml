@@ -3,10 +3,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="setono_sylius_peak_wms.webhook_handler.composite"
-                 class="Setono\SyliusPeakWMSPlugin\WebhookHandler\CompositeWebhookHandler"/>
+                 class="Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler"/>
 
         <service id="setono_sylius_peak_wms.webhook_handler.order_packed"
-                 class="Setono\SyliusPeakWMSPlugin\WebhookHandler\OrderPackedWebhookHandler">
+                 class="Setono\SyliusPeakPlugin\WebhookHandler\OrderPackedWebhookHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sm.factory"/>
 
@@ -14,7 +14,7 @@
         </service>
 
         <service id="setono_sylius_peak_wms.webhook_handler.stock_adjustment"
-                 class="Setono\SyliusPeakWMSPlugin\WebhookHandler\StockAdjustmentWebhookHandler">
+                 class="Setono\SyliusPeakPlugin\WebhookHandler\StockAdjustmentWebhookHandler">
             <argument type="service" id="setono_sylius_peak_wms.provider.product_variant"/>
             <argument type="service" id="setono_sylius_peak_wms.command_bus"/>
 

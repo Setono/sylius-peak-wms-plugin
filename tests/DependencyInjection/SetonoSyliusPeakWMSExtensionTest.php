@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Setono\SyliusPeakWMSPlugin\DependencyInjection;
+namespace Tests\Setono\SyliusPeakPlugin\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Setono\SyliusPeakWMSPlugin\DependencyInjection\SetonoSyliusPeakWMSExtension;
+use Setono\SyliusPeakPlugin\DependencyInjection\SetonoSyliusPeakWMSExtension;
 
 /**
  * See examples of tests and configuration options here: https://github.com/SymfonyTest/SymfonyDependencyInjectionTest

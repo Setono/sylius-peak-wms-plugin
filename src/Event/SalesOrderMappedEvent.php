@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Event;
+namespace Setono\SyliusPeakPlugin\Event;
 
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 
 /**
  * This event is dispatched after payment details has been mapped

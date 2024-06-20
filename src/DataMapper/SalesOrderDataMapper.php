@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper;
 
 use Setono\PeakWMS\DataTransferObject\Address;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakWMSPlugin\Model\OrderInterface;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Webmozart\Assert\Assert;

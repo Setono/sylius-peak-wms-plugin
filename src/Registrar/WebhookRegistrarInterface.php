@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Registrar;
+namespace Setono\SyliusPeakPlugin\Registrar;
 
-use Setono\SyliusPeakWMSPlugin\Exception\WebhookRegistrationException;
+use Setono\SyliusPeakPlugin\Exception\WebhookRegistrationException;
 
 interface WebhookRegistrarInterface
 {

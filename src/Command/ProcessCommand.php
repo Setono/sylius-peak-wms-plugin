@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Command;
+namespace Setono\SyliusPeakPlugin\Command;
 
-use Setono\SyliusPeakWMSPlugin\Processor\UploadOrderRequestProcessorInterface;
+use Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessorInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

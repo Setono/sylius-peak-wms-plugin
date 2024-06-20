@@ -72,7 +72,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Setono\\SyliusPeakWMSPlugin\\": "src/"
+            "Setono\\SyliusPeakPlugin\\": "src/"
         },
         "files": [
             "src/Resources/functions.php"
@@ -80,7 +80,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Setono\\SyliusPeakWMSPlugin\\": "tests/"
+            "Tests\\Setono\\SyliusPeakPlugin\\": "tests/"
         },
         "classmap": [
             "tests/Application/Kernel.php"

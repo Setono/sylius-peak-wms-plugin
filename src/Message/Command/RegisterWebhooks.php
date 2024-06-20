@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Message\Command;
+namespace Setono\SyliusPeakPlugin\Message\Command;
 
 /**
  * This command will register webhooks with Peak WMS

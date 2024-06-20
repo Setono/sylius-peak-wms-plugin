@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Model;
+namespace Setono\SyliusPeakPlugin\Model;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\VersionedInterface;

@@ -3,8 +3,8 @@
 # To accommodate this in your plugin, provide a routes file for non localized stores and tell this in the README.md
 
 setono_sylius_peak_wms_global:
-    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes/global.yaml"
+    resource: "@SetonoSyliusPeakPlugin/Resources/config/routes/global.yaml"
     
 setono_sylius_peak_wms_admin:
-    resource: "@SetonoSyliusPeakWMSPlugin/Resources/config/routes/admin.yaml"
+    resource: "@SetonoSyliusPeakPlugin/Resources/config/routes/admin.yaml"
     prefix: /admin

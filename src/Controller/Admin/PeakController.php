@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Controller\Admin;
+namespace Setono\SyliusPeakPlugin\Controller\Admin;
 
 use Setono\PeakWMS\Client\ClientInterface;
-use Setono\SyliusPeakWMSPlugin\Message\Command\RegisterWebhooks;
-use Setono\SyliusPeakWMSPlugin\Registrar\WebhookRegistrarInterface;
+use Setono\SyliusPeakPlugin\Message\Command\RegisterWebhooks;
+use Setono\SyliusPeakPlugin\Registrar\WebhookRegistrarInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class PeakWMSController extends AbstractController
+final class PeakController extends AbstractController
 {
     public function __construct(
         private readonly MessageBusInterface $commandBus,
@@ -31,7 +31,7 @@ final class PeakWMSController extends AbstractController
             $apiError = 'There was an error connecting to the API. Please check your credentials and try again. If you continue to experience issues, did you forget to enable/disable the sandbox?';
         }
 
-        return $this->render('@SetonoSyliusPeakWMSPlugin/admin/peak_wms/index.html.twig', [
+        return $this->render('@SetonoSyliusPeakPlugin/admin/peak_wms/index.html.twig', [
             'apiError' => $apiError,
             'webhooksShouldBeRegistered' => $this->webhookRegistrar->outOfDate(),
         ]);

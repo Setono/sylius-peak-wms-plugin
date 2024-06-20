@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\Controller;
+namespace Setono\SyliusPeakPlugin\Controller;
 
 use Setono\PeakWMS\Parser\WebhookParser;
 use Setono\PeakWMS\Parser\WebhookParserInterface;
-use Setono\SyliusPeakWMSPlugin\WebhookHandler\WebhookHandlerInterface;
+use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakWMSPlugin\WebhookHandler;
+namespace Setono\SyliusPeakPlugin\WebhookHandler;
 
 use Setono\CompositeCompilerPass\CompositeService;
-use Setono\SyliusPeakWMSPlugin\Exception\UnsupportedWebhookException;
+use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
 
 /**
  * @extends CompositeService<WebhookHandlerInterface>
