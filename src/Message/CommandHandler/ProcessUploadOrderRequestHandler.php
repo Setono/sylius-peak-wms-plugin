@@ -98,13 +98,8 @@ final class ProcessUploadOrderRequestHandler
         foreach ($message->getHeaders() as $name => $values) {
             $value = implode(', ', $values);
 
-            if ('authorization' === strtolower($name) && strlen($value) > 8) {
-                $value = substr_replace(
-                    $value,
-                    str_repeat('*', strlen($value) - 8),
-                    4,
-                    -4,
-                );
+            if ('authorization' === strtolower($name)) {
+                $value = self::mask($value);
             }
 
             $result .= sprintf("%s: %s\n", $name, $value);
@@ -116,5 +111,23 @@ final class ProcessUploadOrderRequestHandler
         }
 
         return $result;
+    }
+
+    /**
+     * Copied from here: https://stackoverflow.com/questions/44200823/replace-all-characters-of-a-string-with-asterisks-except-for-the-last-four-chara
+     */
+    private static function mask(string $value): string
+    {
+        $length = strlen($value);
+
+        $visibleCount = (int) floor($length / 4);
+        $hiddenCount = $length - ($visibleCount * 2);
+
+        return sprintf(
+            '%s%s%s',
+            substr($value, 0, $visibleCount),
+            str_repeat('*', $hiddenCount),
+            substr($value, $visibleCount * -1, $visibleCount),
+        );
     }
 }
