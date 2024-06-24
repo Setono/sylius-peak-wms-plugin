@@ -52,6 +52,23 @@ final class ShippingCostSalesOrderDataMapperTest extends TestCase
         self::assertSame(0.2, $salesOrder->shippingTaxCost);
     }
 
+    /**
+     * @test
+     */
+    public function it_maps_shipping_with_shipping_promotion_adjustment_applied(): void
+    {
+        $order = self::getOrder();
+        self::addShipment($order, 100, 10, true, 50);
+
+        $salesOrder = new SalesOrder();
+
+        $mapper = new ShippingCostSalesOrderDataMapper();
+        $mapper->map($order, $salesOrder);
+
+        self::assertSame(0.4, $salesOrder->shippingCost);
+        self::assertSame(0.1, $salesOrder->shippingTaxCost);
+    }
+
     private static function getOrder(): Order
     {
         $order = new Order();
@@ -60,8 +77,13 @@ final class ShippingCostSalesOrderDataMapperTest extends TestCase
         return $order;
     }
 
-    private static function addShipment(OrderInterface $order, int $shippingAmount, int $taxAmount, bool $taxNeutral): void
-    {
+    private static function addShipment(
+        OrderInterface $order,
+        int $shippingAmount,
+        int $taxAmount,
+        bool $taxNeutral,
+        int $shippingPromotionTotal = 0,
+    ): void {
         $shipment = new Shipment();
         $order->addShipment($shipment);
 
@@ -77,5 +99,13 @@ final class ShippingCostSalesOrderDataMapperTest extends TestCase
 
         $shipment->addAdjustment($shippingAdjustment);
         $shipment->addAdjustment($taxAdjustment);
+
+        if ($shippingPromotionTotal > 0) {
+            $shippingPromotionAdjustment = new Adjustment();
+            $shippingPromotionAdjustment->setAmount($shippingPromotionTotal * -1);
+            $shippingPromotionAdjustment->setNeutral(false);
+            $shippingPromotionAdjustment->setType(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT);
+            $shipment->addAdjustment($shippingPromotionAdjustment);
+        }
     }
 }
