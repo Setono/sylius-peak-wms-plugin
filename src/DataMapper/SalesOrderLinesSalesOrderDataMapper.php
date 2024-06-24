@@ -13,6 +13,7 @@ use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Webmozart\Assert\Assert;
 
+// todo test with adjustments
 final class SalesOrderLinesSalesOrderDataMapper implements SalesOrderDataMapperInterface
 {
     public function __construct(private readonly EventDispatcherInterface $eventDispatcher)
