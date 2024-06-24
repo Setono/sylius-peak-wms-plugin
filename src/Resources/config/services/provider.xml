@@ -6,7 +6,7 @@
                  class="Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadOrderRequestsProvider">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="event_dispatcher"/>
-            <argument>%setono_sylius_peak.factory.upload_order_request.class%</argument>
+            <argument>%setono_sylius_peak.model.upload_order_request.class%</argument>
         </service>
 
         <service id="setono_sylius_peak.provider.product_variant"
