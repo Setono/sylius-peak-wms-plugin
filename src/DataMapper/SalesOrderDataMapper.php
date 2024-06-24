@@ -40,7 +40,7 @@ final class SalesOrderDataMapper implements SalesOrderDataMapperInterface
             phone: $order->getBillingAddress()?->getPhoneNumber(),
         );
 
-        // todo set shipping cost and discount cost
+        // todo set discount cost
 
         $salesOrder->paymentMethod = self::getPaymentMethod($order)?->getName();
         $salesOrder->forwarderProductId = self::getShippingMethod($order)?->getCode();

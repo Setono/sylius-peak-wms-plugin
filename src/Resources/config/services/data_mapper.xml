@@ -18,5 +18,10 @@
 
             <tag name="setono_sylius_peak.sales_order_data_mapper" priority="90"/>
         </service>
+
+        <service id="setono_sylius_peak.data_mapper.sales_order.shipping_cost"
+                 class="Setono\SyliusPeakPlugin\DataMapper\ShippingCostSalesOrderDataMapper">
+            <tag name="setono_sylius_peak.sales_order_data_mapper" priority="80"/>
+        </service>
     </services>
 </container>
