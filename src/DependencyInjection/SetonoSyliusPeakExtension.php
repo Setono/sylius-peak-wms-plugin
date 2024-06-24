@@ -54,10 +54,7 @@ final class SetonoSyliusPeakExtension extends AbstractResourceExtension implemen
             'messenger' => [
                 'buses' => [
                     'setono_sylius_peak.command_bus' => [
-                        'middleware' => [
-                            'doctrine_transaction',
-                            'router_context',
-                        ],
+                        'middleware' => null,
                     ],
                 ],
             ],
