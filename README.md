@@ -90,7 +90,7 @@ php bin/console doctrine:migrations:migrate
 
 ## Important
 
-The plugin presumes that the `Product::$code` and `ProductVariant::$code` are the same the product id and variant id
+The plugin presumes that the `Product::$code` and `ProductVariant::$code` are the same as the product id and variant id
 respectively inside Peak WMS. Also, because Sylius _always_ has a product and a variant, it is presumed that Peak WMS
 uses the same logic.
 
