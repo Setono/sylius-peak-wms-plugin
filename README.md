@@ -81,11 +81,28 @@ class Order extends BaseOrder implements PeakOrderInterface
 }
 ```
 
-### Update your database:
+### Update your database
 
-```bash
+```shell
 php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
+```
+
+### Add job to your cron
+
+```bash
+# This job will process the orders that are ready to be sent to Peak WMS
+php bin/console setono:sylius-peak-wms:process
+```
+
+### Register webhooks
+
+To receive stock adjustments and order status updates from Peak WMS, you need to register webhooks in Peak WMS.
+
+Do this by running the following command:
+
+```shell
+php bin/console setono:sylius-peak-wms:register-webhooks
 ```
 
 ## Important
