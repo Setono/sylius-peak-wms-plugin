@@ -15,8 +15,10 @@ final class RegisteredWebhooksFactory implements RegisteredWebhooksFactoryInterf
     ) {
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public function createNew(): RegisteredWebhooksInterface
     {
+        /** @psalm-suppress LessSpecificReturnStatement */
         return $this->decoratedFactory->createNew();
     }
 

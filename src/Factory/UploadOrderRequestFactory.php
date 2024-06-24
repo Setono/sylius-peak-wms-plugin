@@ -15,8 +15,10 @@ final class UploadOrderRequestFactory implements UploadOrderRequestFactoryInterf
     ) {
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public function createNew(): UploadOrderRequestInterface
     {
+        /** @psalm-suppress LessSpecificReturnStatement */
         return $this->decoratedFactory->createNew();
     }
 }

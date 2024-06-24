@@ -29,4 +29,11 @@
         <function name="var_dump"/>
         <function name="exit"/>
     </forbiddenFunctions>
+    <issueHandlers>
+        <TooManyTemplateParams>
+            <errorLevel type="suppress">
+                <directory name="src/Factory"/>
+            </errorLevel>
+        </TooManyTemplateParams>
+    </issueHandlers>
 </psalm>
