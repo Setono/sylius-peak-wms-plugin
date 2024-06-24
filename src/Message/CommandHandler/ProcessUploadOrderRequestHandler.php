@@ -91,9 +91,23 @@ final class ProcessUploadOrderRequestHandler
             );
         }
 
-        // todo mask authorization header
+        /**
+         * @var string $name
+         * @var list<string> $values
+         */
         foreach ($message->getHeaders() as $name => $values) {
-            $result .= sprintf("%s: %s\n", $name, implode(', ', $values));
+            $value = implode(', ', $values);
+
+            if ('authorization' === strtolower($name) && strlen($value) > 8) {
+                $value = substr_replace(
+                    $value,
+                    str_repeat('*', strlen($value) - 8),
+                    4,
+                    -4,
+                );
+            }
+
+            $result .= sprintf("%s: %s\n", $name, $value);
         }
 
         $body = trim((string) $message->getBody());
