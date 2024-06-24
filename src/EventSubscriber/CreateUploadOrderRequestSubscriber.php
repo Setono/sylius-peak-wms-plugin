@@ -12,6 +12,9 @@ use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Webmozart\Assert\Assert;
 
+/**
+ * todo this should probably be done in an event subscriber that listens to the order state machine instead
+ */
 final class CreateUploadOrderRequestSubscriber implements EventSubscriberInterface
 {
     use ORMTrait;
