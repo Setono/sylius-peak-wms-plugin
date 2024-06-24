@@ -26,7 +26,7 @@ final class ProcessUploadOrderRequestHandler
      */
     public function __construct(
         ManagerRegistry $managerRegistry,
-        private readonly ClientInterface $peakWMSClient,
+        private readonly ClientInterface $peakClient,
         private readonly SalesOrderDataMapperInterface $salesOrderDataMapper,
         private readonly WorkflowInterface $uploadOrderRequestWorkflow,
         private readonly string $uploadOrderRequestClass,
@@ -56,21 +56,21 @@ final class ProcessUploadOrderRequestHandler
             $salesOrder = new SalesOrder();
             $this->salesOrderDataMapper->map($order, $salesOrder);
 
-            $response = $this->peakWMSClient->salesOrder()->create($salesOrder);
+            $response = $this->peakClient->salesOrder()->create($salesOrder);
             $uploadOrderRequest->setPeakOrderId($response->id);
-            $this->uploadOrderRequestWorkflow->apply($order, UploadOrderRequestWorkflow::TRANSITION_UPLOAD);
+            $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_UPLOAD);
         } catch (\Throwable $e) {
             $uploadOrderRequest->setError($e->getMessage());
 
-            $this->uploadOrderRequestWorkflow->apply($order, UploadOrderRequestWorkflow::TRANSITION_FAIL);
+            $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_FAIL);
 
             throw new UnrecoverableMessageHandlingException(
                 message: sprintf('Failed to process upload order request with id %d', $message->uploadOrderRequest),
                 previous: $e,
             );
         } finally {
-            $uploadOrderRequest->setRequest(self::stringifyMessage($this->peakWMSClient->getLastRequest()));
-            $uploadOrderRequest->setResponse(self::stringifyMessage($this->peakWMSClient->getLastResponse()));
+            $uploadOrderRequest->setRequest(self::stringifyMessage($this->peakClient->getLastRequest()));
+            $uploadOrderRequest->setResponse(self::stringifyMessage($this->peakClient->getLastResponse()));
             $manager->flush();
         }
     }
@@ -91,6 +91,7 @@ final class ProcessUploadOrderRequestHandler
             );
         }
 
+        // todo mask authorization header
         foreach ($message->getHeaders() as $name => $values) {
             $result .= sprintf("%s: %s\n", $name, implode(', ', $values));
         }
