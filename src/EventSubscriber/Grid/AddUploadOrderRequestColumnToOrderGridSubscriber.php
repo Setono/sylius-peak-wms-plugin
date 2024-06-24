@@ -19,7 +19,7 @@ final class AddUploadOrderRequestColumnToOrderGridSubscriber implements EventSub
 
     public function add(GridDefinitionConverterEvent $event): void
     {
-        $field = Field::fromNameAndType('peakWMSUploadOrderRequest', 'twig');
+        $field = Field::fromNameAndType('peakUploadOrderRequest', 'twig');
         $field->setOptions([
             'template' => '@SetonoSyliusPeakPlugin/admin/order/grid/field/peak_upload_order_request.html.twig',
             'vars' => [
