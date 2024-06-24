@@ -58,7 +58,8 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
         /** @var list<RegisteredWebhooksInterface> $registeredWebhooks */
         $registeredWebhooks = $this->registeredWebhooksRepository->findAll();
         if (count($registeredWebhooks) !== 1) {
-            // We should only have one registered webhooks object. If we have more, it's a bug, and we consider it out of date. If we have none, we consider it out of date because they need to be registered.
+            // We should only have one registered webhooks object. If we have more, it's a bug, and we consider it out of date.
+            // If we have none, we consider it out of date because they need to be registered.
             return true;
         }
 
