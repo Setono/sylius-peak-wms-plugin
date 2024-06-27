@@ -29,7 +29,7 @@ final class StockAdjustmentWebhookHandler implements WebhookHandlerInterface
             throw new \InvalidArgumentException(sprintf('Product variant with id/code "%s" not found', (string) $data->variantId));
         }
 
-        $this->commandBus->dispatch(new UpdateInventory($productVariant));
+        $this->commandBus->dispatch(UpdateInventory::for($productVariant));
     }
 
     /**

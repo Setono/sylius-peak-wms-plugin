@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
+use Setono\SyliusPeakPlugin\Model\InventoryUpdate;
 use Setono\SyliusPeakPlugin\Model\RegisteredWebhooks;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequest;
 use Sylius\Component\Resource\Factory\Factory;
@@ -42,6 +43,20 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('resources')
                     ->addDefaultsIfNotSet()
                     ->children()
+                        ->arrayNode('inventory_update')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(InventoryUpdate::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
                         ->arrayNode('registered_webhooks')
                             ->addDefaultsIfNotSet()
                             ->children()
