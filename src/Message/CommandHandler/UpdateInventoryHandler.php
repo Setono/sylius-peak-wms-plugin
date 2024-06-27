@@ -54,7 +54,7 @@ final class UpdateInventoryHandler
             throw new UnrecoverableMessageHandlingException(sprintf('The product with id %s and variant id/code %s does not have an availableToSell value', $productCode, $variantCode));
         }
 
-        $productVariant->setOnHand($peakProduct->availableToSell);
+        $productVariant->setOnHand($peakProduct->availableToSell + (int) $productVariant->getOnHold());
 
         $this->productVariantRepository->add($productVariant);
     }
