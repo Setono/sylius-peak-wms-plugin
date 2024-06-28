@@ -2,11 +2,10 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak.controller.admin.peak"
-                 class="Setono\SyliusPeakPlugin\Controller\Admin\PeakController" public="true">
+        <service id="Setono\SyliusPeakPlugin\Controller\Admin\PeakController" public="true">
             <argument type="service" id="setono_sylius_peak.command_bus"/>
-            <argument type="service" id="setono_sylius_peak.registrar.webhook"/>
-            <argument type="service" id="setono_sylius_peak.client"/>
+            <argument type="service" id="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrarInterface"/>
+            <argument type="service" id="Setono\PeakWMS\Client\ClientInterface"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
@@ -15,10 +14,9 @@
             <tag name="controller.service_arguments"/>
         </service>
 
-        <service id="setono_sylius_peak.controller.handle_webhook"
-                 class="Setono\SyliusPeakPlugin\Controller\HandleWebhookControllerAction" public="true">
-            <argument type="service" id="setono_sylius_peak.webhook_parser"/>
-            <argument type="service" id="setono_sylius_peak.webhook_handler.composite"/>
+        <service id="Setono\SyliusPeakPlugin\Controller\HandleWebhookControllerAction" public="true">
+            <argument type="service" id="Setono\PeakWMS\Parser\WebhookParserInterface"/>
+            <argument type="service" id="Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface"/>
         </service>
     </services>
 </container>

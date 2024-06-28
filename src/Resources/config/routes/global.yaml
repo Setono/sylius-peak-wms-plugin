@@ -1,4 +1,4 @@
 setono_sylius_peak_global_webhook:
     path: /peak/webhook
     defaults:
-        _controller: setono_sylius_peak.controller.handle_webhook
+        _controller: Setono\SyliusPeakPlugin\Controller\HandleWebhookControllerAction

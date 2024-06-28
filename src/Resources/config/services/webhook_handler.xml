@@ -2,20 +2,20 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak.webhook_handler.composite"
-                 class="Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler"/>
+        <service id="Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface"
+                 alias="Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler"/>
 
-        <service id="setono_sylius_peak.webhook_handler.order_packed"
-                 class="Setono\SyliusPeakPlugin\WebhookHandler\OrderPackedWebhookHandler">
+        <service id="Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler"/>
+
+        <service id="Setono\SyliusPeakPlugin\WebhookHandler\OrderPackedWebhookHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sm.factory"/>
 
             <tag name="setono_sylius_peak.webhook_handler"/>
         </service>
 
-        <service id="setono_sylius_peak.webhook_handler.stock_adjustment"
-                 class="Setono\SyliusPeakPlugin\WebhookHandler\StockAdjustmentWebhookHandler">
-            <argument type="service" id="setono_sylius_peak.provider.product_variant"/>
+        <service id="Setono\SyliusPeakPlugin\WebhookHandler\StockAdjustmentWebhookHandler">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Provider\ProductVariantProviderInterface"/>
             <argument type="service" id="setono_sylius_peak.command_bus"/>
 
             <tag name="setono_sylius_peak.webhook_handler"/>

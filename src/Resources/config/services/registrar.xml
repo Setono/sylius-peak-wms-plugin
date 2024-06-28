@@ -2,9 +2,11 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak.registrar.webhook"
-                 class="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrar">
-            <argument type="service" id="setono_sylius_peak.client"/>
+        <service id="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrarInterface"
+                 alias="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrar"/>
+
+        <service id="Setono\SyliusPeakPlugin\Registrar\WebhookRegistrar">
+            <argument type="service" id="Setono\PeakWMS\Client\ClientInterface"/>
             <argument type="service" id="router"/>
             <argument type="service" id="setono_sylius_peak.repository.registered_webhooks"/>
             <argument type="service" id="setono_sylius_peak.factory.registered_webhooks"/>

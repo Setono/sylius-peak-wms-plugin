@@ -2,10 +2,10 @@ setono_sylius_peak_admin_peak_index:
     path: /peak
     methods: [GET,POST]
     defaults:
-        _controller: setono_sylius_peak.controller.admin.peak::index
+        _controller: Setono\SyliusPeakPlugin\Controller\Admin\PeakController::index
         
 setono_sylius_peak_admin_peak_register_webhooks:
     path: /peak/register-webhooks
     methods: [GET]
     defaults:
-        _controller: setono_sylius_peak.controller.admin.peak::registerWebhooks
+        _controller: Setono\SyliusPeakPlugin\Controller\Admin\PeakController::registerWebhooks

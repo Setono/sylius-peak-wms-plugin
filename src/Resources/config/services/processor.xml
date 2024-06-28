@@ -2,9 +2,11 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_peak.processor.upload_order_request"
-                 class="Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessor">
-            <argument type="service" id="setono_sylius_peak.provider.pre_qualified_upload_order_requests"/>
+        <service id="Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessorInterface"
+                 alias="Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessor"/>
+
+        <service id="Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessor">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadOrderRequestsProviderInterface"/>
             <argument type="service" id="setono_sylius_peak.command_bus"/>
             <argument type="service" id="state_machine.setono_sylius_peak__upload_order_request"/>
             <argument type="service" id="doctrine"/>
