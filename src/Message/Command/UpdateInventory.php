@@ -6,19 +6,28 @@ namespace Setono\SyliusPeakPlugin\Message\Command;
 
 use Sylius\Component\Core\Model\ProductVariantInterface;
 
-/**
- * Will update the inventory for a product variant
- */
 final class UpdateInventory implements CommandInterface
 {
-    public int $productVariant;
+    public ?int $productVariant = null;
 
-    public function __construct(int|ProductVariantInterface $productVariant)
+    private function __construct()
+    {
+    }
+
+    public static function for(int|ProductVariantInterface $productVariant): self
     {
         if ($productVariant instanceof ProductVariantInterface) {
             $productVariant = (int) $productVariant->getId();
         }
 
-        $this->productVariant = $productVariant;
+        $command = new self();
+        $command->productVariant = $productVariant;
+
+        return $command;
+    }
+
+    public static function forAll(): self
+    {
+        return new self();
     }
 }

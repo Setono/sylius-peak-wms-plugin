@@ -19,5 +19,12 @@
 
             <tag name="messenger.message_handler"/>
         </service>
+
+        <service id="Setono\SyliusPeakPlugin\Message\CommandHandler\UpdateInventoryHandler">
+            <argument type="service" id="sylius.repository.product_variant"/>
+            <argument type="service" id="Setono\SyliusPeakPlugin\Updater\InventoryUpdaterInterface"/>
+
+            <tag name="messenger.message_handler"/>
+        </service>
     </services>
 </container>

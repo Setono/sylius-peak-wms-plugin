@@ -6,6 +6,7 @@ namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
 use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
 use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
+use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -58,7 +59,7 @@ final class SetonoSyliusPeakExtension extends AbstractResourceExtension implemen
                     ],
                 ],
             ],
-            'workflows' => UploadOrderRequestWorkflow::getConfig(),
+            'workflows' => UploadOrderRequestWorkflow::getConfig() + InventoryUpdateWorkflow::getConfig(),
         ]);
     }
 }
