@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin;
 
 use Setono\CompositeCompilerPass\CompositeCompilerPass;
+use Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper;
+use Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -20,12 +22,12 @@ final class SetonoSyliusPeakPlugin extends AbstractResourceBundle
         parent::build($container);
 
         $container->addCompilerPass(new CompositeCompilerPass(
-            'setono_sylius_peak.data_mapper.sales_order.composite',
+            CompositeSalesOrderDataMapper::class,
             'setono_sylius_peak.sales_order_data_mapper',
         ));
 
         $container->addCompilerPass(new CompositeCompilerPass(
-            'setono_sylius_peak.webhook_handler.composite',
+            CompositeWebhookHandler::class,
             'setono_sylius_peak.webhook_handler',
         ));
     }
