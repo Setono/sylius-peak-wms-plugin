@@ -11,10 +11,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'setono:sylius-peak-wms:process',
+    name: 'setono:sylius-peak-wms:process-upload-order-requests',
     description: 'Processes upload order requests',
 )]
-final class ProcessCommand extends Command
+final class ProcessUploadOrderRequestsCommand extends Command
 {
     public function __construct(private readonly UploadOrderRequestProcessorInterface $uploadOrderRequestProcessor)
     {
