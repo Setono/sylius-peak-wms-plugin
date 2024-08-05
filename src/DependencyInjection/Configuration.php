@@ -7,6 +7,7 @@ namespace Setono\SyliusPeakPlugin\DependencyInjection;
 use Setono\SyliusPeakPlugin\Model\InventoryUpdate;
 use Setono\SyliusPeakPlugin\Model\RegisteredWebhooks;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequest;
+use Setono\SyliusPeakPlugin\Model\UploadProductVariantRequest;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -57,7 +58,7 @@ final class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('registered_webhooks')
+                        ->arrayNode('registered_webhooks') // todo rename to webhook_registration?
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
@@ -79,6 +80,19 @@ final class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('model')->defaultValue(UploadOrderRequest::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('upload_product_variant_request')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(UploadProductVariantRequest::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
         ;
     }

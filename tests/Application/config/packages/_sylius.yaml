@@ -19,3 +19,9 @@ sylius_order:
         order:
             classes:
                 model: Tests\Setono\SyliusPeakPlugin\Application\Model\Order
+                
+sylius_product:
+    resources:
+        product_variant:
+            classes:
+                model: Tests\Setono\SyliusPeakPlugin\Application\Model\ProductVariant
