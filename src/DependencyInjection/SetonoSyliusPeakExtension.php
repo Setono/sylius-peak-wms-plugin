@@ -8,6 +8,7 @@ use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
 use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
 use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
+use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\Config\FileLocator;
@@ -59,7 +60,7 @@ final class SetonoSyliusPeakExtension extends AbstractResourceExtension implemen
                     ],
                 ],
             ],
-            'workflows' => UploadOrderRequestWorkflow::getConfig() + InventoryUpdateWorkflow::getConfig(),
+            'workflows' => UploadOrderRequestWorkflow::getConfig() + UploadProductVariantRequestWorkflow::getConfig() + InventoryUpdateWorkflow::getConfig(),
         ]);
     }
 }

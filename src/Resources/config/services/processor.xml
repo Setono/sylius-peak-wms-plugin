@@ -11,5 +11,15 @@
             <argument type="service" id="state_machine.setono_sylius_peak__upload_order_request"/>
             <argument type="service" id="doctrine"/>
         </service>
+
+        <service id="Setono\SyliusPeakPlugin\Processor\UploadProductVariantRequestProcessorInterface"
+                 alias="Setono\SyliusPeakPlugin\Processor\UploadProductVariantRequestProcessor"/>
+
+        <service id="Setono\SyliusPeakPlugin\Processor\UploadProductVariantRequestProcessor">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadProductVariantRequestsProviderInterface"/>
+            <argument type="service" id="setono_sylius_peak.command_bus"/>
+            <argument type="service" id="state_machine.setono_sylius_peak__upload_product_variant_request"/>
+            <argument type="service" id="doctrine"/>
+        </service>
     </services>
 </container>

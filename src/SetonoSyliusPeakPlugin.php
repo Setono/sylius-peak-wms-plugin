@@ -6,6 +6,7 @@ namespace Setono\SyliusPeakPlugin;
 
 use Setono\CompositeCompilerPass\CompositeCompilerPass;
 use Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper;
+use Setono\SyliusPeakPlugin\DataMapper\Product\CompositeProductDataMapper;
 use Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
@@ -20,6 +21,11 @@ final class SetonoSyliusPeakPlugin extends AbstractResourceBundle
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
+
+        $container->addCompilerPass(new CompositeCompilerPass(
+            CompositeProductDataMapper::class,
+            'setono_sylius_peak.product_data_mapper',
+        ));
 
         $container->addCompilerPass(new CompositeCompilerPass(
             CompositeSalesOrderDataMapper::class,

@@ -8,6 +8,12 @@
             <tag name="console.command"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\Command\ProcessUploadProductVariantRequestsCommand">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Processor\UploadProductVariantRequestProcessorInterface"/>
+
+            <tag name="console.command"/>
+        </service>
+
         <service id="Setono\SyliusPeakPlugin\Command\RegisterWebhooksCommand">
             <argument type="service" id="setono_sylius_peak.command_bus"/>
 
