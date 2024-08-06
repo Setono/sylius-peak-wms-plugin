@@ -10,6 +10,10 @@
             <argument type="service" id="event_dispatcher"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\DataMapper\Product\ProductDataMapper">
+            <tag name="setono_sylius_peak.product_data_mapper" priority="100"/>
+        </service>
+
         <!-- Sales order data mappers -->
         <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface"
                  alias="Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper"/>
