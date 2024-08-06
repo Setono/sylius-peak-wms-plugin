@@ -39,6 +39,7 @@ final class CreateUploadOrderRequestSubscriber implements EventSubscriberInterfa
         $order = $event->getSubject();
         Assert::isInstanceOf($order, OrderInterface::class);
 
+        // todo from experience this can cause unique constraint violations somehow
         $order->setPeakUploadOrderRequest($this->uploadOrderRequestFactory->createNew());
     }
 }
