@@ -14,6 +14,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+// todo make the functionality here more extensible
 #[AsCommand(
     name: 'setono:sylius-peak-wms:create-upload-product-variant-requests',
     description: 'Will create upload product variant requests for variants that are not uploaded yet',
