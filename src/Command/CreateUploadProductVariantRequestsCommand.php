@@ -40,7 +40,8 @@ final class CreateUploadProductVariantRequestsCommand extends Command
         $qb = $this
             ->getRepository($this->productVariantClass)
             ->createQueryBuilder('o')
-            ->andWhere('o.peakUploadProductVariantRequest IS NULL')
+            ->leftJoin('o.peakUploadProductVariantRequest', 'r')
+            ->andWhere('r.id IS NULL')
         ;
 
         /** @var SimpleBatchIteratorAggregate<array-key, ProductVariantInterface> $iterator */
