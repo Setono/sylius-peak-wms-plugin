@@ -23,7 +23,7 @@ final class SetonoSyliusPeakExtension extends AbstractResourceExtension implemen
         /**
          * @psalm-suppress PossiblyNullArgument
          *
-         * @var array{api_key: string, resources: array} $config
+         * @var array{ api: array{ sandbox: bool, api_key: string }, resources: array } $config
          */
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -38,7 +38,8 @@ final class SetonoSyliusPeakExtension extends AbstractResourceExtension implemen
             ->addTag('setono_sylius_peak.webhook_handler')
         ;
 
-        $container->setParameter('setono_sylius_peak.api_key', $config['api_key']);
+        $container->setParameter('setono_sylius_peak.api.sandbox', $config['api']['sandbox']);
+        $container->setParameter('setono_sylius_peak.api.api_key', $config['api']['api_key']);
 
         $this->registerResources(
             'setono_sylius_peak',

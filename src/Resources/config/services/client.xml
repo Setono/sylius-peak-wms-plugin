@@ -5,13 +5,13 @@
         <service id="Setono\PeakWMS\Client\ClientInterface" alias="Setono\PeakWMS\Client\Client"/>
 
         <service id="Setono\PeakWMS\Client\Client">
-            <argument>%setono_sylius_peak.api_key%</argument>
+            <argument>%setono_sylius_peak.api.api_key%</argument>
 
             <call method="setLogger">
                 <argument type="service" id="logger"/>
             </call>
             <call method="useSandbox">
-                <argument>%kernel.debug%</argument>
+                <argument>%setono_sylius_peak.api.sandbox%</argument>
             </call>
         </service>
     </services>

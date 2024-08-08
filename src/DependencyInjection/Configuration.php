@@ -24,9 +24,15 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('api_key')
-                    ->defaultValue('%env(PEAK_WMS_API_KEY)%')
-                    ->cannotBeEmpty()
+            ->arrayNode('api')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('sandbox')
+                        ->defaultValue('%kernel.debug%')
+                    ->end()
+                    ->scalarNode('api_key')
+                        ->defaultValue('%env(PEAK_WMS_API_KEY)%')
+                        ->cannotBeEmpty()
         ;
 
         $this->addResourcesSection($rootNode);
