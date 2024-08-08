@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper\SalesOrder;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\OrderLine\SalesOrderLine;

@@ -21,24 +21,24 @@
         </service>
 
         <!-- Sales order data mappers -->
-        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface"
-                 alias="Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper"/>
+        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderDataMapperInterface"
+                 alias="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\CompositeSalesOrderDataMapper"/>
 
-        <service id="Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper">
+        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\CompositeSalesOrderDataMapper">
             <argument type="service" id="event_dispatcher"/>
         </service>
 
-        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapper">
+        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderDataMapper">
             <tag name="setono_sylius_peak.sales_order_data_mapper" priority="100"/>
         </service>
 
-        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrderLinesSalesOrderDataMapper">
+        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderLinesSalesOrderDataMapper">
             <argument type="service" id="event_dispatcher"/>
 
             <tag name="setono_sylius_peak.sales_order_data_mapper" priority="90"/>
         </service>
 
-        <service id="Setono\SyliusPeakPlugin\DataMapper\ShippingCostSalesOrderDataMapper">
+        <service id="Setono\SyliusPeakPlugin\DataMapper\SalesOrder\ShippingCostSalesOrderDataMapper">
             <tag name="setono_sylius_peak.sales_order_data_mapper" priority="80"/>
         </service>
     </services>

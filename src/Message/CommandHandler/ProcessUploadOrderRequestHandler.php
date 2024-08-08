@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
-use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderDataMapperInterface;
 use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadOrderRequest;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;

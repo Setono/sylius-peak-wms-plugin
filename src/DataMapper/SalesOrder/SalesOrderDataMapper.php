@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakPlugin\DataMapper;
+namespace Setono\SyliusPeakPlugin\DataMapper\SalesOrder;
 
 use Setono\PeakWMS\DataTransferObject\Address;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;

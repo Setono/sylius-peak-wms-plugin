@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin;
 
 use Setono\CompositeCompilerPass\CompositeCompilerPass;
-use Setono\SyliusPeakPlugin\DataMapper\CompositeSalesOrderDataMapper;
 use Setono\SyliusPeakPlugin\DataMapper\Product\CompositeProductDataMapper;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrder\CompositeSalesOrderDataMapper;
 use Setono\SyliusPeakPlugin\WebhookHandler\CompositeWebhookHandler;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;

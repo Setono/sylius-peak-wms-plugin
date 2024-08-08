@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
-use Setono\SyliusPeakPlugin\DataMapper\SalesOrderDataMapperInterface;
+use Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderDataMapperInterface;
 use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
 use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
