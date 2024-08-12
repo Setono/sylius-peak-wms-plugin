@@ -4,9 +4,9 @@
     <services>
         <!-- todo missing aliases -->
 
-        <service id="Setono\SyliusPeakPlugin\Factory\RegisteredWebhooksFactory"
-                 decorates="setono_sylius_peak.factory.registered_webhooks" decoration-priority="64">
-            <argument type="service" id="Setono\SyliusPeakPlugin\Factory\RegisteredWebhooksFactory.inner"/>
+        <service id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory"
+                 decorates="setono_sylius_peak.factory.webhook_registration" decoration-priority="64">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory.inner"/>
         </service>
 
         <service id="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactory"

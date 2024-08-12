@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin\DependencyInjection;
 
 use Setono\SyliusPeakPlugin\Model\InventoryUpdate;
-use Setono\SyliusPeakPlugin\Model\RegisteredWebhooks;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequest;
 use Setono\SyliusPeakPlugin\Model\UploadProductVariantRequest;
+use Setono\SyliusPeakPlugin\Model\WebhookRegistration;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -64,14 +64,14 @@ final class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('registered_webhooks') // todo rename to webhook_registration?
+                        ->arrayNode('webhook_registration')
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
                                 ->arrayNode('classes')
                                     ->addDefaultsIfNotSet()
                                     ->children()
-                                        ->scalarNode('model')->defaultValue(RegisteredWebhooks::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('model')->defaultValue(WebhookRegistration::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                     ->end()

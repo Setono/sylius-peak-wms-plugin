@@ -26,6 +26,6 @@ final class SetonoSyliusPeakWMSExtensionTest extends AbstractExtensionTestCase
     {
         $this->load();
 
-        $this->assertContainerBuilderHasParameter('setono_sylius_peak.api_key', '%env(PEAK_WMS_API_KEY)%');
+        $this->assertContainerBuilderHasParameter('setono_sylius_peak.api.api_key', '%env(PEAK_WMS_API_KEY)%');
     }
 }

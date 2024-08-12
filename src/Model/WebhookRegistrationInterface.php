@@ -6,7 +6,7 @@ namespace Setono\SyliusPeakPlugin\Model;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-interface RegisteredWebhooksInterface extends ResourceInterface
+interface WebhookRegistrationInterface extends ResourceInterface
 {
     public function getId(): ?int;
 

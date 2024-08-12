@@ -9,7 +9,7 @@
             <argument type="service" id="Setono\PeakWMS\Client\ClientInterface"/>
             <argument type="service" id="router"/>
             <argument type="service" id="setono_sylius_peak.repository.registered_webhooks"/>
-            <argument type="service" id="setono_sylius_peak.factory.registered_webhooks"/>
+            <argument type="service" id="setono_sylius_peak.factory.webhook_registration"/>
         </service>
     </services>
 </container>

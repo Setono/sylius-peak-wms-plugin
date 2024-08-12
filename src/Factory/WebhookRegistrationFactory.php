@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Factory;
 
-use Setono\SyliusPeakPlugin\Model\RegisteredWebhooksInterface;
+use Setono\SyliusPeakPlugin\Model\WebhookRegistrationInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
-final class RegisteredWebhooksFactory implements RegisteredWebhooksFactoryInterface
+final class WebhookRegistrationFactory implements WebhookRegistrationFactoryInterface
 {
     public function __construct(
-        /** @var FactoryInterface<RegisteredWebhooksInterface> $decoratedFactory */
+        /** @var FactoryInterface<WebhookRegistrationInterface> $decoratedFactory */
         private readonly FactoryInterface $decoratedFactory,
     ) {
     }
 
     /** @psalm-suppress MoreSpecificReturnType */
-    public function createNew(): RegisteredWebhooksInterface
+    public function createNew(): WebhookRegistrationInterface
     {
         /** @psalm-suppress LessSpecificReturnStatement */
         return $this->decoratedFactory->createNew();
     }
 
-    public function createFromData(string $version, array $webhooks): RegisteredWebhooksInterface
+    public function createFromData(string $version, array $webhooks): WebhookRegistrationInterface
     {
         $obj = $this->createNew();
         $obj->setVersion($version);

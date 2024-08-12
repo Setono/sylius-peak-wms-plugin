@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Model;
 
-class RegisteredWebhooks implements RegisteredWebhooksInterface
+class WebhookRegistration implements WebhookRegistrationInterface
 {
     protected ?int $id = null;
 
