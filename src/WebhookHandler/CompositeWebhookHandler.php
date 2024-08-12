@@ -17,6 +17,8 @@ final class CompositeWebhookHandler extends CompositeService implements WebhookH
         foreach ($this->services as $service) {
             if ($service->supports($data)) {
                 $service->handle($data);
+
+                return;
             }
         }
 

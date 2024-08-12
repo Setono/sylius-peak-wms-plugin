@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        routing:
+            'Setono\SyliusPeakPlugin\Message\Command\CommandInterface': async
+        transports:
+            async: test://
