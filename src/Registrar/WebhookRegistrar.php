@@ -8,8 +8,8 @@ use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\Webhook\Name;
 use Setono\PeakWMS\DataTransferObject\Webhook\Webhook;
 use Setono\SyliusPeakPlugin\Exception\WebhookRegistrationException;
-use Setono\SyliusPeakPlugin\Factory\RegisteredWebhooksFactoryInterface;
-use Setono\SyliusPeakPlugin\Model\RegisteredWebhooksInterface;
+use Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactoryInterface;
+use Setono\SyliusPeakPlugin\Model\WebhookRegistrationInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -18,8 +18,8 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
     public function __construct(
         private readonly ClientInterface $client,
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly RepositoryInterface $registeredWebhooksRepository,
-        private readonly RegisteredWebhooksFactoryInterface $registeredWebhooksFactory,
+        private readonly RepositoryInterface $webhookRegistrationRepository,
+        private readonly WebhookRegistrationFactoryInterface $webhookRegistrationFactory,
     ) {
     }
 
@@ -28,11 +28,11 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
         /**
          * This will delete all webhooks registered with Peak WMS and also remove the logs from the database
          *
-         * @var RegisteredWebhooksInterface $registeredWebhooks
+         * @var WebhookRegistrationInterface $webhookRegistration
          */
-        foreach ($this->registeredWebhooksRepository->findAll() as $registeredWebhooks) {
+        foreach ($this->webhookRegistrationRepository->findAll() as $webhookRegistration) {
             /** @var mixed $webhook */
-            foreach ($registeredWebhooks->getWebhooks() as $webhook) {
+            foreach ($webhookRegistration->getWebhooks() as $webhook) {
                 if (!is_array($webhook) || !isset($webhook['id']) || !is_int($webhook['id'])) {
                     throw new WebhookRegistrationException('The webhooks are not in the correct format');
                 }
@@ -40,7 +40,7 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
                 $this->client->webhook()->delete($webhook['id']);
             }
 
-            $this->registeredWebhooksRepository->remove($registeredWebhooks);
+            $this->webhookRegistrationRepository->remove($webhookRegistration);
         }
 
         $postedWebhooks = [];
@@ -49,21 +49,21 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
             $postedWebhooks[] = $this->client->webhook()->create($webhook);
         }
 
-        $registeredWebhooks = $this->registeredWebhooksFactory->createFromData($this->getVersion(), $postedWebhooks);
-        $this->registeredWebhooksRepository->add($registeredWebhooks);
+        $webhookRegistration = $this->webhookRegistrationFactory->createFromData($this->getVersion(), $postedWebhooks);
+        $this->webhookRegistrationRepository->add($webhookRegistration);
     }
 
     public function outOfDate(): bool
     {
-        /** @var list<RegisteredWebhooksInterface> $registeredWebhooks */
-        $registeredWebhooks = $this->registeredWebhooksRepository->findAll();
-        if (count($registeredWebhooks) !== 1) {
+        /** @var list<WebhookRegistrationInterface> $webhookRegistrations */
+        $webhookRegistrations = $this->webhookRegistrationRepository->findAll();
+        if (count($webhookRegistrations) !== 1) {
             // We should only have one registered webhooks object. If we have more, it's a bug, and we consider it out of date.
             // If we have none, we consider it out of date because they need to be registered.
             return true;
         }
 
-        return $registeredWebhooks[0]->getVersion() !== $this->getVersion();
+        return $webhookRegistrations[0]->getVersion() !== $this->getVersion();
     }
 
     private function getVersion(): string
