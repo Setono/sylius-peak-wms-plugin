@@ -19,6 +19,8 @@ final class UploadProductVariantRequestWorkflow
 
     final public const TRANSITION_FAIL = 'fail';
 
+    final public const TRANSITION_RESET = 'reset';
+
     private function __construct()
     {
     }
@@ -81,6 +83,11 @@ final class UploadProductVariantRequestWorkflow
                 self::TRANSITION_FAIL,
                 [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_PROCESSING],
                 UploadProductVariantRequestInterface::STATE_FAILED,
+            ),
+            new Transition(
+                self::TRANSITION_RESET,
+                [UploadProductVariantRequestInterface::STATE_FAILED, UploadProductVariantRequestInterface::STATE_UPLOADED, UploadProductVariantRequestInterface::STATE_PROCESSING],
+                UploadProductVariantRequestInterface::STATE_PENDING,
             ),
         ];
     }

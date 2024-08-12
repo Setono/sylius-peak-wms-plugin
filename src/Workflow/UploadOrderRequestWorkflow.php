@@ -19,6 +19,8 @@ final class UploadOrderRequestWorkflow
 
     final public const TRANSITION_FAIL = 'fail';
 
+    final public const TRANSITION_RESET = 'reset';
+
     private function __construct()
     {
     }
@@ -81,6 +83,11 @@ final class UploadOrderRequestWorkflow
                 self::TRANSITION_FAIL,
                 [UploadOrderRequestInterface::STATE_PENDING, UploadOrderRequestInterface::STATE_PROCESSING],
                 UploadOrderRequestInterface::STATE_FAILED,
+            ),
+            new Transition(
+                self::TRANSITION_RESET,
+                [UploadOrderRequestInterface::STATE_FAILED, UploadOrderRequestInterface::STATE_UPLOADED, UploadOrderRequestInterface::STATE_PROCESSING],
+                UploadOrderRequestInterface::STATE_PENDING,
             ),
         ];
     }
