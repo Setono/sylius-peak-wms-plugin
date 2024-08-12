@@ -86,7 +86,7 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface
     {
         foreach ($syliusOrderLines as $syliusOrderLine) {
             foreach ($peakOrderLines as $key => $peakOrderLine) {
-                if ($peakOrderLine['id'] === $syliusOrderLine['id']) {
+                if ($peakOrderLine['id'] !== $syliusOrderLine['id']) {
                     continue;
                 }
 
