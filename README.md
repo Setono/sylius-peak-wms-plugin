@@ -4,6 +4,7 @@
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-github-actions]][link-github-actions]
 [![Code Coverage][ico-code-coverage]][link-code-coverage]
+[![Mutation testing][ico-infection]][link-infection]
 
 ## Installation
 
@@ -166,7 +167,9 @@ vendor/bin/expose share https://127.0.0.1:8000
 [ico-license]: https://poser.pugx.org/setono/sylius-peak-wms-plugin/license
 [ico-github-actions]: https://github.com/Setono/sylius-peak-wms-plugin/actions/workflows/build.yaml/badge.svg
 [ico-code-coverage]: https://codecov.io/gh/Setono/sylius-peak-wms-plugin/branch/master/graph/badge.svg
+[ico-infection]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FSetono%2Fsylius-peak-wms-plugin%2Fmaster
 
 [link-packagist]: https://packagist.org/packages/setono/sylius-peak-wms-plugin
 [link-github-actions]: https://github.com/Setono/sylius-peak-wms-plugin/actions
 [link-code-coverage]: https://codecov.io/gh/Setono/sylius-peak-wms-plugin
+[link-infection]: https://dashboard.stryker-mutator.io/reports/github.com/Setono/sylius-peak-wms-plugin/master
