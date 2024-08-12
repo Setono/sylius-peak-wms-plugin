@@ -44,7 +44,6 @@
         "babdev/pagerfanta-bundle": "^3.8",
         "behat/behat": "^3.14",
         "beyondcode/expose": "^2.6",
-        "doctrine/dbal": "^3.8",
         "doctrine/doctrine-bundle": "^2.11",
         "infection/infection": "^0.27.6",
         "jms/serializer-bundle": "^4.2",
