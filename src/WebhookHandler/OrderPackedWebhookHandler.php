@@ -6,7 +6,6 @@ namespace Setono\SyliusPeakPlugin\WebhookHandler;
 
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataPickOrderLine;
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataPickOrderPacked;
-use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataStockAdjust;
 use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use SM\Factory\FactoryInterface;
@@ -76,7 +75,7 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface
      */
     public function supports(object $data): bool
     {
-        return $data instanceof WebhookDataStockAdjust;
+        return $data instanceof WebhookDataPickOrderPacked;
     }
 
     /**
