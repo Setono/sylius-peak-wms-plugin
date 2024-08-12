@@ -81,6 +81,33 @@ class Order extends BaseOrder implements PeakOrderInterface
 }
 ```
 
+#### `ProductVariant` entity
+
+```php
+<?php
+
+# src/Entity/Product/ProductVariant.php
+
+declare(strict_types=1);
+
+namespace App\Entity\Order;
+
+use Doctrine\ORM\Mapping as ORM;
+use Setono\SyliusPeakPlugin\Model\ProductVariantInterface as PeakProductVariantInterface;
+use Setono\SyliusPeakPlugin\Model\ProductVariantTrait as PeakProductVariantTrait;
+use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
+
+/**
+ * @ORM\Entity
+ *
+ * @ORM\Table(name="sylius_product_variant")
+ */
+class ProductVariant extends BaseProductVariant implements PeakProductVariantInterface
+{
+    use PeakProductVariantTrait;
+}
+```
+
 ### Update your database
 
 ```shell
@@ -88,11 +115,20 @@ php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
 ```
 
-### Add job to your cron
+### Add jobs to your cron
 
 ```bash
-# This job will process the orders that are ready to be sent to Peak WMS
-php bin/console setono:sylius-peak-wms:process
+# Will process the orders that are ready to be sent to Peak WMS
+php bin/console setono:sylius-peak-wms:process-upload-order-requests
+
+# Will create upload product variant requests for all product variants
+php bin/console setono:sylius-peak-wms:create-upload-product-variant-requests
+
+# Will process the upload product variant requests
+php bin/console setono:sylius-peak-wms:process-upload-product-variant-requests
+
+# Will update the inventory in Sylius based on the inventory in Peak WMS
+php bin/console setono:sylius-peak-wms:update-inventory
 ```
 
 ### Register webhooks
@@ -104,6 +140,8 @@ Do this by running the following command:
 ```shell
 php bin/console setono:sylius-peak-wms:register-webhooks
 ```
+
+**NOTICE** That you also need to enable the sending of webhooks inside the Peak interface.
 
 ## Development
 
