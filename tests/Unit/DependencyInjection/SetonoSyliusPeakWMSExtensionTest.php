@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Setono\SyliusPeakPlugin\DependencyInjection;
+namespace Tests\Setono\SyliusPeakPlugin\Unit\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Setono\SyliusPeakPlugin\DependencyInjection\SetonoSyliusPeakExtension;

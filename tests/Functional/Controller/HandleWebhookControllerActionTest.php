@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Setono\SyliusPeakPlugin\Controller;
+namespace Tests\Setono\SyliusPeakPlugin\Functional\Controller;
 
 use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Sylius\Component\Core\Model\ProductVariantInterface;

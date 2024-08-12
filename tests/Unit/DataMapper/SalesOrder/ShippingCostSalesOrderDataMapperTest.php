@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Setono\SyliusPeakPlugin\DataMapper\SalesOrder;
+namespace Tests\Setono\SyliusPeakPlugin\Unit\DataMapper\SalesOrder;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
