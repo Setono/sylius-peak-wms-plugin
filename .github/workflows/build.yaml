@@ -193,7 +193,7 @@ jobs:
                     dependency-versions: "${{ matrix.dependencies }}"
 
             -   name: "Run phpunit"
-                run: "composer phpunit"
+                run: "composer unit-tests"
 
     integration-tests:
         name: "Integration tests (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }} | SF${{ matrix.symfony }})"
@@ -268,6 +268,9 @@ jobs:
                     - "highest"
 
         steps:
+            -   name: "Start MySQL"
+                run: "sudo /etc/init.d/mysql start"
+            
             -   name: "Checkout"
                 uses: "actions/checkout@v4"
 
@@ -311,6 +314,9 @@ jobs:
                     - "highest"
 
         steps:
+            -   name: "Start MySQL"
+                run: "sudo /etc/init.d/mysql start"
+            
             -   name: "Checkout"
                 uses: "actions/checkout@v4"
 

@@ -108,7 +108,6 @@
         "check-style": "ecs check",
         "fix-style": "ecs check --fix",
         "functional-tests": "phpunit --testsuite functional",
-        "phpunit": "phpunit",
         "rector": "rector",
         "unit-tests": "phpunit  --testsuite unit"
     }
