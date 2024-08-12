@@ -44,12 +44,12 @@ final class HandleWebhookControllerActionTest extends WebTestCase
         self::assertSame($this->getProductVariantId('Everyday_white_basic_T_Shirt-variant-0'), $messages[0]->productVariant);
     }
 
-    private function getProductVariantId(string $code): int
+    private function getProductVariantId(string $productVariantCode): int
     {
         /** @var ProductVariantRepositoryInterface $productVariantRepository */
         $productVariantRepository = self::getContainer()->get('sylius.repository.product_variant');
 
-        $productVariant = $productVariantRepository->findOneBy(['code' => $code]);
+        $productVariant = $productVariantRepository->findOneBy(['code' => $productVariantCode]);
         self::assertInstanceOf(ProductVariantInterface::class, $productVariant);
 
         return (int) $productVariant->getId();
