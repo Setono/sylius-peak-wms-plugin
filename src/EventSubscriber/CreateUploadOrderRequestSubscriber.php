@@ -39,7 +39,11 @@ final class CreateUploadOrderRequestSubscriber implements EventSubscriberInterfa
         $order = $event->getSubject();
         Assert::isInstanceOf($order, OrderInterface::class);
 
-        // todo from experience this can cause unique constraint violations somehow
+        if ($order->getPeakUploadOrderRequest() !== null) {
+            return;
+        }
+
+        // todo from experience this can cause unique constraint violations somehow or maybe not because the persistence is handled implicitly by Doctrine
         $order->setPeakUploadOrderRequest($this->uploadOrderRequestFactory->createNew());
     }
 }
