@@ -26,16 +26,22 @@ final class CompositeWebhookHandler extends CompositeService implements WebhookH
     {
         $this->logger->debug(sprintf('Handling webhook %s', $data::class));
 
-        foreach ($this->services as $service) {
-            if ($service instanceof LoggerAwareInterface) {
-                $service->setLogger($this->logger);
-            }
+        try {
+            foreach ($this->services as $service) {
+                if ($service instanceof LoggerAwareInterface) {
+                    $service->setLogger($this->logger);
+                }
 
-            if ($service->supports($data)) {
-                $service->handle($data);
+                if ($service->supports($data)) {
+                    $service->handle($data);
 
-                return;
+                    return;
+                }
             }
+        } catch (\Throwable $e) {
+            $this->logger->critical(sprintf('An error occurred while handling the webhook: %s', $e->getMessage()));
+
+            throw $e;
         }
 
         $this->logger->critical('The webhook was not supported by any of the webhook handlers');
