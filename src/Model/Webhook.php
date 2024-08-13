@@ -12,7 +12,6 @@ class Webhook implements WebhookInterface
 
     protected ?string $url = null;
 
-    /** @var array<string, list<string|null>>|null */
     protected ?array $headers = null;
 
     protected ?string $body = null;

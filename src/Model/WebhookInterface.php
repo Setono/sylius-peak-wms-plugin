@@ -18,14 +18,8 @@ interface WebhookInterface extends ResourceInterface
 
     public function setUrl(?string $url): void;
 
-    /**
-     * @return array<string, list<string|null>>
-     */
     public function getHeaders(): array;
 
-    /**
-     * @param array<string, list<string|null>>|null $headers
-     */
     public function setHeaders(?array $headers): void;
 
     public function getBody(): ?string;
