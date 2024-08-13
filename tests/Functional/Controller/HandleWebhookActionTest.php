@@ -6,7 +6,6 @@ namespace Tests\Setono\SyliusPeakPlugin\Functional\Controller;
 
 use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
-use Sylius\Bundle\CoreBundle\Factory\OrderFactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
@@ -115,7 +114,7 @@ final class HandleWebhookActionTest extends WebTestCase
 
     private function createOrder(string $currencyCode, string $localeCode): OrderInterface
     {
-        /** @var OrderFactoryInterface $factory */
+        /** @var FactoryInterface $factory */
         $factory = self::getContainer()->get('sylius.factory.order');
 
         /** @var OrderInterface $order */

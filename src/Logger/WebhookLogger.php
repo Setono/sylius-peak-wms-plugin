@@ -13,8 +13,9 @@ final class WebhookLogger extends AbstractLogger
     {
     }
 
-    public function log($level, \Stringable|string $message, array $context = []): void
+    public function log($level, $message, array $context = []): void
     {
+        /** @psalm-suppress RedundantCastGivenDocblockType */
         $this->webhook->addLog(sprintf('[%s] %s', (new \DateTimeImmutable())->format(\DATE_ATOM), (string) $message));
     }
 }
