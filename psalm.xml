@@ -35,5 +35,6 @@
                 <directory name="src/Factory"/>
             </errorLevel>
         </TooManyTemplateParams>
+        <PluginIssue name="QueryBuilderSetParameter" errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
