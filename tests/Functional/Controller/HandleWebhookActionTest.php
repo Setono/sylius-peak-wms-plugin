@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zenstruck\Messenger\Test\InteractsWithMessenger;
 
-final class HandleWebhookControllerActionTest extends WebTestCase
+final class HandleWebhookActionTest extends WebTestCase
 {
     use InteractsWithMessenger;
 

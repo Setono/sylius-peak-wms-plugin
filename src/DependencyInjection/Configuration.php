@@ -7,6 +7,7 @@ namespace Setono\SyliusPeakPlugin\DependencyInjection;
 use Setono\SyliusPeakPlugin\Model\InventoryUpdate;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequest;
 use Setono\SyliusPeakPlugin\Model\UploadProductVariantRequest;
+use Setono\SyliusPeakPlugin\Model\Webhook;
 use Setono\SyliusPeakPlugin\Model\WebhookRegistration;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -58,6 +59,20 @@ final class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('model')->defaultValue(InventoryUpdate::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('webhook')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(Webhook::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                     ->end()

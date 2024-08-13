@@ -87,6 +87,7 @@ final class WebhookRegistrar implements WebhookRegistrarInterface
         foreach ([Name::StockAdjust, Name::PickOrderPacked] as $name) {
             $webhooks[] = new Webhook(
                 name: $name,
+                // todo this URL should include some kind of key to make it secure
                 url: $this->urlGenerator->generate(
                     name: 'setono_sylius_peak_global_webhook',
                     parameters: ['name' => $name->value],

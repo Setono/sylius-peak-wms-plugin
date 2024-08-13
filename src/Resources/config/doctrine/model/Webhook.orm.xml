@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <mapped-superclass name="Setono\SyliusPeakPlugin\Model\Webhook"
+                       table="setono_sylius_peak_wms__webhook">
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="method" type="string"/>
+        <field name="url" type="string"/>
+        <field name="headers" type="json"/>
+        <field name="body" type="text"/>
+        <field name="remoteIp" type="string"/>
+        <field name="log" type="text" nullable="true"/>
+        <field name="createdAt" type="datetime"/>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -4,6 +4,11 @@
     <services>
         <!-- todo missing aliases -->
 
+        <service id="Setono\SyliusPeakPlugin\Factory\WebhookFactory"
+                 decorates="setono_sylius_peak.factory.webhook" decoration-priority="64">
+            <argument type="service" id="Setono\SyliusPeakPlugin\Factory\WebhookFactory.inner"/>
+        </service>
+
         <service id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory"
                  decorates="setono_sylius_peak.factory.webhook_registration" decoration-priority="64">
             <argument type="service" id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory.inner"/>

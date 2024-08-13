@@ -14,9 +14,11 @@
             <tag name="controller.service_arguments"/>
         </service>
 
-        <service id="Setono\SyliusPeakPlugin\Controller\HandleWebhookControllerAction" public="true">
+        <service id="Setono\SyliusPeakPlugin\Controller\HandleWebhookAction" public="true">
             <argument type="service" id="Setono\PeakWMS\Parser\WebhookParserInterface"/>
             <argument type="service" id="Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface"/>
+            <argument type="service" id="setono_sylius_peak.factory.webhook"/>
+            <argument type="service" id="doctrine"/>
         </service>
     </services>
 </container>
