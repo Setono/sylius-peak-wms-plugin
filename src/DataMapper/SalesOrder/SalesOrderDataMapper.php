@@ -19,6 +19,7 @@ final class SalesOrderDataMapper implements SalesOrderDataMapperInterface
         $salesOrder->orderNumber = (string) $order->getNumber();
         $salesOrder->orderDateTime = SalesOrder::convertDateTime($order->getCheckoutCompletedAt());
         $salesOrder->comment = $order->getNotes();
+        $salesOrder->salesCurrency = $order->getCurrencyCode();
 
         $salesOrder->shippingAddress = new Address(
             customerName: $order->getShippingAddress()?->getFullName(),
