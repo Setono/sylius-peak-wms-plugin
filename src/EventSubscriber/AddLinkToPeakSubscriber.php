@@ -12,6 +12,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class AddLinkToPeakSubscriber implements EventSubscriberInterface
 {
+    private const MENU_ITEM_KEY = 'view_order_in_peak';
+
     public function __construct(private readonly bool $testEnvironment)
     {
     }
@@ -41,7 +43,7 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
 
         $menu = $event->getMenu();
         $menu
-            ->addChild('view_order_in_peak', [
+            ->addChild(self::MENU_ITEM_KEY, [
                 'uri' => sprintf('https://app%s.peakwms.com/dialog/orderOverview/%d/details', $this->testEnvironment ? '-test' : '', $peakOrderId),
             ])
             ->setAttribute('type', 'link')
@@ -50,6 +52,12 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
             ->setLabelAttribute('color', 'blue')
         ;
 
-        $menu->reorderChildren(['view_order_in_peak', 'order_history', 'cancel']);
+        $sort = array_keys($menu->getChildren());
+        array_unshift($sort, self::MENU_ITEM_KEY);
+
+        try {
+            $event->getMenu()->reorderChildren($sort);
+        } catch (\InvalidArgumentException) {
+        }
     }
 }
