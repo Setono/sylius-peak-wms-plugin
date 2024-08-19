@@ -7,7 +7,7 @@
         </service>
 
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\AddLinkToPeakSubscriber">
-            <argument>%kernel.debug%</argument>
+            <argument>%setono_sylius_peak.api.sandbox%</argument>
 
             <tag name="kernel.event_subscriber"/>
         </service>
