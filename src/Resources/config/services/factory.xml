@@ -2,22 +2,32 @@
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <!-- todo missing aliases -->
+        <service id="Setono\SyliusPeakPlugin\Factory\WebhookFactoryInterface"
+                 alias="Setono\SyliusPeakPlugin\Factory\WebhookFactory"/>
 
         <service id="Setono\SyliusPeakPlugin\Factory\WebhookFactory"
                  decorates="setono_sylius_peak.factory.webhook" decoration-priority="64">
             <argument type="service" id="Setono\SyliusPeakPlugin\Factory\WebhookFactory.inner"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactoryInterface"
+                 alias="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory"/>
+
         <service id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory"
                  decorates="setono_sylius_peak.factory.webhook_registration" decoration-priority="64">
             <argument type="service" id="Setono\SyliusPeakPlugin\Factory\WebhookRegistrationFactory.inner"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactoryInterface"
+                 alias="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactory"/>
+
         <service id="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactory"
                  decorates="setono_sylius_peak.factory.upload_order_request" decoration-priority="64">
             <argument type="service" id="Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactory.inner"/>
         </service>
+
+        <service id="Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactoryInterface"
+                 alias="Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactory"/>
 
         <service id="Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactory"
                  decorates="setono_sylius_peak.factory.upload_product_variant_request" decoration-priority="64">
