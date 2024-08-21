@@ -54,8 +54,14 @@ final class ProcessUploadOrderRequestHandler extends AbstractProcessUploadReques
             $salesOrder = new SalesOrder();
             $this->salesOrderDataMapper->map($order, $salesOrder);
 
-            $response = $this->peakClient->salesOrder()->create($salesOrder);
-            $uploadOrderRequest->setPeakOrderId($response->id);
+            if ($uploadOrderRequest->getPeakOrderId() === null) {
+                $response = $this->peakClient->salesOrder()->create($salesOrder);
+                $uploadOrderRequest->setPeakOrderId($response->id);
+            } else {
+                // todo test if the sales order _actually_ exists in Peak
+                $this->peakClient->salesOrder()->update($salesOrder->orderId, $salesOrder);
+            }
+
             $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_UPLOAD);
         } catch (\Throwable $e) {
             $uploadOrderRequest->setError($e->getMessage());
