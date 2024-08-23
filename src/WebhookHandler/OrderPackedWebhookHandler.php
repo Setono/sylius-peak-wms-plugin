@@ -13,9 +13,9 @@ use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\OrderPaymentTransitions;
 use Sylius\Component\Core\OrderShippingTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Payment\PaymentTransitions;
 use Webmozart\Assert\Assert;
 
 final class OrderPackedWebhookHandler implements WebhookHandlerInterface, LoggerAwareInterface
@@ -73,15 +73,7 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
         }
 
         if ($data->paymentCaptured) {
-            $this->logger->debug(sprintf('The payment is captured, so we will check if we can take the "%s" transition', OrderPaymentTransitions::TRANSITION_PAY));
-
-            $orderPaymentStateMachine = $this->stateMachineFactory->get($order, OrderPaymentTransitions::GRAPH);
-
-            if ($orderPaymentStateMachine->can(OrderPaymentTransitions::TRANSITION_PAY)) {
-                $this->logger->debug(sprintf('Taking the "%s" transition', OrderPaymentTransitions::TRANSITION_PAY));
-
-                $orderPaymentStateMachine->apply(OrderPaymentTransitions::TRANSITION_PAY);
-            }
+            $this->completePayment($order);
         }
 
         $this->logger->debug(sprintf('Order state after: %s', $order->getState()));
@@ -98,6 +90,11 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
     public function supports(object $data): bool
     {
         return $data instanceof WebhookDataPickOrderPacked;
+    }
+
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
     }
 
     /**
@@ -121,8 +118,23 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
         Assert::count($peakOrderLines, 0);
     }
 
-    public function setLogger(LoggerInterface $logger): void
+    private function completePayment(OrderInterface $order): void
     {
-        $this->logger = $logger;
+        $this->logger->debug(sprintf('The payment is captured, so we will check if we can take the "%s" transition', PaymentTransitions::TRANSITION_COMPLETE));
+
+        $payment = $order->getLastPayment();
+        if (null === $payment) {
+            $this->logger->debug(sprintf('There is no payment on order %s', (string) $order->getId()));
+
+            return;
+        }
+
+        $paymentStateMachine = $this->stateMachineFactory->get($payment, PaymentTransitions::GRAPH);
+
+        if ($paymentStateMachine->can(PaymentTransitions::TRANSITION_COMPLETE)) {
+            $this->logger->debug(sprintf('Taking the "%s" transition', PaymentTransitions::TRANSITION_COMPLETE));
+
+            $paymentStateMachine->apply(PaymentTransitions::TRANSITION_COMPLETE);
+        }
     }
 }
