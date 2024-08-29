@@ -13,6 +13,10 @@ final class WebhookLogger extends AbstractLogger
     {
     }
 
+    /**
+     * @param mixed $level
+     * @param string $message
+     */
     public function log($level, $message, array $context = []): void
     {
         /** @psalm-suppress RedundantCastGivenDocblockType */
