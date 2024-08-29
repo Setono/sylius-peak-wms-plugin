@@ -68,6 +68,10 @@ final class InventoryUpdater implements InventoryUpdaterInterface
         $inventoryUpdate = $this->inventoryUpdateProvider->getInventoryUpdate();
         $this->getManager($inventoryUpdate)->persist($inventoryUpdate);
 
+        if (!$this->inventoryUpdateWorkflow->can($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET)) {
+            throw new \RuntimeException('The inventory update cannot be reset');
+        }
+
         try {
             $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET);
             $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_PROCESS);
