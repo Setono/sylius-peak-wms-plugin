@@ -23,7 +23,7 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <!-- Workflow -->
+        <!-- Workflow: Inventory Update -->
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\InventoryUpdate\CompleteSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>
@@ -33,6 +33,11 @@
         </service>
 
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\InventoryUpdate\ResetSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Workflow: Upload Product Variant Request -->
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadProductVariantRequest\ResetSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>
     </services>

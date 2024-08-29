@@ -54,8 +54,14 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             $product = new Product();
             $this->productDataMapper->map($productVariant, $product);
 
-            $response = $this->peakClient->product()->create($product);
-            $uploadProductVariantRequest->setPeakProductId($response->id);
+            if ($uploadProductVariantRequest->getPeakProductId() === null) {
+                $response = $this->peakClient->product()->create($product);
+                $uploadProductVariantRequest->setPeakProductId($response->id);
+            } else {
+                // todo test if the product _actually_ exists in Peak
+                $this->peakClient->product()->update($product);
+            }
+
             $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD);
         } catch (\Throwable $e) {
             $uploadProductVariantRequest->setError($e->getMessage());

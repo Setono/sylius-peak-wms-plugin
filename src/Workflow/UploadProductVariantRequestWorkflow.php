@@ -86,7 +86,7 @@ final class UploadProductVariantRequestWorkflow
             ),
             new Transition(
                 self::TRANSITION_RESET,
-                [UploadProductVariantRequestInterface::STATE_FAILED, UploadProductVariantRequestInterface::STATE_UPLOADED, UploadProductVariantRequestInterface::STATE_PROCESSING],
+                [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_FAILED, UploadProductVariantRequestInterface::STATE_UPLOADED, UploadProductVariantRequestInterface::STATE_PROCESSING],
                 UploadProductVariantRequestInterface::STATE_PENDING,
             ),
         ];
