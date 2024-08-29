@@ -9,7 +9,9 @@ use Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactoryInterface;
 use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface as BaseProductVariantInterface;
+use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Webmozart\Assert\Assert;
 
@@ -34,11 +36,19 @@ final class ProductListener
     private function handle(LifecycleEventArgs $eventArgs): void
     {
         $obj = $eventArgs->getObject();
-        if (!$obj instanceof BaseProductVariantInterface && !$obj instanceof ProductInterface) {
+
+        /** @psalm-suppress UndefinedInterfaceMethod */
+        $variants = match (true) {
+            $obj instanceof ProductInterface => $obj->getVariants(),
+            $obj instanceof ProductTranslationInterface => $obj->getTranslatable()->getVariants(),
+            $obj instanceof ProductVariantInterface => [$obj],
+            $obj instanceof ProductVariantTranslationInterface => [$obj->getTranslatable()],
+            default => [],
+        };
+
+        if (!is_iterable($variants) || !is_countable($variants) || count($variants) === 0) {
             return;
         }
-
-        $variants = $obj instanceof ProductInterface ? $obj->getVariants() : [$obj];
 
         /** @var BaseProductVariantInterface|ProductVariantInterface $variant */
         foreach ($variants as $variant) {
