@@ -8,8 +8,8 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactoryInterface;
 use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
-use Sylius\Component\Product\Model\ProductInterface;
-use Sylius\Component\Product\Model\ProductVariantInterface as BaseProductVariantInterface;
+use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface as BaseProductVariantInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Webmozart\Assert\Assert;
 
