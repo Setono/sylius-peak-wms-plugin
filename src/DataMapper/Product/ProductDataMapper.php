@@ -14,5 +14,6 @@ final class ProductDataMapper implements ProductDataMapperInterface
         $product->productId = $productVariant->getProduct()?->getCode();
         $product->variantId = $productVariant->getCode();
         $product->itemNumber = $productVariant->getCode();
+        $product->description = $productVariant->getProduct()?->getName();
     }
 }
