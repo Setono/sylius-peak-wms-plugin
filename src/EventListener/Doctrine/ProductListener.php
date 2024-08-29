@@ -49,7 +49,5 @@ final class ProductListener
 
             $variant->setPeakUploadProductVariantRequest($uploadProductVariantRequest);
         }
-
-        $eventArgs->getObjectManager()->flush();
     }
 }
