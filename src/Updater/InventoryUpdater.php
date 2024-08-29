@@ -109,7 +109,7 @@ final class InventoryUpdater implements InventoryUpdaterInterface
                     }
 
                     $this->map($product, $productVariant);
-                } catch (\InvalidArgumentException $e) {
+                } catch (\Throwable $e) {
                     $inventoryUpdate->addError($e->getMessage());
                 }
             }
