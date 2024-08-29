@@ -6,8 +6,8 @@
             <argument type="service" id="setono_sylius_peak.factory.upload_product_variant_request"/>
             <argument type="service" id="state_machine.setono_sylius_peak__upload_product_variant_request"/>
 
-<!--            <tag name="doctrine.event_listener" event="prePersist"/>-->
-<!--            <tag name="doctrine.event_listener" event="preUpdate"/>-->
+            <tag name="doctrine.event_listener" event="prePersist"/>
+            <tag name="doctrine.event_listener" event="preUpdate"/>
         </service>
     </services>
 </container>
