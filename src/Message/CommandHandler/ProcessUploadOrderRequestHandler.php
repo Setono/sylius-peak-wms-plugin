@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\SalesOrder\SalesOrder;
 use Setono\SyliusPeakPlugin\DataMapper\SalesOrder\SalesOrderDataMapperInterface;
 use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadOrderRequest;
+use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
@@ -50,6 +52,27 @@ final class ProcessUploadOrderRequestHandler extends AbstractProcessUploadReques
             throw new UnrecoverableMessageHandlingException(sprintf('The upload order request with id %d does not have an associated order', $message->uploadOrderRequest));
         }
 
+        match ($order->getState()) {
+            OrderInterface::STATE_CANCELLED => $this->handleCancelledState($order, $uploadOrderRequest),
+            default => $this->handleOtherStates($message, $manager, $order, $uploadOrderRequest),
+        };
+    }
+
+    public function handleCancelledState(OrderInterface $order, UploadOrderRequestInterface $uploadOrderRequest): void
+    {
+        if ($uploadOrderRequest->getPeakOrderId() === null) {
+            return;
+        }
+
+        $this->peakClient->salesOrder()->cancel((string) $order->getId());
+    }
+
+    private function handleOtherStates(
+        ProcessUploadOrderRequest $message,
+        EntityManagerInterface $manager,
+        OrderInterface $order,
+        UploadOrderRequestInterface $uploadOrderRequest,
+    ): void {
         try {
             $salesOrder = new SalesOrder();
             $this->salesOrderDataMapper->map($order, $salesOrder);
