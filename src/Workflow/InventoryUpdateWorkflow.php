@@ -19,6 +19,8 @@ final class InventoryUpdateWorkflow
 
     final public const TRANSITION_RESET = 'reset';
 
+    final public const TRANSITION_FAIL = 'fail';
+
     private function __construct()
     {
     }
@@ -32,6 +34,7 @@ final class InventoryUpdateWorkflow
             InventoryUpdateInterface::STATE_PENDING,
             InventoryUpdateInterface::STATE_PROCESSING,
             InventoryUpdateInterface::STATE_COMPLETED,
+            InventoryUpdateInterface::STATE_FAILED,
         ];
     }
 
@@ -78,8 +81,13 @@ final class InventoryUpdateWorkflow
             ),
             new Transition(
                 self::TRANSITION_RESET,
-                [InventoryUpdateInterface::STATE_PENDING, InventoryUpdateInterface::STATE_COMPLETED],
+                [InventoryUpdateInterface::STATE_PENDING, InventoryUpdateInterface::STATE_COMPLETED, InventoryUpdateInterface::STATE_FAILED],
                 InventoryUpdateInterface::STATE_PENDING,
+            ),
+            new Transition(
+                self::TRANSITION_FAIL,
+                [InventoryUpdateInterface::STATE_PENDING, InventoryUpdateInterface::STATE_PROCESSING],
+                InventoryUpdateInterface::STATE_FAILED,
             ),
         ];
     }

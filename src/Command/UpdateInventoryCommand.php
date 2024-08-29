@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Command;
 
-use Setono\SyliusPeakPlugin\Updater\InventoryUpdaterInterface;
+use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
     name: 'setono:sylius-peak-wms:update-inventory',
@@ -16,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class UpdateInventoryCommand extends Command
 {
-    public function __construct(private readonly InventoryUpdaterInterface $inventoryUpdater)
+    public function __construct(private readonly MessageBusInterface $commandBus)
     {
         parent::__construct();
     }
@@ -25,7 +26,7 @@ final class UpdateInventoryCommand extends Command
     {
         // todo allow the user to specify a product variant id to update
         // todo allow the user to force the update of _ALL_ product variants regardless of the last update time
-        $this->inventoryUpdater->updateAll();
+        $this->commandBus->dispatch(UpdateInventory::forAll());
 
         return 0;
     }

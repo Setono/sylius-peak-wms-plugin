@@ -68,51 +68,62 @@ final class InventoryUpdater implements InventoryUpdaterInterface
         $inventoryUpdate = $this->inventoryUpdateProvider->getInventoryUpdate();
         $this->getManager($inventoryUpdate)->persist($inventoryUpdate);
 
-        $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET);
-        $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_PROCESS);
+        try {
+            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET);
+            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_PROCESS);
 
-        $manager = $this->getManager(ProductVariant::class);
-        $productVariantRepository = $this->getRepository(ProductVariant::class);
+            $manager = $this->getManager(ProductVariant::class);
+            $productVariantRepository = $this->getRepository(ProductVariant::class);
 
-        $i = 0;
-        $products = $this->client->product()->iterate(PageQuery::create(updatedAfter: $inventoryUpdate->getNextUpdateThreshold()));
-        foreach ($products as $product) {
-            ++$i;
+            $i = 0;
+            $products = $this->client->product()->iterate(PageQuery::create(updatedAfter: $inventoryUpdate->getNextUpdateThreshold()));
+            foreach ($products as $product) {
+                ++$i;
 
-            if ($i % 100 === 0) {
-                $manager->flush();
-                $manager->clear();
-            }
+                if ($i % 100 === 0) {
+                    $manager->flush();
+                    $manager->clear();
 
-            try {
-                Assert::notNull($product->variantId, sprintf(
-                    'Product with id %d does not have a variant id. It is expected that Peak WMS has the same structure of products as Sylius, namely that all products at least have one variant.',
-                    (int) $product->id,
-                ));
-
-                $productVariant = $productVariantRepository->findOneBy(['code' => $product->variantId]);
-                Assert::notNull($productVariant, sprintf('Product variant with code %s does not exist', $product->variantId));
-
-                if ($product->orderedByCustomers !== $productVariant->getOnHold()) {
-                    $inventoryUpdate->addWarning(sprintf(
-                        'Product variant with code %s has %d on hold in Sylius and %d on hold in Peak WMS',
-                        $product->variantId,
-                        (int) $productVariant->getOnHold(),
-                        (int) $product->orderedByCustomers,
-                    ));
+                    $inventoryUpdate->setProductsProcessed($i);
                 }
 
-                $this->map($product, $productVariant);
-            } catch (\InvalidArgumentException $e) {
-                $inventoryUpdate->addError($e->getMessage());
+                try {
+                    Assert::notNull($product->variantId, sprintf(
+                        'Product with id %d does not have a variant id. It is expected that Peak WMS has the same structure of products as Sylius, namely that all products at least have one variant.',
+                        (int) $product->id,
+                    ));
+
+                    $productVariant = $productVariantRepository->findOneBy(['code' => $product->variantId]);
+                    Assert::notNull(
+                        $productVariant,
+                        sprintf('Product variant with code %s does not exist', $product->variantId),
+                    );
+
+                    if ($product->orderedByCustomers !== $productVariant->getOnHold()) {
+                        $inventoryUpdate->addWarning(sprintf(
+                            'Product variant with code %s has %d on hold in Sylius and %d on hold in Peak WMS',
+                            $product->variantId,
+                            (int) $productVariant->getOnHold(),
+                            (int) $product->orderedByCustomers,
+                        ));
+                    }
+
+                    $this->map($product, $productVariant);
+                } catch (\InvalidArgumentException $e) {
+                    $inventoryUpdate->addError($e->getMessage());
+                }
             }
+
+            $inventoryUpdate->setProductsProcessed($i);
+            $manager->flush();
+
+            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_COMPLETE);
+        } catch (\Throwable $e) {
+            $inventoryUpdate->addError($e->getMessage());
+            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_FAIL);
+        } finally {
+            $this->getManager($inventoryUpdate)->flush();
         }
-
-        $inventoryUpdate->setProductsProcessed($i);
-
-        $manager->flush();
-
-        $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_COMPLETE);
     }
 
     private function transition(InventoryUpdateInterface $inventoryUpdate, string $transition): void

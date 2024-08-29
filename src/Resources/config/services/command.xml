@@ -36,7 +36,7 @@
         </service>
 
         <service id="Setono\SyliusPeakPlugin\Command\UpdateInventoryCommand">
-            <argument type="service" id="Setono\SyliusPeakPlugin\Updater\InventoryUpdaterInterface"/>
+            <argument type="service" id="setono_sylius_peak.command_bus"/>
 
             <tag name="console.command"/>
         </service>

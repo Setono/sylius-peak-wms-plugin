@@ -15,6 +15,8 @@ interface InventoryUpdateInterface extends ResourceInterface, VersionedInterface
 
     final public const STATE_COMPLETED = 'completed';
 
+    final public const STATE_FAILED = 'failed';
+
     public function getId(): ?int;
 
     public function getState(): string;
