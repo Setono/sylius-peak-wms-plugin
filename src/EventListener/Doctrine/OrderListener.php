@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\EventListener\Doctrine;
 
-use Doctrine\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Setono\SyliusPeakPlugin\Factory\UploadOrderRequestFactoryInterface;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
