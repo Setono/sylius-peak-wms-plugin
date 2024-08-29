@@ -15,5 +15,11 @@ final class ProductDataMapper implements ProductDataMapperInterface
         $product->variantId = $productVariant->getCode();
         $product->itemNumber = $productVariant->getCode();
         $product->description = $productVariant->getProduct()?->getName();
+
+        // This presumes that the product variant's weight is in kilograms
+        $weight = $productVariant->getWeight();
+        if (null !== $weight) {
+            $product->weight = (int) round(1000 * $weight);
+        }
     }
 }
