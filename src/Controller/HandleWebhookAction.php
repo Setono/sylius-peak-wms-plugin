@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerAwareInterface;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Parser\WebhookParser;
 use Setono\PeakWMS\Parser\WebhookParserInterface;
+use Setono\SyliusPeakPlugin\Event\WebhookHandledEvent;
 use Setono\SyliusPeakPlugin\Factory\WebhookFactoryInterface;
 use Setono\SyliusPeakPlugin\Logger\WebhookLogger;
 use Setono\SyliusPeakPlugin\WebhookHandler\WebhookHandlerInterface;
@@ -26,6 +28,7 @@ final class HandleWebhookAction
         private readonly WebhookHandlerInterface $webhookHandler,
         private readonly WebhookFactoryInterface $webhookFactory,
         ManagerRegistry $managerRegistry,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
         $this->managerRegistry = $managerRegistry;
     }
@@ -47,6 +50,8 @@ final class HandleWebhookAction
             $data = $this->webhookParser->parse($request->getContent(), $dataClass);
 
             $this->webhookHandler->handle($data);
+
+            $this->eventDispatcher->dispatch(new WebhookHandledEvent($webhook));
         } catch (\InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         } finally {
