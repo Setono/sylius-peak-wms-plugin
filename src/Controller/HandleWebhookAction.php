@@ -51,7 +51,7 @@ final class HandleWebhookAction
 
             $this->webhookHandler->handle($data);
 
-            $this->eventDispatcher->dispatch(new WebhookHandledEvent($webhook));
+            $this->eventDispatcher->dispatch(new WebhookHandledEvent($data));
         } catch (\InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         } finally {
