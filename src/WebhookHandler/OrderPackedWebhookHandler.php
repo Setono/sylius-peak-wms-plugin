@@ -15,6 +15,7 @@ use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\OrderShippingTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Payment\PaymentTransitions;
 use Webmozart\Assert\Assert;
 
@@ -67,13 +68,20 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
         $orderShippingStateMachine = $this->stateMachineFactory->get($order, OrderShippingTransitions::GRAPH);
 
         if ($orderShippingStateMachine->can(OrderShippingTransitions::TRANSITION_SHIP)) {
-            $this->logger->debug(sprintf('Taking the "%s" transition', OrderShippingTransitions::TRANSITION_SHIP));
+            $this->logger->debug(sprintf('Shipment: Taking the "%s" transition', OrderShippingTransitions::TRANSITION_SHIP));
 
             $orderShippingStateMachine->apply(OrderShippingTransitions::TRANSITION_SHIP);
         }
 
         if ($data->paymentCaptured) {
             $this->completePayment($order);
+        }
+
+        $orderStateMachine = $this->stateMachineFactory->get($order, OrderTransitions::GRAPH);
+        if ($orderStateMachine->can(OrderTransitions::TRANSITION_FULFILL)) {
+            $this->logger->debug(sprintf('Order: Taking the "%s" transition', OrderTransitions::TRANSITION_FULFILL));
+
+            $orderStateMachine->apply(OrderTransitions::TRANSITION_FULFILL);
         }
 
         $this->logger->debug(sprintf('Order state after: %s', $order->getState()));
@@ -132,7 +140,7 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
         $paymentStateMachine = $this->stateMachineFactory->get($payment, PaymentTransitions::GRAPH);
 
         if ($paymentStateMachine->can(PaymentTransitions::TRANSITION_COMPLETE)) {
-            $this->logger->debug(sprintf('Taking the "%s" transition', PaymentTransitions::TRANSITION_COMPLETE));
+            $this->logger->debug(sprintf('Payment: Taking the "%s" transition', PaymentTransitions::TRANSITION_COMPLETE));
 
             $paymentStateMachine->apply(PaymentTransitions::TRANSITION_COMPLETE);
         }
