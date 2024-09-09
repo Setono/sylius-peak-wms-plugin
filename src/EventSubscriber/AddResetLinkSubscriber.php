@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin\EventSubscriber;
 
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
-use Setono\SyliusPeakPlugin\Model\UploadOrderRequestInterface;
+use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
 use Sylius\Bundle\AdminBundle\Event\OrderShowMenuBuilderEvent;
 use Sylius\Bundle\AdminBundle\Menu\OrderShowMenuBuilder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Workflow\WorkflowInterface;
 
-final class AddLinkToPeakSubscriber implements EventSubscriberInterface
+final class AddResetLinkSubscriber implements EventSubscriberInterface
 {
-    private const MENU_ITEM_KEY = 'view_order_in_peak';
+    private const MENU_ITEM_KEY = 'reset_upload_order_request';
 
-    public function __construct(private readonly bool $testEnvironment)
+    public function __construct(private readonly WorkflowInterface $workflow)
     {
     }
 
@@ -35,9 +36,7 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $peakOrderId = $uploadOrderRequest->getPeakOrderId();
-
-        if ($uploadOrderRequest->getState() !== UploadOrderRequestInterface::STATE_UPLOADED || null === $peakOrderId) {
+        if (!$this->workflow->can($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_RESET)) {
             return;
         }
 
@@ -46,12 +45,12 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
 
         $menu
             ->addChild(self::MENU_ITEM_KEY, [
-                'uri' => sprintf('https://app%s.peakwms.com/dialog/orderOverview/%d/details', $this->testEnvironment ? '-test' : '', $peakOrderId),
+                'route' => 'setono_sylius_peak_admin_reset_upload_order_request',
+                'routeParameters' => ['id' => $uploadOrderRequest->getId()],
             ])
             ->setAttribute('type', 'link')
-            ->setLabel('setono_sylius_peak.ui.view_order_in_peak')
-            ->setLabelAttribute('icon', 'external alternate')
-            ->setLabelAttribute('color', 'blue')
+            ->setLabel($uploadOrderRequest->getPeakOrderId() === null ? 'setono_sylius_peak.ui.upload_order_to_peak' : 'setono_sylius_peak.ui.re_upload_order_to_peak')
+            ->setLabelAttribute('icon', 'redo')
         ;
 
         array_unshift($sort, self::MENU_ITEM_KEY);

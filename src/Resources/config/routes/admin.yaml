@@ -9,3 +9,9 @@ setono_sylius_peak_admin_peak_register_webhooks:
     methods: [GET]
     defaults:
         _controller: Setono\SyliusPeakPlugin\Controller\Admin\PeakController::registerWebhooks
+        
+setono_sylius_peak_admin_reset_upload_order_request:
+    path: /peak/upload-order-requests/{id}/reset
+    methods: [GET]
+    defaults:
+        _controller: Setono\SyliusPeakPlugin\Controller\Admin\ResetUploadOrderRequestAction
