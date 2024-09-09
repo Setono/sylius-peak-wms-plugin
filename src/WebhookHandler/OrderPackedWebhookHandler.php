@@ -13,10 +13,10 @@ use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\OrderShippingTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Payment\PaymentTransitions;
+use Sylius\Component\Shipping\ShipmentTransitions;
 use Webmozart\Assert\Assert;
 
 final class OrderPackedWebhookHandler implements WebhookHandlerInterface, LoggerAwareInterface
@@ -65,13 +65,7 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
             throw new \InvalidArgumentException(sprintf('Order lines on order %s are different', $data->orderId));
         }
 
-        $orderShippingStateMachine = $this->stateMachineFactory->get($order, OrderShippingTransitions::GRAPH);
-
-        if ($orderShippingStateMachine->can(OrderShippingTransitions::TRANSITION_SHIP)) {
-            $this->logger->debug(sprintf('Shipment: Taking the "%s" transition', OrderShippingTransitions::TRANSITION_SHIP));
-
-            $orderShippingStateMachine->apply(OrderShippingTransitions::TRANSITION_SHIP);
-        }
+        $this->completeShipment($order, $data);
 
         if ($data->paymentCaptured) {
             $this->completePayment($order);
@@ -124,6 +118,26 @@ final class OrderPackedWebhookHandler implements WebhookHandlerInterface, Logger
         }
 
         Assert::count($peakOrderLines, 0);
+    }
+
+    private function completeShipment(OrderInterface $order, WebhookDataPickOrderPacked $data): void
+    {
+        $shipment = $order->getshipments()->last();
+        if (false === $shipment) {
+            $this->logger->debug('There is no shipment on the order');
+
+            return;
+        }
+
+        $shipment->setTracking($data->trackingNumber);
+
+        $shipmentStateMachine = $this->stateMachineFactory->get($shipment, ShipmentTransitions::GRAPH);
+
+        if ($shipmentStateMachine->can(ShipmentTransitions::TRANSITION_SHIP)) {
+            $this->logger->debug(sprintf('Shipment: Taking the "%s" transition', ShipmentTransitions::TRANSITION_SHIP));
+
+            $shipmentStateMachine->apply(ShipmentTransitions::TRANSITION_SHIP);
+        }
     }
 
     private function completePayment(OrderInterface $order): void
