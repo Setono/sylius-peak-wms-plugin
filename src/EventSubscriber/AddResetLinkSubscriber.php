@@ -42,6 +42,7 @@ final class AddResetLinkSubscriber implements EventSubscriberInterface
 
         $menu = $event->getMenu();
         $sort = array_keys($menu->getChildren());
+        array_unshift($sort, self::MENU_ITEM_KEY);
 
         $menu
             ->addChild(self::MENU_ITEM_KEY, [
@@ -52,8 +53,6 @@ final class AddResetLinkSubscriber implements EventSubscriberInterface
             ->setLabel($uploadOrderRequest->getPeakOrderId() === null ? 'setono_sylius_peak.ui.upload_order_to_peak' : 'setono_sylius_peak.ui.re_upload_order_to_peak')
             ->setLabelAttribute('icon', 'redo')
         ;
-
-        array_unshift($sort, self::MENU_ITEM_KEY);
 
         try {
             $event->getMenu()->reorderChildren($sort);

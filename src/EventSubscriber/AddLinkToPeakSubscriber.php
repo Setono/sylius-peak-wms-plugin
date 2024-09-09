@@ -43,6 +43,7 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
 
         $menu = $event->getMenu();
         $sort = array_keys($menu->getChildren());
+        array_unshift($sort, self::MENU_ITEM_KEY);
 
         $menu
             ->addChild(self::MENU_ITEM_KEY, [
@@ -53,8 +54,6 @@ final class AddLinkToPeakSubscriber implements EventSubscriberInterface
             ->setLabelAttribute('icon', 'external alternate')
             ->setLabelAttribute('color', 'blue')
         ;
-
-        array_unshift($sort, self::MENU_ITEM_KEY);
 
         try {
             $event->getMenu()->reorderChildren($sort);
