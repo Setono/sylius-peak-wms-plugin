@@ -86,7 +86,7 @@ final class UploadOrderRequestWorkflow
             ),
             new Transition(
                 self::TRANSITION_RESET,
-                [UploadOrderRequestInterface::STATE_FAILED, UploadOrderRequestInterface::STATE_UPLOADED],
+                [UploadOrderRequestInterface::STATE_PENDING, UploadOrderRequestInterface::STATE_FAILED, UploadOrderRequestInterface::STATE_UPLOADED],
                 UploadOrderRequestInterface::STATE_PENDING,
             ),
         ];

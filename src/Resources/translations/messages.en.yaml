@@ -1,13 +1,15 @@
 setono_sylius_peak:
     ui:
         failed: Failed
-        pending: Pending
-        register_webhooks: Register webhooks
-        register_webhooks_information: Your webhooks registration is out of date. Please click the button to register webhooks with Peak.
         peak: Peak
         peak_index: Manage your Peak settings
         peak_state: Peak state
-        uploaded: Uploaded
+        pending: Pending
         processing: Processing
+        re_upload_order_to_peak: Re-upload order to Peak
+        register_webhooks: Register webhooks
+        register_webhooks_information: Your webhooks registration is out of date. Please click the button to register webhooks with Peak.
+        upload_order_to_peak: Upload order to Peak
+        uploaded: Uploaded
         view_order_in_peak: View order in Peak
         webhooks: Webhooks
