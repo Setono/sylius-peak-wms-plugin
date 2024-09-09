@@ -23,6 +23,12 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\HandleOrderCancellationSubscriber">
+            <argument type="service" id="Setono\PeakWMS\Client\ClientInterface"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <!-- Workflow: Inventory Update -->
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\InventoryUpdate\CompleteSubscriber">
             <tag name="kernel.event_subscriber"/>
