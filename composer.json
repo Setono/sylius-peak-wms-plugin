@@ -28,6 +28,7 @@
         "sylius/payment": "^1.0",
         "sylius/product": "^1.0",
         "sylius/resource-bundle": "^1.0",
+        "sylius/shipping": "^1.0",
         "sylius/ui-bundle": "^1.0",
         "symfony/config": "^5.4 || ^6.4",
         "symfony/console": "^5.4 || ^6.4",
