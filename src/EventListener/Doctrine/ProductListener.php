@@ -55,7 +55,13 @@ final class ProductListener
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
 
             $uploadProductVariantRequest = $variant->getPeakUploadProductVariantRequest() ?? $this->uploadProductVariantRequestFactory->createNew();
-            $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_RESET);
+
+            if ($this->uploadProductVariantRequestWorkflow->can($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_RESET)) {
+                $this->uploadProductVariantRequestWorkflow->apply(
+                    $uploadProductVariantRequest,
+                    UploadProductVariantRequestWorkflow::TRANSITION_RESET,
+                );
+            }
 
             $variant->setPeakUploadProductVariantRequest($uploadProductVariantRequest);
         }
