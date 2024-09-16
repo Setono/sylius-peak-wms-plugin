@@ -9,7 +9,6 @@ use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\Product\Product;
 use Setono\PeakWMS\Request\Query\Product\PageQuery;
-use Setono\SyliusPeakPlugin\Model\InventoryUpdateInterface;
 use Setono\SyliusPeakPlugin\Provider\InventoryUpdateProviderInterface;
 use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
 use Sylius\Component\Core\Model\ProductVariant;
@@ -62,21 +61,17 @@ final class InventoryUpdater implements InventoryUpdaterInterface
         $this->getManager($productVariant)->flush();
     }
 
-    // todo what happens if the transitions are not possible?
     public function updateAll(bool $onlyUpdated = true): void
     {
         $inventoryUpdate = $this->inventoryUpdateProvider->getInventoryUpdate();
-        $this->getManager($inventoryUpdate)->persist($inventoryUpdate);
-
-        if (!$this->inventoryUpdateWorkflow->can($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET)) {
-            throw new \RuntimeException('The inventory update cannot be reset');
-        }
+        $manager = $this->getManager($inventoryUpdate);
+        $manager->persist($inventoryUpdate);
+        $manager->flush();
 
         try {
-            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_RESET);
-            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_PROCESS);
+            $this->inventoryUpdateTransition(InventoryUpdateWorkflow::TRANSITION_RESET);
+            $this->inventoryUpdateTransition(InventoryUpdateWorkflow::TRANSITION_PROCESS);
 
-            $manager = $this->getManager(ProductVariant::class);
             $productVariantRepository = $this->getRepository(ProductVariant::class);
 
             $i = 0;
@@ -85,10 +80,13 @@ final class InventoryUpdater implements InventoryUpdaterInterface
                 ++$i;
 
                 if ($i % 100 === 0) {
+                    $inventoryUpdate->setProductsProcessed($i);
+
                     $manager->flush();
                     $manager->clear();
 
-                    $inventoryUpdate->setProductsProcessed($i);
+                    // We need to get the inventory update again because the previous one is detached
+                    $inventoryUpdate = $this->inventoryUpdateProvider->getInventoryUpdate();
                 }
 
                 try {
@@ -121,17 +119,18 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             $inventoryUpdate->setProductsProcessed($i);
             $manager->flush();
 
-            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_COMPLETE);
+            $this->inventoryUpdateTransition(InventoryUpdateWorkflow::TRANSITION_COMPLETE);
         } catch (\Throwable $e) {
             $inventoryUpdate->addError($e->getMessage());
-            $this->transition($inventoryUpdate, InventoryUpdateWorkflow::TRANSITION_FAIL);
+            $this->inventoryUpdateTransition(InventoryUpdateWorkflow::TRANSITION_FAIL);
         } finally {
-            $this->getManager($inventoryUpdate)->flush();
+            $manager->flush();
         }
     }
 
-    private function transition(InventoryUpdateInterface $inventoryUpdate, string $transition): void
+    private function inventoryUpdateTransition(string $transition): void
     {
+        $inventoryUpdate = $this->inventoryUpdateProvider->getInventoryUpdate();
         $this->inventoryUpdateWorkflow->apply($inventoryUpdate, $transition);
 
         $this->getManager($inventoryUpdate)->flush();
