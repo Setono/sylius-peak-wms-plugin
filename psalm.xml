@@ -36,5 +36,10 @@
             </errorLevel>
         </TooManyTemplateParams>
         <PluginIssue name="QueryBuilderSetParameter" errorLevel="suppress"/>
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Sylius\Bundle\AdminBundle\Menu\OrderShowMenuBuilder"/>
+            </errorLevel>
+        </DeprecatedClass>
     </issueHandlers>
 </psalm>

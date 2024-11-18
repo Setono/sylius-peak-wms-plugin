@@ -7,20 +7,17 @@ namespace Setono\SyliusPeakPlugin\Processor;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
-use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadOrderRequest;
-use Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadOrderRequestsProviderInterface;
+use Setono\SyliusPeakPlugin\Provider\FailedUploadOrderRequestsProviderInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadOrderRequestWorkflow;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\WorkflowInterface;
 
-final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorInterface
+final class FailedUploadOrderRequestProcessor implements FailedUploadOrderRequestProcessorInterface
 {
     use ORMTrait;
 
     public function __construct(
-        private readonly PreQualifiedUploadOrderRequestsProviderInterface $preQualifiedUploadOrderRequestsProvider,
-        private readonly MessageBusInterface $commandBus,
+        private readonly FailedUploadOrderRequestsProviderInterface $failedUploadOrderRequestsProvider,
         private readonly WorkflowInterface $uploadOrderRequestWorkflow,
         ManagerRegistry $managerRegistry,
     ) {
@@ -29,9 +26,9 @@ final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorIn
 
     public function process(): void
     {
-        foreach ($this->preQualifiedUploadOrderRequestsProvider->getUploadOrderRequests() as $uploadOrderRequest) {
+        foreach ($this->failedUploadOrderRequestsProvider->getUploadOrderRequests() as $uploadOrderRequest) {
             try {
-                $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_PROCESS);
+                $this->uploadOrderRequestWorkflow->apply($uploadOrderRequest, UploadOrderRequestWorkflow::TRANSITION_FAIL);
             } catch (LogicException) {
                 continue;
             }
@@ -41,8 +38,6 @@ final class UploadOrderRequestProcessor implements UploadOrderRequestProcessorIn
             } catch (OptimisticLockException) {
                 continue;
             }
-
-            $this->commandBus->dispatch(new ProcessUploadOrderRequest($uploadOrderRequest));
         }
     }
 }

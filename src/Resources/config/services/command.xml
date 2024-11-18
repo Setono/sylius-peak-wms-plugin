@@ -12,6 +12,7 @@
 
         <service id="Setono\SyliusPeakPlugin\Command\ProcessUploadOrderRequestsCommand">
             <argument type="service" id="Setono\SyliusPeakPlugin\Processor\UploadOrderRequestProcessorInterface"/>
+            <argument type="service" id="Setono\SyliusPeakPlugin\Processor\FailedUploadOrderRequestProcessorInterface"/>
 
             <tag name="console.command"/>
         </service>
