@@ -33,7 +33,7 @@ final class FailedUploadOrderRequestsProvider implements FailedUploadOrderReques
     public function getUploadOrderRequests(): \Generator
     {
         $qb = $this->getRepository($this->uploadOrderRequestClass)->createQueryBuilder('o')
-            ->andWhere('o.state = :orderState')
+            ->andWhere('o.state = :state')
             ->andWhere('o.stateUpdatedAt < :stateUpdatedAt')
             ->setParameter('state', UploadOrderRequestInterface::STATE_PROCESSING)
             ->setParameter('stateUpdatedAt', new \DateTimeImmutable('-' . $this->processingTimeout))
