@@ -12,6 +12,8 @@ class UploadOrderRequest implements UploadOrderRequestInterface
 
     protected string $state = self::STATE_PENDING;
 
+    protected ?\DateTimeInterface $stateUpdatedAt = null;
+
     protected ?OrderInterface $order = null;
 
     protected ?string $request = null;
@@ -21,6 +23,8 @@ class UploadOrderRequest implements UploadOrderRequestInterface
     protected ?string $error = null;
 
     protected ?int $peakOrderId = null;
+
+    protected int $tries = 0;
 
     public function getId(): ?int
     {
@@ -45,6 +49,16 @@ class UploadOrderRequest implements UploadOrderRequestInterface
     public function setState(string $state): void
     {
         $this->state = $state;
+    }
+
+    public function getStateUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->stateUpdatedAt;
+    }
+
+    public function setStateUpdatedAt(\DateTimeInterface $stateUpdatedAt): void
+    {
+        $this->stateUpdatedAt = $stateUpdatedAt;
     }
 
     public function getOrder(): ?OrderInterface
@@ -95,5 +109,20 @@ class UploadOrderRequest implements UploadOrderRequestInterface
     public function setPeakOrderId(?int $peakOrderId): void
     {
         $this->peakOrderId = $peakOrderId;
+    }
+
+    public function getTries(): int
+    {
+        return $this->tries;
+    }
+
+    public function setTries(int $tries): void
+    {
+        $this->tries = $tries;
+    }
+
+    public function incrementTries(): void
+    {
+        ++$this->tries;
     }
 }

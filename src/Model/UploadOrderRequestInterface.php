@@ -23,6 +23,10 @@ interface UploadOrderRequestInterface extends ResourceInterface, VersionedInterf
 
     public function setState(string $state): void;
 
+    public function getStateUpdatedAt(): ?\DateTimeInterface;
+
+    public function setStateUpdatedAt(\DateTimeInterface $stateUpdatedAt): void;
+
     public function getOrder(): ?OrderInterface;
 
     public function setOrder(?OrderInterface $order): void;
@@ -45,4 +49,10 @@ interface UploadOrderRequestInterface extends ResourceInterface, VersionedInterf
     public function getPeakOrderId(): ?int;
 
     public function setPeakOrderId(?int $peakOrderId): void;
+
+    public function getTries(): int;
+
+    public function setTries(int $tries): void;
+
+    public function incrementTries(): void;
 }

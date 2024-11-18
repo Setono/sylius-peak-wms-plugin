@@ -48,6 +48,19 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <!-- Workflow: Upload Order Request -->
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadOrderRequest\IncrementTriesSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadOrderRequest\RetrySubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadOrderRequest\StateUpdatedSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <!-- Workflow: Upload Product Variant Request -->
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadProductVariantRequest\ResetSubscriber">
             <tag name="kernel.event_subscriber"/>

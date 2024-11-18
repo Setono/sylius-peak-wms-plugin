@@ -11,14 +11,20 @@
         </id>
 
         <field name="version" type="integer" version="true"/>
-        <field name="state" type="string"/>
+        <field name="state" column="state" type="string"/>
+        <field name="stateUpdatedAt" column="state_updated_at" type="datetime" nullable="true"/>
         <field name="request" type="text" nullable="true"/>
         <field name="response" type="text" nullable="true"/>
         <field name="error" type="text" nullable="true"/>
         <field name="peakOrderId" type="integer" nullable="true"/>
+        <field name="tries" type="integer"/>
 
         <one-to-one field="order" target-entity="Sylius\Component\Order\Model\OrderInterface" inversed-by="peakUploadOrderRequest">
             <join-column name="order_id" referenced-column-name="id" nullable="false" unique="true" on-delete="CASCADE"/>
         </one-to-one>
+
+        <indexes>
+            <index columns="state,state_updated_at"/>
+        </indexes>
     </mapped-superclass>
 </doctrine-mapping>
