@@ -8,10 +8,12 @@ use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
 use Setono\PeakWMS\DataTransferObject\Product\Product;
+use Setono\PeakWMS\Exception\TooManyRequestsException;
 use Setono\SyliusPeakPlugin\DataMapper\Product\ProductDataMapperInterface;
 use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadProductVariantRequest;
 use Setono\SyliusPeakPlugin\Model\UploadProductVariantRequestInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
+use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Workflow\WorkflowInterface;
 
@@ -63,6 +65,13 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             }
 
             $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD);
+        } catch (TooManyRequestsException $e) {
+            $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_RESET);
+
+            throw new RecoverableMessageHandlingException(
+                message: sprintf('Failed to process upload product variant request with id %d', $message->uploadProductVariantRequest),
+                previous: $e,
+            );
         } catch (\Throwable $e) {
             $uploadProductVariantRequest->setError($e->getMessage());
 
