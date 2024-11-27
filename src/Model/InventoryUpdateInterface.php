@@ -37,13 +37,6 @@ interface InventoryUpdateInterface extends ResourceInterface, VersionedInterface
 
     public function setCompletedAt(?\DateTimeInterface $completedAt): void;
 
-    /**
-     * This is the threshold to use when fetching updated products from Peak WMS. If null, it means that all products should be fetched.
-     */
-    public function getNextUpdateThreshold(): ?\DateTimeInterface;
-
-    public function setNextUpdateThreshold(?\DateTimeInterface $nextUpdateThreshold): void;
-
     public function getProductsProcessed(): int;
 
     public function setProductsProcessed(int $productsProcessed): void;
