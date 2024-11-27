@@ -13,6 +13,8 @@ final class UploadProductVariantRequestWorkflow
 
     final public const NAME = 'setono_sylius_peak__upload_product_variant_request';
 
+    final public const TRANSITION_DISPATCH = 'dispatch';
+
     final public const TRANSITION_PROCESS = 'process';
 
     final public const TRANSITION_UPLOAD = 'upload';
@@ -32,6 +34,7 @@ final class UploadProductVariantRequestWorkflow
     {
         return [
             UploadProductVariantRequestInterface::STATE_PENDING,
+            UploadProductVariantRequestInterface::STATE_DISPATCHED,
             UploadProductVariantRequestInterface::STATE_PROCESSING,
             UploadProductVariantRequestInterface::STATE_UPLOADED,
             UploadProductVariantRequestInterface::STATE_FAILED,
@@ -70,18 +73,23 @@ final class UploadProductVariantRequestWorkflow
     {
         return [
             new Transition(
+                self::TRANSITION_DISPATCH,
+                [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_PROCESSING],
+                UploadProductVariantRequestInterface::STATE_DISPATCHED,
+            ),
+            new Transition(
                 self::TRANSITION_PROCESS,
-                [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_UPLOADED],
+                UploadProductVariantRequestInterface::STATE_DISPATCHED,
                 UploadProductVariantRequestInterface::STATE_PROCESSING,
             ),
             new Transition(
                 self::TRANSITION_UPLOAD,
-                [UploadProductVariantRequestInterface::STATE_PROCESSING],
+                UploadProductVariantRequestInterface::STATE_PROCESSING,
                 UploadProductVariantRequestInterface::STATE_UPLOADED,
             ),
             new Transition(
                 self::TRANSITION_FAIL,
-                [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_PROCESSING],
+                [UploadProductVariantRequestInterface::STATE_PENDING, UploadProductVariantRequestInterface::STATE_DISPATCHED, UploadProductVariantRequestInterface::STATE_PROCESSING],
                 UploadProductVariantRequestInterface::STATE_FAILED,
             ),
             new Transition(

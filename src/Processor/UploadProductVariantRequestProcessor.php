@@ -11,6 +11,7 @@ use Setono\SyliusPeakPlugin\Message\Command\ProcessUploadProductVariantRequest;
 use Setono\SyliusPeakPlugin\Provider\PreQualifiedUploadProductVariantRequestsProviderInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\DelayStamp;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\WorkflowInterface;
 
@@ -29,9 +30,11 @@ final class UploadProductVariantRequestProcessor implements UploadProductVariant
 
     public function process(): void
     {
+        $delay = $i = 0;
+
         foreach ($this->preQualifiedUploadProductVariantRequestsProvider->getUploadProductVariantRequests() as $uploadProductVariantRequest) {
             try {
-                $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_PROCESS);
+                $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_DISPATCH);
             } catch (LogicException) {
                 continue;
             }
@@ -42,7 +45,15 @@ final class UploadProductVariantRequestProcessor implements UploadProductVariant
                 continue;
             }
 
-            $this->commandBus->dispatch(new ProcessUploadProductVariantRequest($uploadProductVariantRequest));
+            ++$i;
+
+            // According to https://api.peakwms.com/api/documentation/index.html the rate limit is 240 requests per minute
+            // So we will increase the delay by 1 second every 4 iterations (240 / 60 = 4)
+            if ($i % 4 === 0) {
+                $delay += 1000;
+            }
+
+            $this->commandBus->dispatch(new ProcessUploadProductVariantRequest($uploadProductVariantRequest), [new DelayStamp($delay)]);
         }
     }
 }

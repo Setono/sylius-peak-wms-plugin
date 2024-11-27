@@ -13,20 +13,12 @@ final class ProcessUploadProductVariantRequest implements CommandInterface
      */
     public int $uploadProductVariantRequest;
 
-    /**
-     * If the version is set, it will be used to check if the upload product variant request has been updated since it was triggered for processing
-     */
-    public ?int $version = null;
-
-    public function __construct(int|UploadProductVariantRequestInterface $uploadProductVariantRequest, int $version = null)
+    public function __construct(int|UploadProductVariantRequestInterface $uploadProductVariantRequest)
     {
         if ($uploadProductVariantRequest instanceof UploadProductVariantRequestInterface) {
-            $version = $uploadProductVariantRequest->getVersion();
-
             $uploadProductVariantRequest = (int) $uploadProductVariantRequest->getId();
         }
 
         $this->uploadProductVariantRequest = $uploadProductVariantRequest;
-        $this->version = $version;
     }
 }

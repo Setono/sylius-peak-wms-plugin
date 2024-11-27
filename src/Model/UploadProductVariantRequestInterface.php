@@ -11,6 +11,8 @@ interface UploadProductVariantRequestInterface extends ResourceInterface, Versio
 {
     public const STATE_PENDING = 'pending';
 
+    public const STATE_DISPATCHED = 'dispatched';
+
     public const STATE_PROCESSING = 'processing';
 
     public const STATE_UPLOADED = 'uploaded';

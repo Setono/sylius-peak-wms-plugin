@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
@@ -43,12 +44,13 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d does not exist', $message->uploadProductVariantRequest));
         }
 
-        if (null !== $message->version && $uploadProductVariantRequest->getVersion() !== $message->version) {
-            throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d has been updated since it was tried to be processed', $message->uploadProductVariantRequest));
-        }
+        $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_PROCESS);
 
-        if ($uploadProductVariantRequest->getState() !== UploadProductVariantRequestInterface::STATE_PROCESSING) {
-            throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d is not in the processing state', $message->uploadProductVariantRequest));
+        try {
+            $manager->flush();
+        } catch (OptimisticLockException) {
+            // This means that the upload product variant request has been updated since it was fetched
+            return;
         }
 
         $productVariant = $uploadProductVariantRequest->getProductVariant();
@@ -70,6 +72,9 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
 
             $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD);
         } catch (TooManyRequestsException $e) {
+            // This will put the message back in the queue to be retried later
+            $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_DISPATCH);
+
             throw new RecoverableMessageHandlingException(
                 message: sprintf('There were too many requests to Peak WMS API when trying to process upload product variant request with id %d. The message will be retried later.', $message->uploadProductVariantRequest),
                 previous: $e,
@@ -90,8 +95,6 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             if ($manager->isOpen()) {
                 $manager->flush();
             }
-
-            $message->version = $uploadProductVariantRequest->getVersion();
         }
     }
 }
