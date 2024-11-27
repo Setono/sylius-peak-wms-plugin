@@ -48,12 +48,16 @@ final class UploadProductVariantRequestProcessor implements UploadProductVariant
             ++$i;
 
             // According to https://api.peakwms.com/api/documentation/index.html the rate limit is 240 requests per minute
-            // So we will increase the delay by 1 second every 4 iterations (240 / 60 = 4)
-            if ($i % 4 === 0) {
-                $delay += 1000;
+            if ($i % 240 === 0) {
+                $delay += 60_000;
             }
 
-            $this->commandBus->dispatch(new ProcessUploadProductVariantRequest($uploadProductVariantRequest), [new DelayStamp($delay)]);
+            $stamps = [];
+            if ($delay > 0) {
+                $stamps[] = new DelayStamp($delay);
+            }
+
+            $this->commandBus->dispatch(new ProcessUploadProductVariantRequest($uploadProductVariantRequest), $stamps);
         }
     }
 }
