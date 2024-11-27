@@ -26,9 +26,5 @@ final class CompleteSubscriber implements EventSubscriberInterface
         Assert::isInstanceOf($inventoryUpdate, InventoryUpdateInterface::class);
 
         $inventoryUpdate->setCompletedAt(new \DateTimeImmutable());
-
-        if (!$inventoryUpdate->hasErrors()) {
-            $inventoryUpdate->setNextUpdateThreshold($inventoryUpdate->getProcessingStartedAt());
-        }
     }
 }

@@ -16,8 +16,6 @@ class InventoryUpdate implements InventoryUpdateInterface
 
     protected ?\DateTimeInterface $completedAt = null;
 
-    protected ?\DateTimeInterface $nextUpdateThreshold = null;
-
     protected int $productsProcessed = 0;
 
     /** @var list<string>|null */
@@ -69,16 +67,6 @@ class InventoryUpdate implements InventoryUpdateInterface
     public function setCompletedAt(?\DateTimeInterface $completedAt): void
     {
         $this->completedAt = $completedAt;
-    }
-
-    public function getNextUpdateThreshold(): ?\DateTimeInterface
-    {
-        return $this->nextUpdateThreshold;
-    }
-
-    public function setNextUpdateThreshold(?\DateTimeInterface $nextUpdateThreshold): void
-    {
-        $this->nextUpdateThreshold = $nextUpdateThreshold;
     }
 
     public function getProductsProcessed(): int

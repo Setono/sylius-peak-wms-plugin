@@ -7,8 +7,8 @@ namespace Setono\SyliusPeakPlugin\Updater;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
-use Setono\PeakWMS\DataTransferObject\Product\Product;
-use Setono\PeakWMS\Request\Query\Product\PageQuery;
+use Setono\PeakWMS\DataTransferObject\Stock\Stock;
+use Setono\PeakWMS\Request\Query\KeySetPageQuery;
 use Setono\SyliusPeakPlugin\Provider\InventoryUpdateProviderInterface;
 use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
 use Sylius\Component\Core\Model\ProductVariant;
@@ -43,20 +43,11 @@ final class InventoryUpdater implements InventoryUpdaterInterface
 
         $collection = $this
             ->client
-            ->product()
-            ->getByProductId($productCode)
-            ->filter(fn (Product $product) => $product->variantId === $variantCode)
+            ->stock()
+            ->getByProductId($productCode, $variantCode)
         ;
 
-        if (count($collection) !== 1) {
-            throw new \RuntimeException(sprintf(
-                'The product with id %s either does not have a variant with id/code %s or has multiple products with the same variant id/code',
-                $productCode,
-                $variantCode,
-            ));
-        }
-
-        $this->map($collection[0], $productVariant);
+        $this->updateOnHand((int) $collection->sum(fn (Stock $stock): int => (int) $stock->quantity), $productVariant);
 
         $this->getManager($productVariant)->flush();
     }
@@ -75,8 +66,8 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             $productVariantRepository = $this->getRepository(ProductVariant::class);
 
             $i = 0;
-            $products = $this->client->product()->iterate(PageQuery::create(updatedAfter: $inventoryUpdate->getNextUpdateThreshold()));
-            foreach ($products as $product) {
+            $stock = $this->client->stock()->iterate(KeySetPageQuery::create());
+            foreach ($stock as $item) {
                 ++$i;
 
                 if ($i % 100 === 0) {
@@ -90,27 +81,27 @@ final class InventoryUpdater implements InventoryUpdaterInterface
                 }
 
                 try {
-                    Assert::notNull($product->variantId, sprintf(
-                        'Product with id %d does not have a variant id. It is expected that Peak WMS has the same structure of products as Sylius, namely that all products at least have one variant.',
-                        (int) $product->id,
+                    Assert::notNull($item->variantId, sprintf(
+                        'Stock with id %d does not have a variant id.',
+                        (int) $item->id,
                     ));
 
-                    $productVariant = $productVariantRepository->findOneBy(['code' => $product->variantId]);
+                    $productVariant = $productVariantRepository->findOneBy(['code' => $item->variantId]);
                     Assert::notNull(
                         $productVariant,
-                        sprintf('Product variant with code %s does not exist', $product->variantId),
+                        sprintf('Product variant with code %s does not exist', $item->variantId),
                     );
 
-                    if ($product->orderedByCustomers !== $productVariant->getOnHold()) {
+                    if ($item->reservedQuantity !== $productVariant->getOnHold()) {
                         $inventoryUpdate->addWarning(sprintf(
                             'Product variant with code %s has %d on hold in Sylius and %d on hold in Peak WMS',
-                            $product->variantId,
+                            $item->variantId,
                             (int) $productVariant->getOnHold(),
-                            (int) $product->orderedByCustomers,
+                            (int) $item->reservedQuantity,
                         ));
                     }
 
-                    $this->map($product, $productVariant);
+                    $this->updateOnHand((int) $item->quantity, $productVariant);
                 } catch (\Throwable $e) {
                     $inventoryUpdate->addError($e->getMessage());
                 }
@@ -125,6 +116,7 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             $this->inventoryUpdateTransition(InventoryUpdateWorkflow::TRANSITION_FAIL);
         } finally {
             $manager->flush();
+            $manager->clear();
         }
     }
 
@@ -136,8 +128,8 @@ final class InventoryUpdater implements InventoryUpdaterInterface
         $this->getManager($inventoryUpdate)->flush();
     }
 
-    private function map(Product $product, ProductVariantInterface $productVariant): void
+    private function updateOnHand(int $quantity, ProductVariantInterface $productVariant): void
     {
-        $productVariant->setOnHand((int) $product->availableToSell + (int) $productVariant->getOnHold());
+        $productVariant->setOnHand($quantity + (int) $productVariant->getOnHold());
     }
 }
