@@ -47,6 +47,10 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d has been updated since it was tried to be processed', $message->uploadProductVariantRequest));
         }
 
+        if ($uploadProductVariantRequest->getState() !== UploadProductVariantRequestInterface::STATE_PROCESSING) {
+            throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d is not in the processing state', $message->uploadProductVariantRequest));
+        }
+
         $productVariant = $uploadProductVariantRequest->getProductVariant();
         if (null === $productVariant) {
             throw new UnrecoverableMessageHandlingException(sprintf('The upload product variant request with id %d does not have an associated product variant', $message->uploadProductVariantRequest));
@@ -66,10 +70,8 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
 
             $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD);
         } catch (TooManyRequestsException $e) {
-            $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_RESET);
-
             throw new RecoverableMessageHandlingException(
-                message: sprintf('Failed to process upload product variant request with id %d', $message->uploadProductVariantRequest),
+                message: sprintf('There were too many requests to Peak WMS API when trying to process upload product variant request with id %d. The message will be retried later.', $message->uploadProductVariantRequest),
                 previous: $e,
             );
         } catch (\Throwable $e) {
@@ -88,6 +90,8 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             if ($manager->isOpen()) {
                 $manager->flush();
             }
+
+            $message->version = $uploadProductVariantRequest->getVersion();
         }
     }
 }
