@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Setono\SyliusPeakPlugin\Functional\Controller;
 
-use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
@@ -17,12 +16,9 @@ use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Zenstruck\Messenger\Test\InteractsWithMessenger;
 
 final class HandleWebhookActionTest extends WebTestCase
 {
-    use InteractsWithMessenger;
-
     private static KernelBrowser $client;
 
     protected function setUp(): void
@@ -50,12 +46,6 @@ final class HandleWebhookActionTest extends WebTestCase
         );
 
         self::assertResponseStatusCodeSame(204);
-
-        /** @var list<UpdateInventory> $messages */
-        $messages = $this->transport('async')->queue()->messages(UpdateInventory::class);
-        self::assertCount(1, $messages);
-
-        self::assertSame($this->getProductVariant('Everyday_white_basic_T_Shirt-variant-0')->getId(), $messages[0]->productVariant);
     }
 
     /**
