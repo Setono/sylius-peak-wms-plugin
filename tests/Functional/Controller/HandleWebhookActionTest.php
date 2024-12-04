@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Psr18Client;
-use Symfony\Component\HttpClient\Response\JsonMockResponse;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 final class HandleWebhookActionTest extends WebTestCase
 {
@@ -36,12 +36,18 @@ final class HandleWebhookActionTest extends WebTestCase
      */
     public function it_handles_stock_adjustments(): void
     {
-        $httpClient = new MockHttpClient([new JsonMockResponse([new Stock(
-            productId: 'Everyday_white_basic_T_Shirt',
-            variantId: 'Everyday_white_basic_T_Shirt-variant-0',
-            quantity: 2,
-            reservedQuantity: 0,
-        )])]);
+        $httpClient = new MockHttpClient([new MockResponse(json_encode([
+            new Stock(
+                productId: 'Everyday_white_basic_T_Shirt',
+                variantId: 'Everyday_white_basic_T_Shirt-variant-0',
+                quantity: 2,
+                reservedQuantity: 0,
+            ),
+        ], \JSON_THROW_ON_ERROR), [
+            'response_headers' => [
+                'content-type' => 'application/json',
+            ],
+        ])]);
 
         $peakClient = self::getContainer()->get(Client::class);
         $peakClient->setHttpClient(new Psr18Client($httpClient));
