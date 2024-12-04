@@ -14,7 +14,6 @@
         <field name="state" type="string"/>
         <field name="processingStartedAt" type="datetime" nullable="true"/>
         <field name="completedAt" type="datetime" nullable="true"/>
-        <field name="nextUpdateThreshold" type="datetime" nullable="true"/>
         <field name="productsProcessed" type="integer"/>
         <field name="warnings" type="json" nullable="true"/>
         <field name="errors" type="json" nullable="true"/>
