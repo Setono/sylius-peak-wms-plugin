@@ -9,9 +9,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Setono\PeakWMS\DataTransferObject\Webhook\WebhookDataStockAdjust;
 use Setono\SyliusPeakPlugin\Exception\UnsupportedWebhookException;
-use Setono\SyliusPeakPlugin\Message\Command\UpdateInventory;
 use Setono\SyliusPeakPlugin\Provider\ProductVariantProviderInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Setono\SyliusPeakPlugin\Updater\InventoryUpdaterInterface;
 
 final class StockAdjustmentWebhookHandler implements WebhookHandlerInterface, LoggerAwareInterface
 {
@@ -19,7 +18,7 @@ final class StockAdjustmentWebhookHandler implements WebhookHandlerInterface, Lo
 
     public function __construct(
         private readonly ProductVariantProviderInterface $productVariantProvider,
-        private readonly MessageBusInterface $commandBus,
+        private readonly InventoryUpdaterInterface $inventoryUpdater,
     ) {
         $this->logger = new NullLogger();
     }
@@ -35,9 +34,9 @@ final class StockAdjustmentWebhookHandler implements WebhookHandlerInterface, Lo
             throw new \InvalidArgumentException(sprintf('Product variant with id/code "%s" not found', (string) $data->variantId));
         }
 
-        $this->logger->debug(sprintf('Dispatching a message onto the message to update the inventory for product variant %s', (string) $productVariant->getCode()));
+        $this->inventoryUpdater->update($productVariant);
 
-        $this->commandBus->dispatch(UpdateInventory::for($productVariant));
+        $this->logger->debug(sprintf('Updated inventory for product variant %s', (string) $productVariant->getCode()));
     }
 
     /**

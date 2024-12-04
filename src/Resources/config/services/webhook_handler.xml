@@ -16,7 +16,7 @@
 
         <service id="Setono\SyliusPeakPlugin\WebhookHandler\StockAdjustmentWebhookHandler">
             <argument type="service" id="Setono\SyliusPeakPlugin\Provider\ProductVariantProviderInterface"/>
-            <argument type="service" id="setono_sylius_peak.command_bus"/>
+            <argument type="service" id="Setono\SyliusPeakPlugin\Updater\InventoryUpdaterInterface"/>
 
             <tag name="setono_sylius_peak.webhook_handler"/>
         </service>

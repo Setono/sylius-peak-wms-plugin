@@ -39,10 +39,9 @@ final class HandleWebhookAction
 
         try {
             $webhook = $this->webhookFactory->createFromRequest($request);
-            $logger = new WebhookLogger($webhook);
 
             if ($this->webhookHandler instanceof LoggerAwareInterface) {
-                $this->webhookHandler->setLogger($logger);
+                $this->webhookHandler->setLogger(new WebhookLogger($webhook));
             }
 
             $dataClass = WebhookParser::convertNameToDataClass($request->query->getInt('name'));
