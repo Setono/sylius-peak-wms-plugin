@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Setono\SyliusPeakPlugin\Functional\Controller;
 
+use Setono\PeakWMS\Client\Client;
+use Setono\PeakWMS\DataTransferObject\Stock\Stock;
 use Setono\SyliusPeakPlugin\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
@@ -16,6 +18,9 @@ use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpClient\Response\JsonMockResponse;
 
 final class HandleWebhookActionTest extends WebTestCase
 {
@@ -31,6 +36,16 @@ final class HandleWebhookActionTest extends WebTestCase
      */
     public function it_handles_stock_adjustments(): void
     {
+        $httpClient = new MockHttpClient([new JsonMockResponse([new Stock(
+            productId: 'Everyday_white_basic_T_Shirt',
+            variantId: 'Everyday_white_basic_T_Shirt-variant-0',
+            quantity: 2,
+            reservedQuantity: 0,
+        )])]);
+
+        $peakClient = self::getContainer()->get(Client::class);
+        $peakClient->setHttpClient(new Psr18Client($httpClient));
+
         self::$client->request(
             method: 'POST',
             uri: '/peak/webhook?name=100',
@@ -46,6 +61,8 @@ final class HandleWebhookActionTest extends WebTestCase
         );
 
         self::assertResponseStatusCodeSame(204);
+
+        // todo assert that the actual on hand value on the variant is changed
     }
 
     /**
