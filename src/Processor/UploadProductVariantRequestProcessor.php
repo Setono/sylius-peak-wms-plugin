@@ -47,8 +47,9 @@ final class UploadProductVariantRequestProcessor implements UploadProductVariant
 
             ++$i;
 
-            // According to https://api.peakwms.com/api/documentation/index.html the rate limit is 240 requests per minute
-            if ($i % 240 === 0) {
+            // According to https://api.peakwms.com/api/documentation/index.html the rate limit is 240 requests per minute,
+            // so we play it safe and dispatch 120 (half) requests per minute
+            if ($i % 120 === 0) {
                 $delay += 60_000;
             }
 
