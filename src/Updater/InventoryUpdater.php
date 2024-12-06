@@ -41,6 +41,7 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             ));
         }
 
+        // todo use the product endpoint instead
         $collection = $this
             ->client
             ->stock()
@@ -66,8 +67,8 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             $productVariantRepository = $this->getRepository(ProductVariant::class);
 
             $i = 0;
-            $stock = $this->client->stock()->iterate(KeySetPageQuery::create());
-            foreach ($stock as $item) {
+            $products = $this->client->product()->iterate(KeySetPageQuery::create());
+            foreach ($products as $product) {
                 ++$i;
 
                 if ($i % 100 === 0) {
@@ -81,27 +82,27 @@ final class InventoryUpdater implements InventoryUpdaterInterface
                 }
 
                 try {
-                    Assert::notNull($item->variantId, sprintf(
+                    Assert::notNull($product->variantId, sprintf(
                         'Stock with id %d does not have a variant id.',
-                        (int) $item->id,
+                        (int) $product->id,
                     ));
 
-                    $productVariant = $productVariantRepository->findOneBy(['code' => $item->variantId]);
+                    $productVariant = $productVariantRepository->findOneBy(['code' => $product->variantId]);
                     Assert::notNull(
                         $productVariant,
-                        sprintf('Product variant with code %s does not exist', $item->variantId),
+                        sprintf('Product variant with code %s does not exist', $product->variantId),
                     );
 
-                    if ($item->reservedQuantity !== $productVariant->getOnHold()) {
+                    if ($product->orderedByCustomers !== $productVariant->getOnHold()) {
                         $inventoryUpdate->addWarning(sprintf(
                             'Product variant with code %s has %d on hold in Sylius and %d on hold in Peak WMS',
-                            $item->variantId,
+                            $product->variantId,
                             (int) $productVariant->getOnHold(),
-                            (int) $item->reservedQuantity,
+                            (int) $product->orderedByCustomers,
                         ));
                     }
 
-                    $this->updateOnHand((int) $item->quantity, $productVariant);
+                    $this->updateOnHand((int) $product->availableToSell, $productVariant);
                 } catch (\Throwable $e) {
                     $inventoryUpdate->addError($e->getMessage());
                 }
