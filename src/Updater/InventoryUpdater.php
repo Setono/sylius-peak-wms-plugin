@@ -7,7 +7,7 @@ namespace Setono\SyliusPeakPlugin\Updater;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
-use Setono\PeakWMS\DataTransferObject\Stock\Stock;
+use Setono\PeakWMS\DataTransferObject\Product\Product;
 use Setono\PeakWMS\Request\Query\KeySetPageQuery;
 use Setono\SyliusPeakPlugin\Provider\InventoryUpdateProviderInterface;
 use Setono\SyliusPeakPlugin\Workflow\InventoryUpdateWorkflow;
@@ -41,14 +41,20 @@ final class InventoryUpdater implements InventoryUpdaterInterface
             ));
         }
 
-        // todo use the product endpoint instead
         $collection = $this
             ->client
-            ->stock()
-            ->getByProductId($productCode, $variantCode)
+            ->product()
+            ->getByProductId($productCode)
+            ->filter(fn (Product $product): bool => $product->variantId === $variantCode)
         ;
 
-        $this->updateOnHand((int) $collection->sum(fn (Stock $stock): int => (int) $stock->quantity), $productVariant);
+        Assert::count($collection, 1, sprintf(
+            'Expected to find exactly one product variant with code %s, but found %d',
+            $variantCode,
+            count($collection),
+        ));
+
+        $this->updateOnHand((int) $collection[0]->availableToSell, $productVariant);
 
         $this->getManager($productVariant)->flush();
     }
