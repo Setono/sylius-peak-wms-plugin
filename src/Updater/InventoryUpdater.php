@@ -89,7 +89,7 @@ final class InventoryUpdater implements InventoryUpdaterInterface
 
                 try {
                     Assert::notNull($product->variantId, sprintf(
-                        'Stock with id %d does not have a variant id.',
+                        'Product with id %d does not have a variant id.',
                         (int) $product->id,
                     ));
 
