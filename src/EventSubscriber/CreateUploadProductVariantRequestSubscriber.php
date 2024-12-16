@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Setono\SyliusPeakPlugin\EventListener\Doctrine;
+namespace Setono\SyliusPeakPlugin\EventSubscriber;
 
-use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactoryInterface;
 use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
 use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface as BaseProductVariantInterface;
-use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Webmozart\Assert\Assert;
 
-final class ProductListener
+final class CreateUploadProductVariantRequestSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly UploadProductVariantRequestFactoryInterface $uploadProductVariantRequestFactory,
@@ -23,30 +22,32 @@ final class ProductListener
     ) {
     }
 
-    public function prePersist(LifecycleEventArgs $eventArgs): void
+    public static function getSubscribedEvents(): array
     {
-        $this->handle($eventArgs);
+        return [
+            'sylius.product.pre_create' => 'handle',
+            'sylius.product.pre_update' => 'handle',
+            'sylius.product_variant.pre_create' => 'handle',
+            'sylius.product_variant.pre_update' => 'handle',
+        ];
     }
 
-    public function preUpdate(LifecycleEventArgs $eventArgs): void
+    public function handle(ResourceControllerEvent $event): void
     {
-        $this->handle($eventArgs);
-    }
+        /** @var mixed $obj */
+        $obj = $event->getSubject();
 
-    private function handle(LifecycleEventArgs $eventArgs): void
-    {
-        $obj = $eventArgs->getObject();
-
-        /** @psalm-suppress UndefinedInterfaceMethod */
         $variants = match (true) {
             $obj instanceof ProductInterface => $obj->getVariants(),
-            $obj instanceof ProductTranslationInterface => $obj->getTranslatable()->getVariants(),
             $obj instanceof ProductVariantInterface => [$obj],
-            $obj instanceof ProductVariantTranslationInterface => [$obj->getTranslatable()],
             default => [],
         };
 
-        if (!is_iterable($variants) || !is_countable($variants) || count($variants) === 0) {
+        if (!is_countable($variants)) {
+            throw new \LogicException('The variants must be iterable and countable.');
+        }
+
+        if (count($variants) === 0) {
             return;
         }
 

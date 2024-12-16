@@ -29,6 +29,13 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\EventSubscriber\CreateUploadProductVariantRequestSubscriber">
+            <argument type="service" id="setono_sylius_peak.factory.upload_product_variant_request"/>
+            <argument type="service" id="state_machine.setono_sylius_peak__upload_product_variant_request"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\HandleOrderCancellationSubscriber">
             <argument type="service" id="Setono\PeakWMS\Client\ClientInterface"/>
 
