@@ -8,7 +8,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Setono\CompositeCompilerPass\CompositeService;
 use Setono\PeakWMS\DataTransferObject\Product\Product;
 use Setono\SyliusPeakPlugin\Event\ProductMappedEvent;
-use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
 /**
  * @extends CompositeService<ProductDataMapperInterface>
@@ -25,6 +25,7 @@ final class CompositeProductDataMapper extends CompositeService implements Produ
             $service->map($productVariant, $product);
         }
 
+        // todo not sure this line belongs here, but it is convenient though
         $this->eventDispatcher->dispatch(new ProductMappedEvent($product, $productVariant));
     }
 }

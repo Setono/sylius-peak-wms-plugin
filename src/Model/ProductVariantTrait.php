@@ -4,22 +4,27 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 trait ProductVariantTrait
 {
-    /** @ORM\OneToOne(mappedBy="productVariant", targetEntity="Setono\SyliusPeakPlugin\Model\UploadProductVariantRequestInterface", cascade={"persist"}, orphanRemoval=true) */
-    #[ORM\OneToOne(mappedBy: 'productVariant', targetEntity: UploadProductVariantRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
-    protected ?UploadProductVariantRequestInterface $peakUploadProductVariantRequest = null;
+    /**
+     * @ORM\OneToMany(mappedBy="productVariant", targetEntity="Setono\SyliusPeakPlugin\Model\UploadProductVariantRequestInterface", cascade={"persist"}, orphanRemoval=true)
+     *
+     * @var Collection<array-key, UploadProductVariantRequestInterface>
+     */
+    #[ORM\OneToMany(mappedBy: 'productVariant', targetEntity: UploadProductVariantRequestInterface::class, cascade: ['persist'], orphanRemoval: true)]
+    protected Collection $peakUploadProductVariantRequests;
 
-    public function getPeakUploadProductVariantRequest(): ?UploadProductVariantRequestInterface
+    public function getPeakUploadProductVariantRequests(): Collection
     {
-        return $this->peakUploadProductVariantRequest;
+        return $this->peakUploadProductVariantRequests;
     }
 
-    public function setPeakUploadProductVariantRequest(?UploadProductVariantRequestInterface $uploadProductVariantRequest): void
+    public function addPeakUploadProductVariantRequest(UploadProductVariantRequestInterface $uploadProductVariantRequest): void
     {
-        $this->peakUploadProductVariantRequest = $uploadProductVariantRequest;
-        $uploadProductVariantRequest?->setProductVariant($this);
+        $this->peakUploadProductVariantRequests->add($uploadProductVariantRequest);
+        $uploadProductVariantRequest->setProductVariant($this);
     }
 }

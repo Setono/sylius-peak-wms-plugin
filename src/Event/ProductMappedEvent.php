@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin\Event;
 
 use Setono\PeakWMS\DataTransferObject\Product\Product;
-use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class ProductMappedEvent
 {

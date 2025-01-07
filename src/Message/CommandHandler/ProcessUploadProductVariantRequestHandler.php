@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Message\CommandHandler;
 
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\PeakWMS\Client\ClientInterface;
@@ -44,14 +43,11 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             throw new UnrecoverableMessageHandlingException(sprintf('Upload product variant request with id %d does not exist', $message->uploadProductVariantRequest));
         }
 
-        $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_PROCESS);
-
-        try {
-            $manager->flush();
-        } catch (OptimisticLockException) {
-            // This means that the upload product variant request has been updated since it was fetched
+        if (!$this->uploadProductVariantRequestWorkflow->can($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD)) {
             return;
         }
+
+        // todo add a check to see if there are any upload requests _newer_ than this one
 
         $productVariant = $uploadProductVariantRequest->getProductVariant();
         if (null === $productVariant) {
@@ -73,8 +69,6 @@ final class ProcessUploadProductVariantRequestHandler extends AbstractProcessUpl
             $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_UPLOAD);
         } catch (TooManyRequestsException $e) {
             // This will put the message back in the queue to be retried later
-            $this->uploadProductVariantRequestWorkflow->apply($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_DISPATCH);
-
             throw new RecoverableMessageHandlingException(
                 message: sprintf('There were too many requests to Peak WMS API when trying to process upload product variant request with id %d. The message will be retried later.', $message->uploadProductVariantRequest),
                 previous: $e,

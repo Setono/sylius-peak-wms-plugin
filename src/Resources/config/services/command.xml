@@ -23,6 +23,13 @@
             <tag name="console.command"/>
         </service>
 
+        <service id="Setono\SyliusPeakPlugin\Command\PruneUploadProductVariantRequestsCommand">
+            <argument type="service" id="doctrine"/>
+            <argument>%setono_sylius_peak.model.upload_product_variant_request.class%</argument>
+
+            <tag name="console.command"/>
+        </service>
+
         <service id="Setono\SyliusPeakPlugin\Command\PruneWebhooksCommand">
             <argument type="service" id="doctrine"/>
             <argument>%setono_sylius_peak.model.webhook.class%</argument>
