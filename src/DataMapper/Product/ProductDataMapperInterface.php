@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusPeakPlugin\DataMapper\Product;
 
 use Setono\PeakWMS\DataTransferObject\Product\Product;
-use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
 interface ProductDataMapperInterface
 {

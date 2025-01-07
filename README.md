@@ -133,6 +133,9 @@ php bin/console setono:sylius-peak-wms:update-inventory
 
 # Will remove webhooks older than the given threshold (default is 30 days)
 php bin/console setono:sylius-peak-wms:prune-webhooks
+
+# Will remove upload product variant requests older than the defined threshold (default is 7 days)
+php bin/console setono:sylius-peak-wms:prune-upload-product-variant-requests
 ```
 
 ### Register webhooks

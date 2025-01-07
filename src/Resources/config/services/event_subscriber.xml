@@ -32,6 +32,7 @@
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\CreateUploadProductVariantRequestSubscriber">
             <argument type="service" id="setono_sylius_peak.factory.upload_product_variant_request"/>
             <argument type="service" id="state_machine.setono_sylius_peak__upload_product_variant_request"/>
+            <argument type="service" id="doctrine"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>
@@ -65,11 +66,6 @@
         </service>
 
         <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadOrderRequest\StateUpdatedSubscriber">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
-        <!-- Workflow: Upload Product Variant Request -->
-        <service id="Setono\SyliusPeakPlugin\EventSubscriber\Workflow\UploadProductVariantRequest\ResetSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>
     </services>

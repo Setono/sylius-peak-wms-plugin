@@ -39,18 +39,23 @@ final class CreateUploadProductVariantRequestsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $qb = $this
-            ->getRepository($this->productVariantClass)
-            ->createQueryBuilder('o')
-            ->leftJoin('o.peakUploadProductVariantRequest', 'r')
-            ->andWhere('r.id IS NULL')
+            ->getManager($this->productVariantClass)
+            ->createQueryBuilder()
+            ->select('o')
+            ->from($this->productVariantClass, 'o')
+            ->andWhere('o.peakUploadProductVariantRequests IS EMPTY')
         ;
+
+        $manager = $this->getManager($this->productVariantClass);
 
         /** @var SimpleBatchIteratorAggregate<array-key, ProductVariantInterface> $iterator */
         $iterator = SimpleBatchIteratorAggregate::fromQuery($qb->getQuery(), 100);
 
         foreach ($iterator as $productVariant) {
-            $productVariant->setPeakUploadProductVariantRequest($this->uploadProductVariantRequestFactory->createNew());
+            $productVariant->addPeakUploadProductVariantRequest($this->uploadProductVariantRequestFactory->createNew());
         }
+
+        $manager->flush();
 
         return 0;
     }

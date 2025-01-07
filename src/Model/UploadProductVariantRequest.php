@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Model;
 
+use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Resource\Model\TimestampableTrait;
+
 class UploadProductVariantRequest implements UploadProductVariantRequestInterface
 {
+    use TimestampableTrait;
+
     protected ?int $id = null;
 
     protected int $version = 1;

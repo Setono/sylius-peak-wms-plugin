@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\EventSubscriber;
 
+use Doctrine\Persistence\ManagerRegistry;
+use Setono\Doctrine\ORMTrait;
 use Setono\SyliusPeakPlugin\Factory\UploadProductVariantRequestFactoryInterface;
 use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
-use Setono\SyliusPeakPlugin\Workflow\UploadProductVariantRequestWorkflow;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface as BaseProductVariantInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Webmozart\Assert\Assert;
 
 final class CreateUploadProductVariantRequestSubscriber implements EventSubscriberInterface
 {
+    use ORMTrait;
+
     public function __construct(
         private readonly UploadProductVariantRequestFactoryInterface $uploadProductVariantRequestFactory,
         private readonly WorkflowInterface $uploadProductVariantRequestWorkflow,
+        ManagerRegistry $managerRegistry,
     ) {
+        $this->managerRegistry = $managerRegistry;
     }
 
     public static function getSubscribedEvents(): array
@@ -51,20 +55,14 @@ final class CreateUploadProductVariantRequestSubscriber implements EventSubscrib
             return;
         }
 
-        /** @var BaseProductVariantInterface|ProductVariantInterface $variant */
         foreach ($variants as $variant) {
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
 
-            $uploadProductVariantRequest = $variant->getPeakUploadProductVariantRequest() ?? $this->uploadProductVariantRequestFactory->createNew();
+            $variant->addPeakUploadProductVariantRequest($this->uploadProductVariantRequestFactory->createNew());
+        }
 
-            if ($this->uploadProductVariantRequestWorkflow->can($uploadProductVariantRequest, UploadProductVariantRequestWorkflow::TRANSITION_RESET)) {
-                $this->uploadProductVariantRequestWorkflow->apply(
-                    $uploadProductVariantRequest,
-                    UploadProductVariantRequestWorkflow::TRANSITION_RESET,
-                );
-            }
-
-            $variant->setPeakUploadProductVariantRequest($uploadProductVariantRequest);
+        if (isset($variant) && $variant instanceof ProductVariantInterface) {
+            $this->getManager($variant)->flush();
         }
     }
 }

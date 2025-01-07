@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPeakPlugin\Model;
 
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Component\Resource\Model\TimestampableInterface;
 use Sylius\Component\Resource\Model\VersionedInterface;
 
-interface UploadProductVariantRequestInterface extends ResourceInterface, VersionedInterface
+interface UploadProductVariantRequestInterface extends ResourceInterface, VersionedInterface, TimestampableInterface
 {
     public const STATE_PENDING = 'pending';
-
-    public const STATE_DISPATCHED = 'dispatched';
 
     public const STATE_PROCESSING = 'processing';
 

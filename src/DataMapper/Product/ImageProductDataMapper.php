@@ -6,10 +6,10 @@ namespace Setono\SyliusPeakPlugin\DataMapper\Product;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Setono\PeakWMS\DataTransferObject\Product\Product;
-use Setono\SyliusPeakPlugin\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Webmozart\Assert\Assert;
 
 final class ImageProductDataMapper implements ProductDataMapperInterface
